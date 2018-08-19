@@ -1,5 +1,30 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "version": "1.0.0",
+    "privacy": "public",
+    "scheme": "codaholic",
+    "orientation": "portrait",
+    "primaryColor": "#2B2C5A",
+    "sdkVersion": "27.0.0",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#2B2C5A"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "leko-lab",
+            "project": "expo",
+            "authToken": "23e43694a3d111e8bf1f4201c0a8d02b"
+          }
+        }
+      ]
+    },
+    "packagerOpts": {
+      "sourceExts": ["ts", "tsx"],
+      "transformer": "node_modules/react-native-typescript-transformer/index.js"
+    }
   }
 }
