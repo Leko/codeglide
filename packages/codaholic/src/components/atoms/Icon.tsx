@@ -12,6 +12,7 @@ export type IconName =
   | "close"
   | "check-box"
   | "check-box-outline-blank"
+  | "chevron-right"
   | "menu";
 
 type Props = {

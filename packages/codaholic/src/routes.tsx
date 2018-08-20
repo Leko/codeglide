@@ -8,6 +8,7 @@ import {
 import Redirector from "./containers/Redirector";
 import Welcome from "./containers/Welcome";
 import Dashboard from "./containers/Dashboard";
+import Drawer from "./components/organisms/Drawer";
 
 interface IStyle {
   tintColor: string;
@@ -41,6 +42,8 @@ const Routes = ({ style }: Props) => {
     {
       initialRouteName: "MemberRoot",
       drawerWidth: 220,
+      contentComponent: Drawer,
+      drawerBackgroundColor: "transparent",
       navigationOptions
     }
   );

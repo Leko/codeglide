@@ -1,7 +1,7 @@
 {
   "expo": {
     "version": "1.0.0",
-    "privacy": "public",
+    "privacy": "unlisted",
     "scheme": "codaholic",
     "orientation": "portrait",
     "primaryColor": "#2B2C5A",
@@ -17,7 +17,7 @@
           "config": {
             "organization": "leko-lab",
             "project": "expo",
-            "authToken": "23e43694a3d111e8bf1f4201c0a8d02b"
+            "authToken": "70800f919f614209be8de87a978610c8f688ef5b84224f9f8da9cb4f8103de37"
           }
         }
       ]

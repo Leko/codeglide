@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import Color from "color";
 
 type Palette = {
@@ -32,7 +33,7 @@ const themerize = (palette: Palette): Theme => ({
   },
   "shoutem.ui.Caption": {
     color: palette.TEXT,
-    fontSize: 16
+    fontSize: 14
   },
   "shoutem.ui.Text": {
     color: palette.DIMMED,
@@ -50,6 +51,9 @@ const themerize = (palette: Palette): Theme => ({
     color: palette.TEXT
   },
 
+  StatusBar: {
+    backgroundColor: palette.BACKGROUND
+  },
   NavBar: {
     tintColor: palette.DIMMED,
     header: {
@@ -61,11 +65,25 @@ const themerize = (palette: Palette): Theme => ({
       fontWeight: "normal"
     }
   },
-  StatusBar: {
-    backgroundColor: palette.BACKGROUND
+  Drawer: {
+    container: {
+      backgroundColor: palette.BACKGROUND,
+      borderRightColor: palette.BACKGROUND_BACK,
+      borderRightWidth: StyleSheet.hairlineWidth
+    },
+    safeArea: {
+      paddingHorizontal: 10
+    }
   },
   Divider: {
-    borderColor: palette.BACKGROUND_DEVIDER
+    borderBottomColor: palette.BACKGROUND_DEVIDER,
+
+    ".thin": {
+      borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    ".dent": {
+      borderBottomColor: palette.BACKGROUND_BACK
+    }
   },
   Icon: {
     fontSize: 24,
@@ -96,6 +114,9 @@ const themerize = (palette: Palette): Theme => ({
     },
     scrollable: {}
   },
+  ListItem: {
+    marginVertical: 8
+  },
   SnackBar: {
     backgroundColor: palette.ACCENT,
     color: palette.DIMMED,
@@ -107,7 +128,7 @@ const themerize = (palette: Palette): Theme => ({
     container: {
       backgroundColor: palette.BACKGROUND,
       borderTopColor: "transparent",
-      borderBottomColor: palette.BACKGROUND_DEVIDER
+      borderBottomColor: "transparent"
     },
     inputContainer: {
       backgroundColor: palette.BACKGROUND_BACK

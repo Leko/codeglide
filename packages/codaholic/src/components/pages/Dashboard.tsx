@@ -9,8 +9,7 @@ import { Heading } from "../atoms/Heading";
 import { Caption } from "../atoms/Caption";
 import { Text } from "../atoms/Text";
 import Button from "../molecules/Button";
-import Divider from "../atoms/Divider";
-import Icon from "../atoms/Icon";
+import ListItem from "../molecules/ListItem";
 import Checkbox from "../molecules/Checkbox";
 import Container from "../molecules/Container";
 import SearchAccordion from "../organisms/SearchAccordion";
@@ -22,59 +21,45 @@ type Props = {
   search: (params: SearchParams) => void;
 };
 
-const Row = ({ children }) => (
-  <View
-    style={{ flexDirection: "row", alignItems: "center", marginVertical: 12 }}
-  >
-    {children}
-  </View>
-);
-
 const Dashboard = ({ search }: Props) => (
   <Container>
     <SearchAccordion placeholder={"Quick search"} onSubmit={() => search({})}>
       {({ toggle }: InnerProps) => (
         <View styleName="container">
-          <Row>
+          <ListItem>
             <Subtitle style={{ flex: 1 }}>Filter</Subtitle>
             <Button styleName="icon" onPress={toggle} icon="close" />
-          </Row>
-          <Divider />
-          <Row>
-            <Heading style={{ flex: 1 }}>Repository</Heading>
+          </ListItem>
+          <ListItem>
+            <Caption style={{ flex: 1 }}>Repository</Caption>
             <View style={{ flex: 2 }}>
               <TextInput autoCorrect={false} placeholder="Leko/hothouse" />
             </View>
-          </Row>
-          <Divider />
-          <Row>
-            <Heading style={{ flex: 1 }}>Directory</Heading>
+          </ListItem>
+          <ListItem>
+            <Caption style={{ flex: 1 }}>Directory</Caption>
             <View style={{ flex: 2 }}>
               <TextInput autoCorrect={false} placeholder="__tests__" />
             </View>
-          </Row>
-          <Divider />
-          <Row>
-            <Heading style={{ flex: 1 }}>Language</Heading>
+          </ListItem>
+          <ListItem>
+            <Caption style={{ flex: 1 }}>Language</Caption>
             <View style={{ flex: 2 }}>
               <TextInput autoCorrect={false} placeholder="JavaScript" />
             </View>
-          </Row>
-          <Divider />
-          <Row>
-            <Heading style={{ flex: 1 }}>Include fork</Heading>
+          </ListItem>
+          <ListItem>
+            <Caption style={{ flex: 1 }}>Include fork</Caption>
             <View style={{ flex: 2 }}>
               <Checkbox styleName="dimmed" onChange={() => {}} />
             </View>
-          </Row>
-          <Divider />
-          <Row>
-            <Heading style={{ flex: 1 }}>Extension</Heading>
+          </ListItem>
+          <ListItem>
+            <Caption style={{ flex: 1 }}>Extension</Caption>
             <View style={{ flex: 2 }}>
               <TextInput autoCorrect={false} placeholder="js" />
             </View>
-          </Row>
-          <Divider />
+          </ListItem>
         </View>
       )}
     </SearchAccordion>

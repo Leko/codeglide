@@ -7,7 +7,7 @@ interface IStyle {
 }
 
 type Props = {
-  style: IStyle;
+  style?: IStyle;
 };
 
 export const Divider = ({ style }: Props) => <View style={style} />;
