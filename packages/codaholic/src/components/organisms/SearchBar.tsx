@@ -17,6 +17,7 @@ export type Props = {
   placeholder: string;
   onFocus: () => any;
   onBlur: () => any;
+  onSubmit: () => any;
   onChangeText: (text: string) => any;
 };
 
@@ -24,10 +25,14 @@ export const SearchBar = ({
   style,
   onFocus,
   onBlur,
+  onSubmit,
   onChangeText,
   placeholder
 }: Props) => (
   <RNSearchBar
+    autoCorrect={false}
+    autoCapitalize="none"
+    returnKeyType="search"
     searchIcon={{ color: style && style.iconColor }}
     clearIcon={{ color: style && style.iconColor }}
     placeholderTextColor={style && style.placeholderTextColor}
@@ -40,6 +45,7 @@ export const SearchBar = ({
     onChangeText={onChangeText}
     onFocus={onFocus}
     onBlur={onBlur}
+    onSubmitEditing={onSubmit}
   />
 );
 

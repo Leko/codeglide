@@ -1,9 +1,14 @@
 import React from "react";
-import { View, Button, TextInput } from "@shoutem/ui";
+import {
+  NavigationScreenOptions,
+  NavigationScreenProp
+} from "react-navigation";
+import { View, TextInput } from "@shoutem/ui";
 import { Subtitle } from "../atoms/Subtitle";
 import { Heading } from "../atoms/Heading";
 import { Caption } from "../atoms/Caption";
 import { Text } from "../atoms/Text";
+import Button from "../molecules/Button";
 import Divider from "../atoms/Divider";
 import Icon from "../atoms/Icon";
 import Checkbox from "../molecules/Checkbox";
@@ -11,8 +16,11 @@ import Container from "../molecules/Container";
 import SearchAccordion from "../organisms/SearchAccordion";
 import { InnerProps } from "../organisms/SearchAccordion";
 import { EmptyStatus } from "../atoms/EmptyStatus";
+import { SearchParams } from "../../usecases/searchCode";
 
-type Props = {};
+type Props = {
+  search: (params: SearchParams) => void;
+};
 
 const Row = ({ children }) => (
   <View
@@ -22,16 +30,14 @@ const Row = ({ children }) => (
   </View>
 );
 
-const Dashboard = ({  }: Props) => (
+const Dashboard = ({ search }: Props) => (
   <Container>
-    <SearchAccordion placeholder={"Quick search"}>
+    <SearchAccordion placeholder={"Quick search"} onSubmit={() => search({})}>
       {({ toggle }: InnerProps) => (
         <View styleName="container">
           <Row>
             <Subtitle style={{ flex: 1 }}>Filter</Subtitle>
-            <Button styleName="clear" onPress={toggle}>
-              <Icon name="close" />
-            </Button>
+            <Button styleName="icon" onPress={toggle} icon="close" />
           </Row>
           <Divider />
           <Row>
@@ -83,4 +89,19 @@ const Dashboard = ({  }: Props) => (
   </Container>
 );
 
-export default Dashboard;
+const navigationOptions = ({
+  navigation
+}: {
+  navigation: NavigationScreenProp<void>;
+}): NavigationScreenOptions => ({
+  title: "Dashboard",
+  headerLeft: () => (
+    <Button
+      styleName="icon"
+      icon="menu"
+      onPress={() => navigation.openDrawer()}
+    />
+  )
+});
+
+export default Object.assign(Dashboard, { navigationOptions });

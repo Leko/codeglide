@@ -7,9 +7,16 @@ interface IStyle {
   color: string;
 }
 
+export type IconName =
+  | "check"
+  | "close"
+  | "check-box"
+  | "check-box-outline-blank"
+  | "menu";
+
 type Props = {
   style: IStyle;
-  name: "check" | "close" | "check-box" | "check-box-outline-blank";
+  name: IconName;
 };
 
 export const Icon = ({ style, name }: Props) => (

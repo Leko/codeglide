@@ -1,3 +1,4 @@
+import "./self-polyfill";
 import React, { PureComponent } from "react";
 import { View, AppState, AppStateStatus, Clipboard } from "react-native";
 import { Provider } from "react-redux";

@@ -45,25 +45,22 @@ const themerize = (palette: Palette): Theme => ({
       padding: 8
     }
   },
-  "shoutem.ui.Button": {
-    marginVertical: 10,
-    paddingVertical: 6,
-    paddingHorizontal: 28,
-    borderRadius: 2,
-
-    ".secondary": {
-      backgroundColor: palette.DIMMED
-    },
-    ".clear": {
-      margin: 0,
-      padding: 8
-    }
-  },
   "shoutem.ui.TextInput": {
     placeholderTextColor: palette.DIMMED,
     color: palette.TEXT
   },
 
+  NavBar: {
+    tintColor: palette.DIMMED,
+    header: {
+      backgroundColor: palette.BACKGROUND,
+      borderBottomColor: palette.BACKGROUND_DEVIDER
+    },
+    title: {
+      color: palette.DIMMED,
+      fontWeight: "normal"
+    }
+  },
   StatusBar: {
     backgroundColor: palette.BACKGROUND
   },
@@ -76,6 +73,17 @@ const themerize = (palette: Palette): Theme => ({
 
     ".dimmed": {
       color: palette.DIMMED
+    }
+  },
+  Button: {
+    marginVertical: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 28,
+    borderRadius: 2,
+
+    ".icon": {
+      margin: 0,
+      padding: 8
     }
   },
   Checkbox: {
