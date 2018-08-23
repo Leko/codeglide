@@ -1,10 +1,12 @@
 import React from "react";
 import { connectStyle } from "@shoutem/theme";
 import {
+  NavigationComponent,
   createStackNavigator,
   createDrawerNavigator,
   NavigationStackScreenOptions
 } from "react-navigation";
+import * as NavigationService from "./libs/NavigationService";
 import Redirector from "./containers/Redirector";
 import Welcome from "./containers/Welcome";
 import Dashboard from "./containers/Dashboard";
@@ -72,7 +74,13 @@ const Routes = ({ style }: Props) => {
     }
   );
 
-  return <RootStack />;
+  return (
+    <RootStack
+      ref={(ref: NavigationComponent) => {
+        NavigationService.set(ref);
+      }}
+    />
+  );
 };
 
 const defaultStyle = {};

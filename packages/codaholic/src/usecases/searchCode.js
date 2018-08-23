@@ -1,34 +1,34 @@
 // import { SearchCodeParams } from "@octokit/rest";
 import fetch from "cross-fetch";
+import omit from "lodash/omit";
 import querystring from "query-string";
 import { creators } from "../modules/user";
 import getCredential from "../selectors/getCredential";
 
-export type SearchParams = {};
+export type SearchParams = {
+  q: string,
+  repo: string, // ex. Leko/hothouse
+  in?: "file" | "path" | "file,path",
+  path?: string,
+  language?: string // FIXME: Make enum
+  // fork?: true | "only"
+};
 
 // const octokit = require("@octokit/rest")();
 
 export default (query: SearchParams) => async (dispatch, getState) => {
-  // const token = getCredential(getState());
-  // console.log({ token });
-  // octokit.authenticate({
-  //   type: "oauth",
-  //   token
-  // });
-
-  // query.user = "Leko";
-  query.repo = "Leko/hothouse";
-
+  console.log(query);
+  const q = `${query.q} `;
   const params: SearchCodeParams = {
-    q: Object.entries(query)
-      .map(([key, value]) => `${key}:${value}`)
-      .join(" ")
+    q:
+      q +
+      Object.entries(omit(query, "q"))
+        .filter(([key, value]) => value != null)
+        .map(([key, value]) => `${key}:${value}`)
+        .join(" ")
   };
-  params.q = "jest " + params.q;
   const url =
     "https://api.github.com/search/code?" + querystring.stringify(params);
-
-  console.log(params, url);
 
   const found = await fetch(url, {
     method: "GET",

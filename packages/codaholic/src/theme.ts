@@ -122,6 +122,12 @@ const themerize = (palette: Palette): Theme => ({
     color: palette.DIMMED,
     actionColor: palette.BACKGROUND
   },
+  RequiredIndicator: {
+    color: palette.EYECATCH
+  },
+  ErrorMessage: {
+    color: palette.EYECATCH
+  },
   SearchBar: {
     iconColor: palette.TEXT,
     placeholderTextColor: palette.BACKGROUND_DEVIDER,

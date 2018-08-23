@@ -3,66 +3,42 @@ import {
   NavigationScreenOptions,
   NavigationScreenProp
 } from "react-navigation";
-import { View, TextInput } from "@shoutem/ui";
+import { View } from "@shoutem/ui";
 import { Subtitle } from "../atoms/Subtitle";
-import { Heading } from "../atoms/Heading";
 import { Caption } from "../atoms/Caption";
 import { Text } from "../atoms/Text";
 import Button from "../molecules/Button";
-import ListItem from "../molecules/ListItem";
-import Checkbox from "../molecules/Checkbox";
 import Container from "../molecules/Container";
-import SearchAccordion from "../organisms/SearchAccordion";
-import { InnerProps } from "../organisms/SearchAccordion";
 import { EmptyStatus } from "../atoms/EmptyStatus";
 import { SearchParams } from "../../usecases/searchCode";
+import Search from "./Search";
 
+type Params = {
+  openSearch?: boolean;
+  searchParams?: {
+    repo: string;
+    user: string;
+  };
+};
 type Props = {
+  navigation: NavigationScreenProp<Params>;
   search: (params: SearchParams) => void;
 };
 
-const Dashboard = ({ search }: Props) => (
+const Dashboard = ({ search, navigation }: Props) => (
   <Container>
-    <SearchAccordion placeholder={"Quick search"} onSubmit={() => search({})}>
-      {({ toggle }: InnerProps) => (
-        <View styleName="container">
-          <ListItem>
-            <Subtitle style={{ flex: 1 }}>Filter</Subtitle>
-            <Button styleName="icon" onPress={toggle} icon="close" />
-          </ListItem>
-          <ListItem>
-            <Caption style={{ flex: 1 }}>Repository</Caption>
-            <View style={{ flex: 2 }}>
-              <TextInput autoCorrect={false} placeholder="Leko/hothouse" />
-            </View>
-          </ListItem>
-          <ListItem>
-            <Caption style={{ flex: 1 }}>Directory</Caption>
-            <View style={{ flex: 2 }}>
-              <TextInput autoCorrect={false} placeholder="__tests__" />
-            </View>
-          </ListItem>
-          <ListItem>
-            <Caption style={{ flex: 1 }}>Language</Caption>
-            <View style={{ flex: 2 }}>
-              <TextInput autoCorrect={false} placeholder="JavaScript" />
-            </View>
-          </ListItem>
-          <ListItem>
-            <Caption style={{ flex: 1 }}>Include fork</Caption>
-            <View style={{ flex: 2 }}>
-              <Checkbox styleName="dimmed" onChange={() => {}} />
-            </View>
-          </ListItem>
-          <ListItem>
-            <Caption style={{ flex: 1 }}>Extension</Caption>
-            <View style={{ flex: 2 }}>
-              <TextInput autoCorrect={false} placeholder="js" />
-            </View>
-          </ListItem>
-        </View>
-      )}
-    </SearchAccordion>
+    <Search
+      open={navigation.state.params && navigation.state.params.openSearch}
+      defaultValues={
+        navigation.state.params && navigation.state.params.searchParams
+          ? navigation.state.params.searchParams
+          : {}
+      }
+      onCancel={() =>
+        navigation.setParams({ searchParams: null, openSearch: false })
+      }
+      onSubmit={(values: SearchParams) => search(values)}
+    />
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <EmptyStatus />
       <Subtitle>History is empty</Subtitle>
@@ -77,7 +53,7 @@ const Dashboard = ({ search }: Props) => (
 const navigationOptions = ({
   navigation
 }: {
-  navigation: NavigationScreenProp<void>;
+  navigation: NavigationScreenProp<Params>;
 }): NavigationScreenOptions => ({
   title: "Dashboard",
   headerLeft: () => (

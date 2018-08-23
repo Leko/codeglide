@@ -3,15 +3,17 @@ import { creators, TOPIC_CLIPBOARD } from "../modules/topics";
 
 export default clipboardText => async dispatch => {
   const url = parse(clipboardText);
-  if (!url) {
+  if (!url || !url.repo || !url.user) {
     return;
   }
+  const { repo, user } = url;
 
   const notification = {
     id: "CLIPBOARD",
-    message: "GitHub url detected", // FIXME: i18n
+    message: "GitHub repo detected", // FIXME: i18n
     meta: {
-      url: url.https_url
+      repo,
+      user
     }
   };
   dispatch(creators.publish({ topic: TOPIC_CLIPBOARD, notification }));

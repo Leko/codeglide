@@ -43,7 +43,7 @@ export class SnackBar extends React.PureComponent<Props, State> {
     return (
       <RNSnackBar
         visible={visible}
-        textMessage={{ message }}
+        textMessage={message}
         actionHandler={onPress}
         actionText={actionText}
         backgroundColor={style && style.backgroundColor}

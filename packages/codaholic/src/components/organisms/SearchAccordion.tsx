@@ -9,16 +9,32 @@ import { Props as SearchBarProps } from "./SearchBar";
 export type InnerProps = { toggle: () => void };
 
 type Props = SearchBarProps & {
+  open: boolean;
   children: (props: InnerProps) => any;
 };
 
-export const SearchAccordion = ({ children, ...searchBarProps }: Props) => {
+export const SearchAccordion = ({
+  open,
+  children,
+  ...searchBarProps
+}: Props) => {
   return (
-    <Toggle>
+    <Toggle initial={open}>
       {({ on, toggle }) => (
         <React.Fragment>
           <View style={{ zIndex: 2 }}>
-            <SearchBar {...searchBarProps} onFocus={on ? () => {} : toggle} />
+            <SearchBar
+              {...searchBarProps}
+              autoFocus={open}
+              onFocus={() => {
+                if (searchBarProps.onFocus) {
+                  searchBarProps.onFocus();
+                }
+                if (!on) {
+                  toggle();
+                }
+              }}
+            />
           </View>
           {on && (
             <Animatable.View

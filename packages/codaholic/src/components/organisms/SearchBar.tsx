@@ -15,38 +15,80 @@ interface IStyle {
 export type Props = {
   style: IStyle;
   placeholder: string;
-  onFocus: () => any;
-  onBlur: () => any;
+  defaultValue: string;
+  enablesReturnKeyAutomatically: boolean;
+  autoFocus: boolean;
+  returnKeyType:
+    | "search"
+    | "default"
+    | "none"
+    | "done"
+    | "go"
+    | "next"
+    | "send"
+    | "previous"
+    | "google"
+    | "join"
+    | "route"
+    | "yahoo"
+    | "emergency-call"
+    | undefined;
+  onFocus?: () => any;
+  onBlur?: () => any;
   onSubmit: () => any;
-  onChangeText: (text: string) => any;
+  onChangeText?: (text: string) => any;
 };
 
-export const SearchBar = ({
-  style,
-  onFocus,
-  onBlur,
-  onSubmit,
-  onChangeText,
-  placeholder
-}: Props) => (
-  <RNSearchBar
-    autoCorrect={false}
-    autoCapitalize="none"
-    returnKeyType="search"
-    searchIcon={{ color: style && style.iconColor }}
-    clearIcon={{ color: style && style.iconColor }}
-    placeholderTextColor={style && style.placeholderTextColor}
-    containerStyle={style && style.container}
-    inputContainerStyle={style && style.inputContainer}
-    inputStyle={style && style.input}
-    leftIconContainerStyle={style && style.leftIconContainer}
-    rightIconContainerStyle={style && style.rightIconContainer}
-    placeholder={placeholder}
-    onChangeText={onChangeText}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    onSubmitEditing={onSubmit}
-  />
-);
+export class SearchBar extends React.PureComponent<Props> {
+  ref?: RNSearchBar;
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.autoFocus && this.props.autoFocus && this.ref) {
+      this.ref.focus();
+    }
+  }
+
+  render() {
+    const {
+      style,
+      onFocus,
+      onBlur,
+      onSubmit,
+      onChangeText,
+      placeholder,
+      defaultValue,
+      enablesReturnKeyAutomatically = false,
+      autoFocus = false,
+      returnKeyType = "search"
+    } = this.props;
+
+    return (
+      <RNSearchBar
+        ref={ref => {
+          this.ref = ref;
+        }}
+        enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+        autoFocus={autoFocus}
+        autoCorrect={false}
+        autoCapitalize="none"
+        returnKeyType={returnKeyType}
+        searchIcon={{ color: style && style.iconColor }}
+        clearIcon={{ color: style && style.iconColor }}
+        placeholderTextColor={style && style.placeholderTextColor}
+        containerStyle={style && style.container}
+        inputContainerStyle={style && style.inputContainer}
+        inputStyle={style && style.input}
+        leftIconContainerStyle={style && style.leftIconContainer}
+        rightIconContainerStyle={style && style.rightIconContainer}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        onChangeText={onChangeText}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onSubmitEditing={onSubmit}
+      />
+    );
+  }
+}
 
 export default connectStyle("SearchBar", {})(SearchBar);
