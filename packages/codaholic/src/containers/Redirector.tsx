@@ -11,12 +11,14 @@ type Props = {
 
 class Redirector extends React.PureComponent<Props> {
   componentDidMount() {
-    const { credential, navigation } = this.props;
-    if (credential) {
-      navigation.replace("MemberStack");
-    } else {
-      navigation.replace("GuestStack");
-    }
+    // const { credential, navigation } = this.props;
+    // if (credential) {
+    //   navigation.replace("MemberStack");
+    // } else {
+    //   navigation.replace("GuestStack");
+    // }
+    const { navigation } = this.props;
+    navigation.replace("MemberStack");
   }
 
   render() {

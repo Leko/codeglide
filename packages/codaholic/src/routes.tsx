@@ -8,7 +8,7 @@ import {
 import Redirector from "./containers/Redirector";
 import Welcome from "./containers/Welcome";
 import Dashboard from "./containers/Dashboard";
-import Drawer from "./components/organisms/Drawer";
+import Drawer from "./containers/Drawer";
 
 interface IStyle {
   tintColor: string;

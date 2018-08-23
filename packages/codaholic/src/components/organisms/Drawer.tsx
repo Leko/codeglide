@@ -1,7 +1,6 @@
 import * as React from "react";
 import { SafeAreaView, View, StyleSheet } from "react-native";
 import { connectStyle } from "@shoutem/theme";
-import { version } from "../../../package.json";
 import Divider from "../atoms/Divider";
 import { Subtitle } from "../atoms/Subtitle";
 import { Caption } from "../atoms/Caption";
@@ -16,10 +15,18 @@ interface IStyle {
 
 export type Props = {
   style?: IStyle;
+  version: string;
+  credential: string;
+  onPressSignOut: string;
 };
 
 // FIXME: Create new molecules
-export const Drawer = ({ style }: Props) => (
+export const Drawer = ({
+  style,
+  version,
+  credential,
+  onPressSignOut
+}: Props) => (
   <SafeAreaView style={[styles.container, style && style.container]}>
     <View style={[styles.container, style && style.safeArea]}>
       <Row style={{ paddingVertical: 10 }}>
@@ -28,19 +35,21 @@ export const Drawer = ({ style }: Props) => (
       </Row>
       <Divider styleName="thin" />
       <View style={flex}>
-        <MenuListItem>
+        <MenuListItem onPress={() => {}}>
           <Caption>Settings</Caption>
         </MenuListItem>
       </View>
-      <MenuListItem dimmed>
+      <MenuListItem dimmed onPress={() => {}}>
         <Text>Terms</Text>
       </MenuListItem>
-      <MenuListItem dimmed>
+      <MenuListItem dimmed onPress={() => {}}>
         <Text>Privacy</Text>
       </MenuListItem>
-      <MenuListItem dimmed>
-        <Text>Sign out</Text>
-      </MenuListItem>
+      {credential && (
+        <MenuListItem dimmed onPress={onPressSignOut}>
+          <Text>Sign out</Text>
+        </MenuListItem>
+      )}
     </View>
   </SafeAreaView>
 );
