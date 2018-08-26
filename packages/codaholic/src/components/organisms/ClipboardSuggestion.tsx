@@ -27,7 +27,7 @@ export default ({ openSearchWith }: Props) => (
         onPress={() => {
           NavigationService.navigate("Dashboard", {
             openSearch: true,
-            searchParams: { repo: `${repo}/${user}` }
+            searchParams: { repo: [user, repo].join("/") }
           });
           dismiss();
         }}

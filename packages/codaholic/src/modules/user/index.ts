@@ -6,12 +6,12 @@ export type State = {
 
 const initialState = (): State => ({ accessToken: null });
 
-const setCredential = (state: any, accessToken: string): State => ({
+const setCredential = (state: State, accessToken: string): State => ({
   ...state,
   accessToken
 });
 
-const logout = (state: any) => ({
+const logout = (state: State) => ({
   ...state,
   accessToken: null
 });

@@ -1,10 +1,12 @@
 import React from "react";
+import { ActivityIndicator } from "react-native";
 import { View, TextInput } from "@shoutem/ui";
 import { withFormik, FormikProps } from "formik";
 import omitBy from "lodash/omitBy";
 import * as yup from "yup";
 import { Subtitle } from "../atoms/Subtitle";
 import { Caption } from "../atoms/Caption";
+import { Text } from "../atoms/Text";
 import ErrorMessage from "../atoms/ErrorMessage";
 import ListItem from "../molecules/ListItem";
 import RequiredIndicator from "../atoms/RequiredIndicator";
@@ -12,10 +14,15 @@ import Button from "../molecules/Button";
 import SearchAccordion from "../organisms/SearchAccordion";
 import { InnerProps } from "../organisms/SearchAccordion";
 import { SearchParams } from "../../usecases/searchCode";
+import { Result } from "../../modules/codeSearch";
 
 type Props = {
   open: boolean;
   defaultValues: Partial<Values>;
+  busy: boolean;
+  total: number;
+  current: number;
+  results: Array<Result>;
   onCancel: () => void;
   onSubmit: (searchParams: SearchParams) => void;
 };
@@ -42,6 +49,10 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
   render() {
     const {
       open,
+      busy,
+      total,
+      current,
+      results,
       onCancel,
       values,
       errors,
@@ -143,6 +154,38 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                   )}
               </View>
             </ListItem>
+            {busy && (
+              <View style={{ marginVertical: 20 }}>
+                <ActivityIndicator size="small" />
+              </View>
+            )}
+            {results.length && (
+              <View
+                style={{
+                  marginVertical: 20
+                }}
+              >
+                <Text>
+                  Results: {current} of {total}
+                </Text>
+                {results.map(result => (
+                  <View
+                    key={result.path}
+                    style={{
+                      marginVertical: 10,
+                      paddingVertical: 10,
+                      borderBottomColor: "white",
+                      borderBottomWidth: 1
+                    }}
+                  >
+                    {result.text_matches.map(match => (
+                      <Caption key={match.fragment}>{match.fragment}</Caption>
+                    ))}
+                    <Text>{result.path}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         )}
       </SearchAccordion>

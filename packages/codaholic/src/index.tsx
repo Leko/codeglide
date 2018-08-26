@@ -46,18 +46,23 @@ export default class App extends PureComponent<void, State> {
     });
 
     this.setState({ fontsAreLoaded: true });
+    this.checkClipboard();
   }
 
   componentWillUnmount() {
     AppState.removeEventListener("change", this.handleAppStateChange);
   }
 
-  async handleAppStateChange(appState: AppStateStatus) {
+  handleAppStateChange = (appState: AppStateStatus) => {
     if (appState !== "active") {
       store.dispatch(dismissClipboardSuggestion());
       return;
     }
 
+    this.checkClipboard();
+  };
+
+  async checkClipboard() {
     const clipboardText = await Clipboard.getString();
     store.dispatch(suggestFromClipboard(clipboardText));
   }
