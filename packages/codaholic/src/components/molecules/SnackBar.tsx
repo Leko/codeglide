@@ -1,5 +1,4 @@
 import * as React from "react";
-import { View, Text } from "@shoutem/ui";
 import { connectStyle } from "@shoutem/theme";
 import RNSnackBar from "react-native-snackbar-component";
 

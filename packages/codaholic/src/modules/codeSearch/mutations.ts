@@ -39,5 +39,3 @@ export const appendResults = (state: State, results: Array<Result>) => {
     completed: nextResultsCount >= state.totalResults
   };
 };
-
-export const mutations = { clear, start, setResults, appendResults };

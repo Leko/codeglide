@@ -13,6 +13,7 @@ import Container from "../molecules/Container";
 import { SearchParams } from "../../usecases/searchCode";
 import { Result } from "../../modules/codeSearch";
 import Search from "./Search";
+import { DetailRequest } from "./Search";
 
 type Params = {
   openSearch?: boolean;
@@ -50,6 +51,13 @@ const Dashboard = ({
         navigation.setParams({ searchParams: null, openSearch: false })
       }
       onSubmit={(values: SearchParams) => search(values)}
+      onRequestDetail={({ repository, path, highlights }: DetailRequest) =>
+        navigation.navigate("Preview", {
+          repository,
+          path,
+          highlights: highlights.join(",")
+        })
+      }
       busy={busy}
       total={total}
       current={current}

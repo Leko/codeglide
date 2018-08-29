@@ -1,4 +1,3 @@
-// import { SearchCodeParams } from "@octokit/rest";
 import Sentry from "sentry-expo";
 import fetch from "cross-fetch";
 import omit from "lodash/omit";
@@ -14,8 +13,6 @@ export type SearchParams = {
   language?: string // FIXME: Make enum
   // fork?: true | "only"
 };
-
-// const octokit = require("@octokit/rest")();
 
 export default (query: SearchParams) => async (dispatch, getState) => {
   dispatch(creators.clear());
@@ -67,18 +64,4 @@ export default (query: SearchParams) => async (dispatch, getState) => {
       completed: incomplete_results
     })
   );
-  // found.items.forEach(item => {
-  //   console.log("------------------------------------------------------");
-  //   item.text_matches.forEach(match => {
-  //     console.log(match);
-  //     match.matches.reduce((acc, { indices: [start, end] }) => {
-  //       // match.fragment.substring(start, end)
-  //       // console.log({ start, end });
-  //     }, match.fragment);
-  //     console.log("---");
-  //   });
-  //   console.log(
-  //     `\nIn: ${item.path}/${item.name} (${item.repository.owner.avatar_url})`
-  //   );
-  // });
 };

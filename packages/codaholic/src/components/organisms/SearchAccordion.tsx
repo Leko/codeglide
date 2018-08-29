@@ -44,7 +44,7 @@ export const SearchAccordion = ({
                 top: 48, // SearchBar height
                 left: 0,
                 right: 0,
-                bottom: 0,
+                bottom: -48,
                 zIndex: 1
               }}
               animation="slideInDown"

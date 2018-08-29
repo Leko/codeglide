@@ -10,6 +10,7 @@ import * as NavigationService from "./libs/NavigationService";
 import Redirector from "./containers/Redirector";
 import Welcome from "./containers/Welcome";
 import Dashboard from "./containers/Dashboard";
+import Preview from "./containers/Preview";
 import Drawer from "./containers/Drawer";
 
 interface IStyle {
@@ -33,7 +34,8 @@ const Routes = ({ style }: Props) => {
     {
       MemberRoot: createStackNavigator(
         {
-          Dashboard
+          Dashboard,
+          Preview
         },
         {
           initialRouteName: "Dashboard",

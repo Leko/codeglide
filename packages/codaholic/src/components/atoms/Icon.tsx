@@ -12,6 +12,7 @@ export type IconName =
   | "close"
   | "check-box"
   | "check-box-outline-blank"
+  | "chevron-left"
   | "chevron-right"
   | "menu";
 

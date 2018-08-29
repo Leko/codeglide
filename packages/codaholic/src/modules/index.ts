@@ -9,6 +9,7 @@ import createSecureStore from "redux-persist-expo-securestore";
 import user from "./user";
 import topics from "./topics";
 import codeSearch from "./codeSearch";
+import file from "./file";
 
 const storage = createSecureStore();
 const reducer = persistReducer(
@@ -21,7 +22,8 @@ const reducer = persistReducer(
     // FIXME: 動かない
     user: user as any,
     topics: topics as any,
-    codeSearch: codeSearch as any
+    codeSearch: codeSearch as any,
+    file: file as any
   })
 );
 const middlewares = applyMiddleware(thunk);

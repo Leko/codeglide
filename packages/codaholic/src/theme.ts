@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import Color from "color";
+import { palegoldenrod } from "color-name";
 
 type Palette = {
   BACKGROUND: string;
@@ -110,6 +111,7 @@ const themerize = (palette: Palette): Theme => ({
   },
   Container: {
     container: {
+      flex: 1,
       backgroundColor: palette.BACKGROUND
     },
     scrollable: {}
@@ -144,6 +146,15 @@ const themerize = (palette: Palette): Theme => ({
     },
     leftIconContainer: {},
     rightIconContainer: {}
+  },
+  HighlightWords: {
+    textStyle: {
+      color: palette.DIMMED
+    },
+    highlightStyle: {
+      color: palette.BACKGROUND,
+      backgroundColor: palette.ACCENT
+    }
   }
 });
 

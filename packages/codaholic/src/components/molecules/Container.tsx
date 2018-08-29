@@ -1,5 +1,6 @@
 import * as React from "react";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-navigation";
 import { View } from "@shoutem/ui";
 import { connectStyle } from "@shoutem/theme";
 
@@ -15,13 +16,8 @@ type Props = {
 
 export const Container = ({ style, children }: Props) => (
   <View style={{ flex: 1 }}>
-    <SafeAreaView style={[styles.container, style && style.container]}>
-      <ScrollView
-        style={styles.container}
-        // contentContainerStyle={style && style.scrollable}
-      >
-        {children}
-      </ScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>{children}</ScrollView>
     </SafeAreaView>
   </View>
 );
