@@ -1,13 +1,12 @@
 import React from "react";
 import { Component } from "react";
-import { ScrollView, ActivityIndicator } from "react-native";
-import SyntaxHighlighter from "react-native-syntax-highlighter";
-import { atomOneDark } from "react-syntax-highlighter/styles/hljs";
+import { ActivityIndicator, Text } from "react-native";
 import {
   NavigationScreenOptions,
   NavigationScreenProp
 } from "react-navigation";
 import { View } from "@shoutem/ui";
+import SyntaxHighlighter from "../atoms/SyntaxHighlighter";
 import Button from "../molecules/Button";
 import Container from "../molecules/Container";
 
@@ -32,8 +31,7 @@ class Preview extends Component<Props> {
   }
 
   render() {
-    const { navigation, contents } = this.props;
-    const { path } = navigation.state.params ? navigation.state.params : {};
+    const { contents } = this.props;
     if (!contents) {
       return (
         <Container>
@@ -42,17 +40,7 @@ class Preview extends Component<Props> {
       );
     }
 
-    return (
-      <SyntaxHighlighter
-        // showLineNumbers not working on RN-syntax-highlight. It uses span
-        showLineNumbers={false}
-        language="javascript"
-        style={atomOneDark}
-        highlighter="hljs"
-      >
-        {contents}
-      </SyntaxHighlighter>
-    );
+    return <SyntaxHighlighter>{contents}</SyntaxHighlighter>;
   }
 }
 
