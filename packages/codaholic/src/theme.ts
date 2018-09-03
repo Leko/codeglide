@@ -107,7 +107,7 @@ const themerize = (palette: Palette): Theme => ({
     ".slim": {
       margin: 0,
       paddingVertical: 8,
-      paddingHorizontal: 4
+      paddingHorizontal: 3
     }
   },
   Checkbox: {

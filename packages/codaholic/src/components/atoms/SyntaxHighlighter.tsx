@@ -26,6 +26,7 @@ type Props = {
   children: string;
   highlightWords: Array<string>;
   highlightCount: number;
+  onChangeHighlightWords: (words: Array<string>) => any;
 };
 type State = {
   cursor: number;
@@ -91,7 +92,7 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
   }
 
   focusOnCursor = () => {
-    if (!this.focusWordsRef) {
+    if (!this.focusWordsRef || this.props.highlightCount === 0) {
       return;
     }
 
@@ -117,8 +118,11 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
     this.shadowScrollViewRef = ref;
   };
 
-  handleClear = () => {
-    console.log("handleClear");
+  handleChangeHighlightWord = (text: string) => {
+    this.props.onChangeHighlightWords(text.split(","));
+  };
+  handleClearHighlightWord = () => {
+    this.props.onChangeHighlightWords([]);
   };
 
   handlePrev = () => {
@@ -150,21 +154,9 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.highlightWords !== prevProps.highlightWords) {
-      this.setState(
-        {
-          cursor: 0
-        },
-        this.focusOnCursor
-      );
-    }
-  }
-
-  componentDidMount() {
-    try {
-      // FIXME: Flaky
-      setTimeout(this.focusOnCursor, 250);
-    } catch (e) {
-      // TODO: Sentry
+      this.setState({
+        cursor: 0
+      });
     }
   }
 
@@ -175,7 +167,7 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
         ref={ref => {
           this.verticalScrollViewRef = ref;
         }}
-        scrollEventThrottle={16}
+        scrollEventThrottle={1000 / 60}
         horizontal={false}
         onScroll={this.handleScroll}
       />
@@ -199,6 +191,7 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
             const { width, height } = e.nativeEvent.layout;
             this.wholeScrollViewportSize = { width, height };
           }}
+          scrollEventThrottle={1000 / 60}
           onScroll={e => {
             if (!e) {
               return;
@@ -222,6 +215,7 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
                   }
                   this.focusWordsRef = ref.wrappedInstance;
                 }}
+                onLayoutReady={this.focusOnCursor}
                 style={{
                   textStyle: {
                     fontSize,
@@ -261,21 +255,22 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
                 placeholder="Search text (comma separated)"
                 defaultValue={highlightWords.join(",")}
                 returnKeyType="search"
-                onClear={this.handleClear}
+                onChangeText={this.handleChangeHighlightWord}
+                onClear={this.handleClearHighlightWord}
               />
             </View>
             <Text>
-              {cursor + 1} of {highlightCount}
+              {highlightCount > 0 ? cursor + 1 : 0} of {highlightCount}
             </Text>
             <Button
-              disabled={highlightWords.length === 0}
+              disabled={highlightCount === 0}
               icon="keyboard-arrow-up"
               styleName="icon slim"
               onPress={this.handlePrev}
             />
             <View style={{ marginRight: 8 }}>
               <Button
-                disabled={highlightWords.length === 0}
+                disabled={highlightCount === 0}
                 icon="keyboard-arrow-down"
                 styleName="icon slim"
                 onPress={this.handleNext}

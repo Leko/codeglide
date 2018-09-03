@@ -2,17 +2,17 @@ import * as React from "react";
 import { View, Text } from "react-native";
 import { findAll } from "highlight-words-core";
 import { connectStyle } from "@shoutem/theme";
-import memoize from "lodash/memoize";
 
-const getMatches = memoize(
-  (text: string, words: Array<string>): Array<MatchedChunk> => {
-    return findAll({
-      textToHighlight: text,
-      searchWords: words,
-      autoEscape: true
-    });
-  }
-);
+const getMatches = (
+  text: string,
+  words: Array<string>
+): Array<MatchedChunk> => {
+  return findAll({
+    textToHighlight: text,
+    searchWords: words,
+    autoEscape: true
+  });
+};
 
 type MatchedChunk = {
   start: number;
@@ -38,6 +38,7 @@ type Props = {
   words: Array<string>;
   children: string;
   cursor: number;
+  onLayoutReady: () => any;
 };
 
 export class FocusWords extends React.PureComponent<Props> {
@@ -96,6 +97,12 @@ export class FocusWords extends React.PureComponent<Props> {
                         width,
                         height
                       };
+                      if (cursor === this.props.cursor) {
+                        // FIXME: Flaky
+                        setTimeout(() => {
+                          this.props.onLayoutReady();
+                        }, 0);
+                      }
                     }}
                     style={[
                       style && style.highlightStyle,

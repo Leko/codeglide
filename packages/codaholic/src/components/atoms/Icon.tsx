@@ -10,6 +10,7 @@ interface IStyle {
 export type IconName =
   | "check"
   | "close"
+  | "clear"
   | "check-box"
   | "check-box-outline-blank"
   | "chevron-left"

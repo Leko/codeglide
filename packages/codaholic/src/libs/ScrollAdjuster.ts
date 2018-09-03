@@ -45,7 +45,6 @@ export class ScrollAdjuster {
     }
 
     // 下にはみ出ている
-    console.log(y + height, this.scrollTop + this.screenHeight - this.padding);
     if (y + height > this.scrollTop + this.screenHeight - this.padding) {
       distance.top =
         y + height - (this.scrollTop + this.screenHeight - this.padding);

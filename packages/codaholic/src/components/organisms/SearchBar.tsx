@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connectStyle } from "@shoutem/theme";
+import Button from "../molecules/Button";
 import { SearchBar as RNSearchBar } from "react-native-elements";
 
 interface IStyle {
@@ -81,7 +82,14 @@ export class SearchBar extends React.PureComponent<Props> {
             ? searchIcon
             : { color: style && style.iconColor }
         }
-        clearIcon={{ color: style && style.iconColor }}
+        clearIcon={
+          <Button
+            icon="clear"
+            styleName="icon slim"
+            style={{ paddingRight: 0 }}
+            onPress={onClear}
+          />
+        }
         placeholderTextColor={style && style.placeholderTextColor}
         containerStyle={style && style.container}
         inputContainerStyle={style && style.inputContainer}

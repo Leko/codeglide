@@ -6,6 +6,7 @@ import {
   NavigationScreenProp
 } from "react-navigation";
 import { View } from "@shoutem/ui";
+import sumBy from "lodash/sumBy";
 import SyntaxHighlighter from "../atoms/SyntaxHighlighter";
 import { occurrence } from "../../libs/occurrence";
 import Button from "../molecules/Button";
@@ -31,16 +32,9 @@ class Preview extends Component<Props> {
     loadContents({ repository, path });
   }
 
-  handleClear = () => {
-    // TODO: Clear highlights
-  };
-
-  handlePrev = () => {
-    // TODO: Move focus to prev matched text
-  };
-
-  handleNext = () => {
-    // TODO: Move focus to next matched text
+  handleChangeHighlightWords = (words: Array<string>) => {
+    const { navigation } = this.props;
+    navigation.setParams({ highlights: words.join(",") });
   };
 
   render() {
@@ -55,7 +49,7 @@ class Preview extends Component<Props> {
 
     const { highlights } = navigation.state.params || { highlights: "" };
     const highlightWords = highlights.split(",").filter(Boolean);
-    const count = highlightWords.map((word: string) =>
+    const count = sumBy(highlightWords, (word: string) =>
       occurrence(contents, word)
     );
     return (
@@ -64,6 +58,7 @@ class Preview extends Component<Props> {
           <SyntaxHighlighter
             highlightWords={highlightWords}
             highlightCount={count}
+            onChangeHighlightWords={this.handleChangeHighlightWords}
           >
             {contents}
           </SyntaxHighlighter>
