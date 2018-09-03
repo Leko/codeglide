@@ -1,12 +1,13 @@
 import React from "react";
 import { Component } from "react";
-import { ActivityIndicator, Text } from "react-native";
+import { ActivityIndicator } from "react-native";
 import {
   NavigationScreenOptions,
   NavigationScreenProp
 } from "react-navigation";
 import { View } from "@shoutem/ui";
 import SyntaxHighlighter from "../atoms/SyntaxHighlighter";
+import { occurrence } from "../../libs/occurrence";
 import Button from "../molecules/Button";
 import Container from "../molecules/Container";
 
@@ -30,8 +31,20 @@ class Preview extends Component<Props> {
     loadContents({ repository, path });
   }
 
+  handleClear = () => {
+    // TODO: Clear highlights
+  };
+
+  handlePrev = () => {
+    // TODO: Move focus to prev matched text
+  };
+
+  handleNext = () => {
+    // TODO: Move focus to next matched text
+  };
+
   render() {
-    const { contents } = this.props;
+    const { navigation, contents } = this.props;
     if (!contents) {
       return (
         <Container>
@@ -40,7 +53,23 @@ class Preview extends Component<Props> {
       );
     }
 
-    return <SyntaxHighlighter>{contents}</SyntaxHighlighter>;
+    const { highlights } = navigation.state.params || { highlights: "" };
+    const highlightWords = highlights.split(",").filter(Boolean);
+    const count = highlightWords.map((word: string) =>
+      occurrence(contents, word)
+    );
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <SyntaxHighlighter
+            highlightWords={highlightWords}
+            highlightCount={count}
+          >
+            {contents}
+          </SyntaxHighlighter>
+        </View>
+      </View>
+    );
   }
 }
 

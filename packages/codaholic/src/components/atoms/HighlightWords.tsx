@@ -15,6 +15,7 @@ type Props = {
 
 export const HighlightWords = ({ style, words, children }: Props) => (
   <RNHighlightWords
+    autoEscape
     style={style && style.textStyle}
     highlightStyle={style && style.highlightStyle}
     searchWords={words}

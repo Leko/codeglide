@@ -38,12 +38,13 @@ const Routes = ({ style }: Props) => {
           Preview
         },
         {
-          initialRouteName: "Preview",
-          initialRouteParams: {
-            repository: "Leko/hothouse",
-            path: "package.json"
-          },
-          // initialRouteName: "Dashboard",
+          // initialRouteName: "Preview",
+          // initialRouteParams: {
+          //   repository: "Leko/hothouse",
+          //   path: "package.json",
+          //   highlights: ["^"].join(",")
+          // },
+          initialRouteName: "Dashboard",
           navigationOptions
         }
       )

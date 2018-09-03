@@ -14,6 +14,8 @@ export type IconName =
   | "check-box-outline-blank"
   | "chevron-left"
   | "chevron-right"
+  | "keyboard-arrow-up"
+  | "keyboard-arrow-down"
   | "menu";
 
 type Props = {

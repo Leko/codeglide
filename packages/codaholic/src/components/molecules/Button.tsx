@@ -7,27 +7,21 @@ import { connectStyle } from "@shoutem/theme";
 interface IStyle {}
 
 type Props = {
-  style: IStyle;
-  disabled: boolean;
-  styleName: string;
-  icon: IconName;
+  style?: IStyle;
+  disabled?: boolean;
+  styleName?: string;
+  icon?: IconName;
   onPress: () => any;
   children: React.ReactNode;
 };
 
-export const Checkbox = ({
-  style,
-  disabled,
-  onPress,
-  icon,
-  children
-}: Props) => (
+export const Button = ({ style, disabled, onPress, icon, children }: Props) => (
   <TouchableOpacity
     disabled={disabled}
     onPress={onPress}
     style={[styles.withIcon, style]}
   >
-    <Icon name={icon} />
+    <Icon name={icon} styleName={disabled ? "dimmed" : ""} />
     {children}
   </TouchableOpacity>
 );
@@ -39,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connectStyle("Button", {})(Checkbox);
+export default connectStyle("Button", {})(Button);

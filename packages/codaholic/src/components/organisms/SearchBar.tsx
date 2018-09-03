@@ -18,6 +18,7 @@ export type Props = {
   defaultValue: string;
   enablesReturnKeyAutomatically: boolean;
   autoFocus: boolean;
+  searchIcon?: null;
   returnKeyType:
     | "search"
     | "default"
@@ -35,6 +36,7 @@ export type Props = {
     | undefined;
   onFocus?: () => any;
   onBlur?: () => any;
+  onClear?: () => any;
   onSubmit: () => any;
   onChangeText?: (text: string) => any;
 };
@@ -53,10 +55,12 @@ export class SearchBar extends React.PureComponent<Props> {
       style,
       onFocus,
       onBlur,
+      onClear,
       onSubmit,
       onChangeText,
       placeholder,
       defaultValue,
+      searchIcon,
       enablesReturnKeyAutomatically = false,
       autoFocus = false,
       returnKeyType = "search"
@@ -72,7 +76,11 @@ export class SearchBar extends React.PureComponent<Props> {
         autoCorrect={false}
         autoCapitalize="none"
         returnKeyType={returnKeyType}
-        searchIcon={{ color: style && style.iconColor }}
+        searchIcon={
+          typeof searchIcon !== "undefined"
+            ? searchIcon
+            : { color: style && style.iconColor }
+        }
         clearIcon={{ color: style && style.iconColor }}
         placeholderTextColor={style && style.placeholderTextColor}
         containerStyle={style && style.container}
@@ -85,6 +93,7 @@ export class SearchBar extends React.PureComponent<Props> {
         onChangeText={onChangeText}
         onFocus={onFocus}
         onBlur={onBlur}
+        onClear={onClear}
         onSubmitEditing={onSubmit}
       />
     );

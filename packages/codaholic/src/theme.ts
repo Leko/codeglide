@@ -103,6 +103,11 @@ const themerize = (palette: Palette): Theme => ({
     ".icon": {
       margin: 0,
       padding: 8
+    },
+    ".slim": {
+      margin: 0,
+      paddingVertical: 8,
+      paddingHorizontal: 4
     }
   },
   Checkbox: {
@@ -152,6 +157,23 @@ const themerize = (palette: Palette): Theme => ({
       color: palette.DIMMED
     },
     highlightStyle: {
+      color: palette.BACKGROUND,
+      backgroundColor: palette.ACCENT
+    }
+  },
+  FocusWords: {
+    textStyle: {
+      color: palette.DIMMED
+    },
+    highlightStyle: {
+      color: Color(palette.BACKGROUND)
+        .alpha(0.3)
+        .string(),
+      backgroundColor: Color(palette.ACCENT)
+        .alpha(0.3)
+        .string()
+    },
+    focusStyle: {
       color: palette.BACKGROUND,
       backgroundColor: palette.ACCENT
     }
