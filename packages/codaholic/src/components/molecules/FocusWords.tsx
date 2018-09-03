@@ -105,8 +105,10 @@ export class FocusWords extends React.PureComponent<Props> {
                       }
                     }}
                     style={[
-                      style && style.highlightStyle,
-                      cursor === this.props.cursor && style.focusStyle
+                      style.textStyle,
+                      cursor === this.props.cursor
+                        ? style.focusStyle
+                        : style.highlightStyle
                     ]}
                   >
                     {text}

@@ -225,6 +225,9 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
                   },
                   highlightStyle: {
                     color: "transparent"
+                  },
+                  focusStyle: {
+                    color: "transparent"
                   }
                 }}
                 words={highlightWords}
