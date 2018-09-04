@@ -4,7 +4,8 @@ import {
   NavigationComponent,
   createStackNavigator,
   createDrawerNavigator,
-  NavigationStackScreenOptions
+  NavigationStackScreenOptions,
+  NavigationScreenProp
 } from "react-navigation";
 import * as NavigationService from "./libs/NavigationService";
 import Redirector from "./containers/Redirector";
@@ -26,28 +27,39 @@ const Routes = ({ style }: Props) => {
   const navigationOptions: NavigationStackScreenOptions = {
     headerStyle: style.header,
     headerTintColor: style.tintColor,
-    headerTitleStyle: style.title,
-    gesturesEnabled: false
+    headerTitleStyle: style.title
   };
+
+  const MemberRoot = createStackNavigator(
+    {
+      Dashboard,
+      Preview
+    },
+    {
+      // initialRouteName: "Preview",
+      // initialRouteParams: {
+      //   repository: "Leko/hothouse",
+      //   path: "package.json",
+      //   highlights: ["^"].join(",")
+      // },
+      initialRouteName: "Dashboard",
+      navigationOptions
+    }
+  );
+  // https://reactnavigation.org/docs/en/navigation-options-resolution.html#a-drawer-has-a-stack-inside-of-it-and-you-want-to-lock-the-drawer-on-certain-screens
+  MemberRoot.navigationOptions = ({
+    navigation: {
+      state: { index }
+    }
+  }: {
+    navigation: NavigationScreenProp<any>;
+  }) => ({
+    drawerLockMode: index > 0 ? "locked-closed" : "unlocked"
+  });
 
   const MemberStack = createDrawerNavigator(
     {
-      MemberRoot: createStackNavigator(
-        {
-          Dashboard,
-          Preview
-        },
-        {
-          // initialRouteName: "Preview",
-          // initialRouteParams: {
-          //   repository: "Leko/hothouse",
-          //   path: "package.json",
-          //   highlights: ["^"].join(",")
-          // },
-          initialRouteName: "Dashboard",
-          navigationOptions
-        }
-      )
+      MemberRoot
     },
     {
       initialRouteName: "MemberRoot",
