@@ -85,6 +85,9 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
         onSubmit={handleSubmit}
         value={values.q}
         onBlur={() => setFieldTouched("q")}
+        onClear={() => {
+          setFieldValue("q", "");
+        }}
         onChangeText={(text: string) => {
           setFieldValue("q", text);
         }}

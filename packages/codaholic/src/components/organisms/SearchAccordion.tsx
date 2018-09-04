@@ -17,47 +17,45 @@ export const SearchAccordion = ({
   open,
   children,
   ...searchBarProps
-}: Props) => {
-  return (
-    <Toggle initial={open}>
-      {({ on, toggle }) => (
-        <React.Fragment>
-          <View style={{ zIndex: 2 }}>
-            <SearchBar
-              {...searchBarProps}
-              autoFocus={open}
-              onFocus={() => {
-                if (searchBarProps.onFocus) {
-                  searchBarProps.onFocus();
-                }
-                if (!on) {
-                  toggle();
-                }
-              }}
-            />
-          </View>
-          {on && (
-            <Animatable.View
-              style={{
-                flex: 1,
-                position: "absolute",
-                top: 48, // SearchBar height
-                left: 0,
-                right: 0,
-                bottom: -48,
-                zIndex: 1
-              }}
-              animation="slideInDown"
-              easing="ease-in-out-quint"
-              duration={150}
-            >
-              {children({ toggle })}
-            </Animatable.View>
-          )}
-        </React.Fragment>
-      )}
-    </Toggle>
-  );
-};
+}: Props) => (
+  <Toggle initial={open}>
+    {({ on, toggle }) => (
+      <React.Fragment>
+        <View style={{ zIndex: 2 }}>
+          <SearchBar
+            {...searchBarProps}
+            autoFocus={open}
+            onFocus={() => {
+              if (searchBarProps.onFocus) {
+                searchBarProps.onFocus();
+              }
+              if (!on) {
+                toggle();
+              }
+            }}
+          />
+        </View>
+        {on && (
+          <Animatable.View
+            style={{
+              flex: 1,
+              position: "absolute",
+              top: 48, // SearchBar height
+              left: 0,
+              right: 0,
+              bottom: -48,
+              zIndex: 1
+            }}
+            animation="slideInDown"
+            easing="ease-in-out-quint"
+            duration={150}
+          >
+            {children({ toggle })}
+          </Animatable.View>
+        )}
+      </React.Fragment>
+    )}
+  </Toggle>
+);
 
 export default connectStyle("SearchAccordion", {})(SearchAccordion);

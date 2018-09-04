@@ -16,6 +16,7 @@ interface IStyle {
 export type Props = {
   style: IStyle;
   placeholder: string;
+  value: string;
   defaultValue: string;
   enablesReturnKeyAutomatically: boolean;
   autoFocus: boolean;
@@ -42,7 +43,7 @@ export type Props = {
   onChangeText?: (text: string) => any;
 };
 
-export class SearchBar extends React.PureComponent<Props> {
+export class SearchBar extends React.Component<Props> {
   ref?: RNSearchBar;
 
   componentDidUpdate(prevProps: Props) {
@@ -60,6 +61,7 @@ export class SearchBar extends React.PureComponent<Props> {
       onSubmit,
       onChangeText,
       placeholder,
+      value,
       defaultValue,
       searchIcon,
       enablesReturnKeyAutomatically = false,
@@ -70,6 +72,9 @@ export class SearchBar extends React.PureComponent<Props> {
     return (
       <RNSearchBar
         ref={ref => {
+          if (!ref) {
+            return;
+          }
           this.ref = ref;
         }}
         enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
@@ -87,7 +92,14 @@ export class SearchBar extends React.PureComponent<Props> {
             icon="clear"
             styleName="icon slim"
             style={{ paddingRight: 0 }}
-            onPress={onClear}
+            onPress={() => {
+              if (onClear) {
+                onClear();
+              }
+              if (this.ref) {
+                this.ref.focus();
+              }
+            }}
           />
         }
         placeholderTextColor={style && style.placeholderTextColor}
@@ -98,6 +110,7 @@ export class SearchBar extends React.PureComponent<Props> {
         rightIconContainerStyle={style && style.rightIconContainer}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        value={value}
         onChangeText={onChangeText}
         onFocus={onFocus}
         onBlur={onBlur}
