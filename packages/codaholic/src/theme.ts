@@ -163,14 +163,15 @@ const themerize = (palette: Palette): Theme => ({
   },
   FocusWords: {
     textStyle: {
-      color: palette.DIMMED
+      color: palette.DIMMED,
+      backgroundColor: "transparent"
     },
     highlightStyle: {
       color: Color(palette.BACKGROUND)
-        .alpha(0.3)
+        .darken(0.5)
         .string(),
       backgroundColor: Color(palette.ACCENT)
-        .alpha(0.3)
+        .darken(0.5)
         .string()
     },
     focusStyle: {
