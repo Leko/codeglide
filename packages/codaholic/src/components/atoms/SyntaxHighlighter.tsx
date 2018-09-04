@@ -70,7 +70,7 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
       width,
       height,
       x,
-      y: y + padding
+      y: y
     });
     this.wholeScrollPosition = {
       top: this.wholeScrollPosition.top + top,

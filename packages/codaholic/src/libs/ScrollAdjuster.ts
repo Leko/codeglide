@@ -41,7 +41,7 @@ export class ScrollAdjuster {
     }
     // 左にはみ出ている
     else if (x < this.scrollLeft + this.padding) {
-      distance.left = this.scrollLeft + this.padding - x;
+      distance.left = x - (this.scrollLeft + this.padding);
     }
 
     // 下にはみ出ている
@@ -51,7 +51,7 @@ export class ScrollAdjuster {
     }
     // 上にはみ出ている
     else if (y < this.scrollTop + this.padding) {
-      distance.top = this.scrollTop + this.padding - y;
+      distance.top = y - (this.scrollTop + this.padding);
     }
 
     return distance;
