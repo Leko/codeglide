@@ -36,6 +36,12 @@ export class SnackBar extends React.PureComponent<Props, State> {
     }, delay);
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.visible !== this.props.visible) {
+      this.setState({ visible: this.props.visible });
+    }
+  }
+
   render() {
     const { style, message, onPress, actionText } = this.props;
     const { visible } = this.state;

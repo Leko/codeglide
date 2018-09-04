@@ -16,12 +16,12 @@ export default ({ openSearchWith }: Props) => (
     {({
       notification: {
         message,
-        meta: { repo, user }
+        meta: { repo, user, visible }
       },
       dismiss
     }: ChildProps) => (
       <SnackBar
-        visible
+        visible={visible}
         message={`${message}:\n${user}/${repo}`}
         actionText="open"
         onPress={() => {

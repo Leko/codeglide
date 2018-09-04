@@ -30,7 +30,7 @@ const publish = (
   }
 ): State => ({
   ...state,
-  [topic]: Object.assign({ [notification.id]: notification }, state[topic])
+  [topic]: Object.assign({}, state[topic], { [notification.id]: notification })
 });
 
 const dismiss = (

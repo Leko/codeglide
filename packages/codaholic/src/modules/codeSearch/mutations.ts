@@ -23,7 +23,6 @@ export const setResults = (
   busy: false,
   results,
   totalResults,
-  _: console.log({ totalResults }),
   currentResults: results.length,
   completed
 });

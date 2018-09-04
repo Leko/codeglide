@@ -14,13 +14,30 @@ export default clipboardText => async (dispatch, getState) => {
     return;
   }
 
+  const id = "CLIPBOARD";
+  const HIDE_THRESHOLD = 5000;
   const notification = {
-    id: "CLIPBOARD",
+    id,
     message: "GitHub repoository detected", // FIXME: i18n
     meta: {
       repo,
-      user
+      user,
+      visible: true
     }
   };
   dispatch(creators.publish({ topic: TOPIC_CLIPBOARD, notification }));
+  setTimeout(() => {
+    dispatch(
+      creators.publish({
+        topic: TOPIC_CLIPBOARD,
+        notification: {
+          ...notification,
+          meta: {
+            ...notification.meta,
+            visible: false
+          }
+        }
+      })
+    );
+  }, HIDE_THRESHOLD);
 };
