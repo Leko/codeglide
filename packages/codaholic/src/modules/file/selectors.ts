@@ -8,3 +8,8 @@ export const getContents = createSelector(
   stripPrefix,
   (state: State) => state.contents
 );
+
+export const getRepository = createSelector(
+  stripPrefix,
+  (state: State) => state.repository
+);
