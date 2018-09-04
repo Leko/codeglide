@@ -37,7 +37,7 @@ export type DetailRequest = {
   path: string;
   highlights: Array<string>;
 };
-type Values = {
+export type Values = {
   q: string;
   repo: string;
   path: string;

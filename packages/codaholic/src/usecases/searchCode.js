@@ -2,7 +2,8 @@ import Sentry from "sentry-expo";
 import fetch from "cross-fetch";
 import omit from "lodash/omit";
 import querystring from "query-string";
-import { creators } from "../modules/codeSearch";
+import { creators as codeSearchCreators } from "../modules/codeSearch";
+import { creators as historyCreators } from "../modules/searchHistory";
 import getCredential from "../selectors/getCredential";
 
 export type SearchParams = {
@@ -15,8 +16,8 @@ export type SearchParams = {
 };
 
 export default (query: SearchParams) => async (dispatch, getState) => {
-  dispatch(creators.clear());
-  dispatch(creators.start());
+  dispatch(codeSearchCreators.clear());
+  dispatch(codeSearchCreators.start());
 
   const q = `${query.q} `;
   const params: SearchCodeParams = {
@@ -58,10 +59,11 @@ export default (query: SearchParams) => async (dispatch, getState) => {
 
   const { items, total_count, incomplete_results } = found;
   dispatch(
-    creators.setResults({
+    codeSearchCreators.setResults({
       results: items,
       totalResults: total_count,
       completed: incomplete_results
     })
   );
+  dispatch(historyCreators.append(query));
 };

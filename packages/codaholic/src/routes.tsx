@@ -11,6 +11,7 @@ import * as NavigationService from "./libs/NavigationService";
 import Redirector from "./containers/Redirector";
 import Welcome from "./containers/Welcome";
 import Dashboard from "./containers/Dashboard";
+import SearchHistories from "./containers/SearchHistories";
 import Preview from "./containers/Preview";
 import Drawer from "./containers/Drawer";
 
@@ -33,6 +34,7 @@ const Routes = ({ style }: Props) => {
   const MemberRoot = createStackNavigator(
     {
       Dashboard,
+      SearchHistories,
       Preview
     },
     {
@@ -40,7 +42,7 @@ const Routes = ({ style }: Props) => {
       // initialRouteParams: {
       //   repository: "Leko/hothouse",
       //   path: "package.json",
-      //   highlights: ["^"].join(",")
+      //   highlights: ["{"].join(",")
       // },
       initialRouteName: "Dashboard",
       navigationOptions

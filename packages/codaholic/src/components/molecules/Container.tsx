@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { View } from "@shoutem/ui";
 import { connectStyle } from "@shoutem/theme";
@@ -14,18 +14,10 @@ type Props = {
   style?: IStyle;
 };
 
-export const Container = ({ style, children }: Props) => (
-  <View style={{ flex: 1 }}>
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ flex: 1 }}>{children}</ScrollView>
-    </SafeAreaView>
+export const Container = ({ children }: Props) => (
+  <View style={{}}>
+    <ScrollView style={{}}>{children}</ScrollView>
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
 
 export default connectStyle("Container", {})(Container);

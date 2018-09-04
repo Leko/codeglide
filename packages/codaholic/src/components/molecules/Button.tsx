@@ -11,18 +11,29 @@ type Props = {
   disabled?: boolean;
   styleName?: string;
   icon?: IconName;
+  rightIcon?: IconName;
   onPress: () => any;
   children: React.ReactNode;
 };
 
-export const Button = ({ style, disabled, onPress, icon, children }: Props) => (
+export const Button = ({
+  style,
+  disabled,
+  onPress,
+  icon,
+  rightIcon,
+  children
+}: Props) => (
   <TouchableOpacity
     disabled={disabled}
     onPress={onPress}
     style={[styles.withIcon, style]}
   >
-    <Icon name={icon} styleName={disabled ? "dimmed" : ""} />
+    {icon && <Icon name={icon} styleName={disabled ? "dimmed" : ""} />}
     {children}
+    {rightIcon && (
+      <Icon name={rightIcon} styleName={disabled ? "dimmed" : ""} />
+    )}
   </TouchableOpacity>
 );
 
