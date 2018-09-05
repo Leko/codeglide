@@ -1,7 +1,8 @@
 import React from "react";
-import { ScrollView, ActivityIndicator, TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { View, TextInput } from "@shoutem/ui";
 import { withFormik, FormikProps } from "formik";
+import range from "lodash/range";
 import omitBy from "lodash/omitBy";
 import flatMap from "lodash/flatMap";
 import uniq from "lodash/uniq";
@@ -13,6 +14,7 @@ import Icon from "../atoms/Icon";
 import ErrorMessage from "../atoms/ErrorMessage";
 import HighlightWords from "../atoms/HighlightWords";
 import Divider from "../atoms/Divider";
+import * as Placeholder from "../atoms/Placeholder";
 import ListItem from "../molecules/ListItem";
 import RequiredIndicator from "../atoms/RequiredIndicator";
 import Button from "../molecules/Button";
@@ -172,11 +174,40 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                   </View>
                 </ListItem>
                 {busy && (
-                  <View style={{ marginVertical: 20 }}>
-                    <ActivityIndicator size="small" />
+                  <View
+                    style={{
+                      marginVertical: 20
+                    }}
+                  >
+                    <Placeholder.Line
+                      width="40%"
+                      onReady={!busy && results.length > 0}
+                    />
+                    {range(5).map(n => (
+                      <View key={n}>
+                        <View
+                          style={{
+                            marginVertical: 12
+                          }}
+                        >
+                          <View style={{ marginBottom: 6 }}>
+                            <Placeholder.Line textSize={14} width="60%" />
+                          </View>
+                          <Placeholder.Paragraph
+                            lineNumber={4}
+                            textSize={14}
+                            lineSpacing={2}
+                            width="90%"
+                            lastLineWidth="90%"
+                            firstLineWidth="90%"
+                          />
+                        </View>
+                        <Divider styleName="thin" />
+                      </View>
+                    ))}
                   </View>
                 )}
-                {results.length && (
+                {(busy || results.length) && (
                   <View
                     style={{
                       marginVertical: 20

@@ -178,6 +178,15 @@ const themerize = (palette: Palette): Theme => ({
       color: palette.BACKGROUND,
       backgroundColor: palette.ACCENT
     }
+  },
+  "Placeholder.Line": {
+    textSize: 14,
+    color: palette.BACKGROUND_DEVIDER
+  },
+  "Placeholder.Paragraph": {
+    textSize: 14,
+    color: palette.BACKGROUND_DEVIDER,
+    lineSpacing: 2
   }
 });
 

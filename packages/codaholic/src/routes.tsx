@@ -45,6 +45,10 @@ const Routes = ({ style }: Props) => {
       //   highlights: ["{"].join(",")
       // },
       initialRouteName: "Dashboard",
+      initialRouteParams: {
+        openSearch: true,
+        searchParams: { repo: "Leko/hothouse" }
+      },
       navigationOptions
     }
   );
