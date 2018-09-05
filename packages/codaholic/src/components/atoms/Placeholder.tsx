@@ -22,6 +22,8 @@ export const Line = connectStyle("Placeholder.Line", {})(
 );
 
 type ParagraphProps = CommonProps & {
+  lineNumber: number;
+  lineSpacing: number;
   lastLineWidth: string;
   firstLineWidth: string;
 };

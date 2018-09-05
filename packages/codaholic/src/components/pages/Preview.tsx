@@ -1,6 +1,5 @@
 import React from "react";
 import { Component } from "react";
-import { ActivityIndicator } from "react-native";
 import {
   NavigationScreenOptions,
   NavigationScreenProp
@@ -8,9 +7,9 @@ import {
 import { View } from "@shoutem/ui";
 import sumBy from "lodash/sumBy";
 import SyntaxHighlighter from "../atoms/SyntaxHighlighter";
+import * as Placeholder from "../atoms/Placeholder";
 import { occurrence } from "../../libs/occurrence";
 import Button from "../molecules/Button";
-import Container from "../molecules/Container";
 
 type Params = {
   repository: string; // owner/repo
@@ -41,9 +40,14 @@ class Preview extends Component<Props> {
     const { navigation, contents } = this.props;
     if (!contents) {
       return (
-        <Container>
-          <ActivityIndicator size="small" />
-        </Container>
+        <View style={{ flex: 1, padding: 10 }}>
+          <Placeholder.Paragraph
+            lineNumber={15}
+            lineSpacing={3}
+            firstLineWidth="20%"
+            lastLineWidth="50%"
+          />
+        </View>
       );
     }
 
@@ -54,15 +58,13 @@ class Preview extends Component<Props> {
     );
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <SyntaxHighlighter
-            highlightWords={highlightWords}
-            highlightCount={count}
-            onChangeHighlightWords={this.handleChangeHighlightWords}
-          >
-            {contents}
-          </SyntaxHighlighter>
-        </View>
+        <SyntaxHighlighter
+          highlightWords={highlightWords}
+          highlightCount={count}
+          onChangeHighlightWords={this.handleChangeHighlightWords}
+        >
+          {contents}
+        </SyntaxHighlighter>
       </View>
     );
   }
