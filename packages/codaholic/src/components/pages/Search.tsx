@@ -51,6 +51,7 @@ const baseInputProps = {
   clearButtonMode: "while-editing",
   autoCorrect: false
 };
+const placeholderPayload = range(5).map(n => ({ key: String(n) }));
 
 export class Search extends React.PureComponent<Props & FormikProps<Values>> {
   componentWillReceiveProps(nextProps: Props & FormikProps<Values>) {
@@ -58,6 +59,70 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
       this.props.resetForm(nextProps.defaultValues);
     }
   }
+
+  renderResult = ({ item: result }: { item: Result }) => (
+    <View>
+      <TouchableOpacity
+        onPress={() =>
+          this.props.onRequestDetail({
+            repository: result.repository.full_name,
+            path: result.path,
+            highlights: uniq(
+              flatMap(result.text_matches, ({ matches }) =>
+                matches.map(({ text }) => text)
+              )
+            )
+          })
+        }
+        style={{
+          marginVertical: 12,
+          flexDirection: "row",
+          alignItems: "center"
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <View style={{ marginBottom: 6 }}>
+            <Caption>{result.path}</Caption>
+          </View>
+          {result.text_matches.map(match => (
+            <HighlightWords
+              key={match.fragment}
+              words={uniq(match.matches.map(m => m.text))}
+            >
+              {match.fragment}
+            </HighlightWords>
+          ))}
+        </View>
+        <View>
+          <Icon name="chevron-right" styleName="dimmed" />
+        </View>
+      </TouchableOpacity>
+      <Divider styleName="thin" />
+    </View>
+  );
+
+  renderResultPlaceholder = () => (
+    <View>
+      <View
+        style={{
+          marginVertical: 12
+        }}
+      >
+        <View style={{ marginBottom: 6 }}>
+          <Placeholder.Line textSize={14} width="60%" />
+        </View>
+        <Placeholder.Paragraph
+          lineNumber={4}
+          textSize={14}
+          lineSpacing={2}
+          width="90%"
+          lastLineWidth="90%"
+          firstLineWidth="90%"
+        />
+      </View>
+      <Divider styleName="thin" />
+    </View>
+  );
 
   render() {
     const {
@@ -67,7 +132,6 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
       current,
       results,
       onCancel,
-      onRequestDetail,
       values,
       errors,
       touched,
@@ -181,29 +245,8 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                   >
                     <Placeholder.Line width="40%" />
                     <FlatList
-                      data={range(5).map(n => ({ key: String(n) }))}
-                      renderItem={() => (
-                        <View>
-                          <View
-                            style={{
-                              marginVertical: 12
-                            }}
-                          >
-                            <View style={{ marginBottom: 6 }}>
-                              <Placeholder.Line textSize={14} width="60%" />
-                            </View>
-                            <Placeholder.Paragraph
-                              lineNumber={4}
-                              textSize={14}
-                              lineSpacing={2}
-                              width="90%"
-                              lastLineWidth="90%"
-                              firstLineWidth="90%"
-                            />
-                          </View>
-                          <Divider styleName="thin" />
-                        </View>
-                      )}
+                      data={placeholderPayload}
+                      renderItem={this.renderResultPlaceholder}
                     />
                   </View>
                 )}
@@ -216,46 +259,11 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                     <Text>
                       Results: {current} of {total}
                     </Text>
-                    {results.map(result => (
-                      <View key={result.path}>
-                        <TouchableOpacity
-                          onPress={() =>
-                            onRequestDetail({
-                              repository: result.repository.full_name,
-                              path: result.path,
-                              highlights: uniq(
-                                flatMap(result.text_matches, ({ matches }) =>
-                                  matches.map(({ text }) => text)
-                                )
-                              )
-                            })
-                          }
-                          style={{
-                            marginVertical: 12,
-                            flexDirection: "row",
-                            alignItems: "center"
-                          }}
-                        >
-                          <View style={{ flex: 1 }}>
-                            <View style={{ marginBottom: 6 }}>
-                              <Caption>{result.path}</Caption>
-                            </View>
-                            {result.text_matches.map(match => (
-                              <HighlightWords
-                                key={match.fragment}
-                                words={uniq(match.matches.map(m => m.text))}
-                              >
-                                {match.fragment}
-                              </HighlightWords>
-                            ))}
-                          </View>
-                          <View>
-                            <Icon name="chevron-right" styleName="dimmed" />
-                          </View>
-                        </TouchableOpacity>
-                        <Divider styleName="thin" />
-                      </View>
-                    ))}
+                    <FlatList
+                      data={results}
+                      keyExtractor={result => result.path}
+                      renderItem={this.renderResult}
+                    />
                   </View>
                 )}
               </View>
