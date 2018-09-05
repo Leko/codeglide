@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, FlatList, TouchableOpacity } from "react-native";
 import { View, TextInput } from "@shoutem/ui";
 import { withFormik, FormikProps } from "formik";
 import range from "lodash/range";
@@ -179,35 +179,35 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                       marginVertical: 20
                     }}
                   >
-                    <Placeholder.Line
-                      width="40%"
-                      onReady={!busy && results.length > 0}
-                    />
-                    {range(5).map(n => (
-                      <View key={n}>
-                        <View
-                          style={{
-                            marginVertical: 12
-                          }}
-                        >
-                          <View style={{ marginBottom: 6 }}>
-                            <Placeholder.Line textSize={14} width="60%" />
+                    <Placeholder.Line width="40%" />
+                    <FlatList
+                      data={range(5).map(n => ({ key: String(n) }))}
+                      renderItem={() => (
+                        <View>
+                          <View
+                            style={{
+                              marginVertical: 12
+                            }}
+                          >
+                            <View style={{ marginBottom: 6 }}>
+                              <Placeholder.Line textSize={14} width="60%" />
+                            </View>
+                            <Placeholder.Paragraph
+                              lineNumber={4}
+                              textSize={14}
+                              lineSpacing={2}
+                              width="90%"
+                              lastLineWidth="90%"
+                              firstLineWidth="90%"
+                            />
                           </View>
-                          <Placeholder.Paragraph
-                            lineNumber={4}
-                            textSize={14}
-                            lineSpacing={2}
-                            width="90%"
-                            lastLineWidth="90%"
-                            firstLineWidth="90%"
-                          />
+                          <Divider styleName="thin" />
                         </View>
-                        <Divider styleName="thin" />
-                      </View>
-                    ))}
+                      )}
+                    />
                   </View>
                 )}
-                {(busy || results.length) && (
+                {results.length && (
                   <View
                     style={{
                       marginVertical: 20
