@@ -4,6 +4,7 @@ import {
   NavigationScreenOptions,
   NavigationScreenProp
 } from "react-navigation";
+import uniq from "lodash/uniq";
 import { View } from "@shoutem/ui";
 import { Subtitle } from "../atoms/Subtitle";
 import { Caption } from "../atoms/Caption";
@@ -60,7 +61,7 @@ const Dashboard = ({
             navigation.navigate("Preview", {
               repository,
               path,
-              highlights: highlights.join(",")
+              highlights: uniq(highlights.map(w => w.toLowerCase())).join(",")
             })
           }
           busy={busy}
