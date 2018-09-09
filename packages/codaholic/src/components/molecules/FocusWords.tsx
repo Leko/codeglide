@@ -1,7 +1,44 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import { findAll } from "highlight-words-core";
 import { connectStyle } from "@shoutem/theme";
+
+type MatchedChunk = {
+  start: number;
+  end: number;
+  highlight: boolean;
+};
+
+type MatchedText = {
+  key: string;
+  text: string;
+  highlight: boolean;
+  focus: boolean;
+  cursor: number;
+};
+
+export type Position = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+interface IStyle {
+  textStyle: {
+    lineHeight: number;
+  };
+  highlightStyle: Object;
+  focusStyle: Object;
+}
+
+type Props = {
+  style: IStyle;
+  words: Array<string>;
+  children: string;
+  cursor: number;
+  onLayoutReady: () => any;
+};
 
 const getMatches = (
   text: string,
@@ -14,31 +51,30 @@ const getMatches = (
   });
 };
 
-type MatchedChunk = {
-  start: number;
-  end: number;
-  highlight: boolean;
-};
-
-export type Position = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
-interface IStyle {
-  textStyle: Object;
-  highlightStyle: Object;
-  focusStyle: Object;
-}
-
-type Props = {
-  style: IStyle;
-  words: Array<string>;
-  children: string;
-  cursor: number;
-  onLayoutReady: () => any;
+const lexer = (
+  text: string,
+  words: Array<string>,
+  focusIndex: number
+): Array<Array<MatchedText>> => {
+  let counter = -1;
+  return text.split("\n").map(line =>
+    getMatches(line, words).map(
+      ({ start, end, highlight }: MatchedChunk): MatchedText => {
+        if (highlight) {
+          counter += 1;
+        }
+        const token = line.substr(start, end - start);
+        const focus = highlight && counter === focusIndex;
+        return {
+          highlight,
+          focus,
+          key: `${start}-${end}-${token}`,
+          text: token,
+          cursor: highlight ? counter : -1
+        };
+      }
+    )
+  );
 };
 
 export class FocusWords extends React.PureComponent<Props> {
@@ -62,65 +98,81 @@ export class FocusWords extends React.PureComponent<Props> {
     }
   }
 
+  renderLine = ({
+    item: matches,
+    index: lineNumber
+  }: {
+    item: Array<MatchedText>;
+    index: number;
+  }) => {
+    const { style } = this.props;
+    const lineHeight = style.textStyle.lineHeight;
+
+    return (
+      <View style={[styles.row, { height: lineHeight }]}>
+        {matches.map(({ key, text, highlight, focus, cursor }: MatchedText) => {
+          if (!highlight) {
+            return (
+              <Text key={key} style={style && style.textStyle}>
+                {text}
+              </Text>
+            );
+          }
+
+          return (
+            <Text
+              key={key}
+              onLayout={e => {
+                const { x, width, height } = e.nativeEvent.layout;
+                this.highlightPositions[cursor] = {
+                  y: lineNumber * lineHeight,
+                  x,
+                  width,
+                  height
+                };
+                if (focus) {
+                  // FIXME: Flaky
+                  setTimeout(() => {
+                    this.props.onLayoutReady();
+                  }, 0);
+                }
+              }}
+              style={[
+                style.textStyle,
+                focus ? style.focusStyle : style.highlightStyle
+              ]}
+            >
+              {text}
+            </Text>
+          );
+        })}
+      </View>
+    );
+  };
+
   render() {
     const { style, words, children } = this.props;
     const lineHeight = style.textStyle.lineHeight;
-    let counter = 0;
 
     return (
-      <View>
-        {children.split(/\n/).map((line, lineNumber) => (
-          <View
-            key={lineNumber}
-            style={{ height: lineHeight, flexDirection: "row" }}
-          >
-            {getMatches(line, words).map(
-              (chunk: MatchedChunk, index: number) => {
-                const text = line.substr(chunk.start, chunk.end - chunk.start);
-                if (!chunk.highlight) {
-                  return (
-                    <Text key={index} style={style && style.textStyle}>
-                      {text}
-                    </Text>
-                  );
-                }
-                let cursor = counter++;
-
-                return (
-                  <Text
-                    key={index}
-                    onLayout={e => {
-                      const { x, width, height } = e.nativeEvent.layout;
-                      this.highlightPositions[cursor] = {
-                        y: lineNumber * lineHeight,
-                        x,
-                        width,
-                        height
-                      };
-                      if (cursor === this.props.cursor) {
-                        // FIXME: Flaky
-                        setTimeout(() => {
-                          this.props.onLayoutReady();
-                        }, 0);
-                      }
-                    }}
-                    style={[
-                      style.textStyle,
-                      cursor === this.props.cursor
-                        ? style.focusStyle
-                        : style.highlightStyle
-                    ]}
-                  >
-                    {text}
-                  </Text>
-                );
-              }
-            )}
-          </View>
-        ))}
-      </View>
+      <FlatList
+        data={lexer(children, words, this.props.cursor)}
+        keyExtractor={(_, i) => String(i)}
+        renderItem={this.renderLine}
+        getItemLayout={(_, index) => ({
+          length: lineHeight,
+          offset: lineHeight * index,
+          index
+        })}
+      />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row"
+  }
+});
 
 export default connectStyle("FocusWords", {})(FocusWords);
