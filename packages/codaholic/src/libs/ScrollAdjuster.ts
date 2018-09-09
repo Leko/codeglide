@@ -34,24 +34,30 @@ export class ScrollAdjuster {
     const distance = { top: 0, left: 0 };
     const { x, y, width, height } = target;
 
-    // 右にはみ出ている
+    // protruding right
     if (x + width > this.scrollLeft + this.screenWidth - this.padding) {
       distance.left =
         x + width - (this.scrollLeft + this.screenWidth - this.padding);
     }
-    // 左にはみ出ている
+    // protruding left
     else if (x < this.scrollLeft + this.padding) {
-      distance.left = x - (this.scrollLeft + this.padding);
+      distance.left = Math.max(
+        -this.scrollLeft,
+        x - (this.scrollLeft + this.padding)
+      );
     }
 
-    // 下にはみ出ている
+    // protruding bottom
     if (y + height > this.scrollTop + this.screenHeight - this.padding) {
       distance.top =
         y + height - (this.scrollTop + this.screenHeight - this.padding);
     }
-    // 上にはみ出ている
+    // protruding top
     else if (y < this.scrollTop + this.padding) {
-      distance.top = y - (this.scrollTop + this.padding);
+      distance.top = Math.max(
+        -this.scrollTop,
+        y - (this.scrollTop + this.padding)
+      );
     }
 
     return distance;

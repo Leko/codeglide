@@ -58,12 +58,13 @@ export default class CodePreview extends PureComponent<Props> {
   };
 
   scrollToPosition({ width, height, x, y }: Position) {
+    const padding = 20;
     const adjuster = new ScrollAdjuster({
       scrollTop: this.wholeScrollPosition.top,
       scrollLeft: this.wholeScrollPosition.left,
       screenWidth: this.wholeScrollViewportSize.width,
       screenHeight: this.wholeScrollViewportSize.height,
-      padding: 20
+      padding
     });
 
     const { top, left } = adjuster.getMovingDistance({
@@ -76,14 +77,15 @@ export default class CodePreview extends PureComponent<Props> {
       top: this.wholeScrollPosition.top + top,
       left: this.wholeScrollPosition.left + left
     };
+    console.log(this.wholeScrollPosition, padding);
 
-    if (left > 0 && this.horizontalScrollViewRef) {
+    if (this.horizontalScrollViewRef) {
       this.horizontalScrollViewRef.scrollTo({
         x: this.wholeScrollPosition.left,
         animated: true
       });
     }
-    if (top > 0 && this.verticalScrollViewRef) {
+    if (this.verticalScrollViewRef) {
       this.verticalScrollViewRef.scrollTo({
         y: this.wholeScrollPosition.top,
         animated: true
