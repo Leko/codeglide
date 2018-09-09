@@ -8,7 +8,6 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent
 } from "react-native";
-import RNSyntaxHighlighter from "react-native-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/styles/hljs";
 import FocusWords, {
   FocusWords as FocusWordsType,
@@ -16,6 +15,7 @@ import FocusWords, {
 } from "../molecules/FocusWords";
 import { Text } from "../atoms/Text";
 import Divider from "../atoms/Divider";
+import { SyntaxHighlighter } from "../atoms/SyntaxHighlighter";
 import Row from "../molecules/Row";
 import Button from "../molecules/Button";
 import SearchBar from "../organisms/SearchBar";
@@ -39,7 +39,7 @@ const padding = Number(atomOneDark.hljs.padding.replace("em", "")) * 16;
 
 atomOneDark.hljs.background = "transparent";
 
-export default class SyntaxHighlighter extends PureComponent<Props> {
+export default class CodePreview extends PureComponent<Props> {
   wholeScrollPosition: { top: number; left: number } = { top: 0, left: 0 };
   wholeScrollViewSize: { width: number; height: number } = {
     width: -1,
@@ -179,7 +179,7 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
     const { cursor } = this.state;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.flexible}>
         <ScrollView
           ref={ref => {
             this.horizontalScrollViewRef = ref;
@@ -236,23 +236,25 @@ export default class SyntaxHighlighter extends PureComponent<Props> {
                 {children}
               </FocusWords>
             </ScrollView>
-            <RNSyntaxHighlighter
-              // showLineNumbers not working on RN-syntax-highlight. It uses span
-              showLineNumbers={false}
+            <SyntaxHighlighter
+              lineHeight={17}
               fontSize={fontSize}
               fontFamily={fontFamily}
-              style={atomOneDark}
-              highlighter="hljs"
-              PreTag={this.renderCodeContainer}
+              theme={atomOneDark}
+              onScroll={this.handleScroll}
+              scrollEventThrottle={1000 / 60}
+              scrollViewRef={ref => {
+                this.verticalScrollViewRef = ref;
+              }}
             >
               {children}
-            </RNSyntaxHighlighter>
+            </SyntaxHighlighter>
           </View>
         </ScrollView>
         <View>
           <Divider styleName="thin dent" />
           <Row>
-            <View style={{ flex: 1 }}>
+            <View style={styles.flexible}>
               <SearchBar
                 searchIcon={null}
                 placeholder="Search text (comma separated)"

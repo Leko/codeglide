@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 import { View } from "@shoutem/ui";
 import sumBy from "lodash/sumBy";
-import SyntaxHighlighter from "../atoms/SyntaxHighlighter";
+import CodePreview from "../organisms/CodePreview";
 import * as Placeholder from "../atoms/Placeholder";
 import { occurrence } from "../../libs/occurrence";
 import Button from "../molecules/Button";
@@ -58,13 +58,13 @@ class Preview extends Component<Props> {
     );
     return (
       <View style={{ flex: 1 }}>
-        <SyntaxHighlighter
+        <CodePreview
           highlightWords={highlightWords}
           highlightCount={count}
           onChangeHighlightWords={this.handleChangeHighlightWords}
         >
           {contents}
-        </SyntaxHighlighter>
+        </CodePreview>
       </View>
     );
   }
