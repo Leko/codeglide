@@ -268,14 +268,14 @@ export default class CodePreview extends PureComponent<Props> {
               {highlightCount > 0 ? cursor + 1 : 0} of {highlightCount}
             </Text>
             <Button
-              disabled={highlightCount === 0}
+              disabled={highlightCount === 0 || cursor === 0}
               icon="keyboard-arrow-up"
               styleName="icon slim"
               onPress={this.handlePrev}
             />
             <View style={{ marginRight: 8 }}>
               <Button
-                disabled={highlightCount === 0}
+                disabled={highlightCount === 0 || highlightCount === cursor + 1}
                 icon="keyboard-arrow-down"
                 styleName="icon slim"
                 onPress={this.handleNext}
