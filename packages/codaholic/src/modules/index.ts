@@ -11,6 +11,7 @@ import topics from "./topics";
 import codeSearch from "./codeSearch";
 import file from "./file";
 import searchHistory from "./searchHistory";
+import deepLinkMiddleware from "../middlewares/deepLink";
 
 const storage = createSecureStore();
 const reducer = persistReducer(
@@ -28,7 +29,7 @@ const reducer = persistReducer(
     searchHistory: searchHistory as any
   })
 );
-const middlewares = applyMiddleware(thunk);
+const middlewares = applyMiddleware(thunk, deepLinkMiddleware);
 
 export const createStore = () => {
   const store = createReduxStore(reducer, middlewares);

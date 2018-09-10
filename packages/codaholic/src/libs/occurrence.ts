@@ -1,13 +1,22 @@
-export const occurrence = (str, substr) => {
-  let count = 0;
-  let idx = 0;
-  while (idx < str.length) {
-    idx = str.indexOf(substr, idx);
-    if (idx === -1) {
-      break;
-    }
-    count++;
-    idx += substr.length;
-  }
-  return count;
+import { findAll } from "highlight-words-core";
+
+type MatchedChunk = {
+  start: number;
+  end: number;
+  highlight: boolean;
+};
+
+export const occurrences = (str: string, words: Array<string>) =>
+  getMatches(str, words).filter(({ highlight }: MatchedChunk) => highlight)
+    .length;
+
+export const getMatches = (
+  text: string,
+  words: Array<string>
+): Array<MatchedChunk> => {
+  return findAll({
+    textToHighlight: text,
+    searchWords: words,
+    autoEscape: true
+  });
 };

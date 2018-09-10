@@ -13,3 +13,8 @@ export const getRepository = createSelector(
   stripPrefix,
   (state: State) => state.repository
 );
+
+export const getPath = createSelector(
+  stripPrefix,
+  (state: State) => state.path
+);

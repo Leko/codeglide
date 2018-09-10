@@ -21,6 +21,7 @@ type Props = {
   onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent> | undefined) => any;
   scrollEventThrottle: number;
   scrollViewRef: (ref: ScrollView) => any;
+  onLongPress: (text: string) => any;
 };
 
 const CodeContainer = ({
@@ -46,6 +47,7 @@ export const SyntaxHighlighter: React.SFC<Props> = ({
   lineHeight,
   children,
   theme,
+  onLongPress,
   ...rest
 }: Props) => {
   const { transformedStyle, defaultColor } = generateNewStylesheet({
@@ -60,7 +62,8 @@ export const SyntaxHighlighter: React.SFC<Props> = ({
         lineHeight,
         defaultColor,
         fontFamily,
-        fontSize
+        fontSize,
+        onLongPress
       })}
     >
       {children}

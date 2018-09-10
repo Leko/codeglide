@@ -1,13 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
-import { findAll } from "highlight-words-core";
 import { connectStyle } from "@shoutem/theme";
-
-type MatchedChunk = {
-  start: number;
-  end: number;
-  highlight: boolean;
-};
+import { getMatches, MatchedChunk } from "../../libs/occurrence";
 
 type MatchedText = {
   key: string;
@@ -38,17 +32,6 @@ type Props = {
   children: string;
   cursor: number;
   onLayoutReady: () => any;
-};
-
-const getMatches = (
-  text: string,
-  words: Array<string>
-): Array<MatchedChunk> => {
-  return findAll({
-    textToHighlight: text,
-    searchWords: words,
-    autoEscape: true
-  });
 };
 
 const lexer = (

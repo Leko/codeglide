@@ -27,6 +27,7 @@ type Props = {
   highlightWords: Array<string>;
   highlightCount: number;
   onChangeHighlightWords: (words: Array<string>) => any;
+  onLongPress: (text: string) => any;
 };
 type State = {
   cursor: number;
@@ -77,7 +78,6 @@ export default class CodePreview extends PureComponent<Props> {
       top: this.wholeScrollPosition.top + top,
       left: this.wholeScrollPosition.left + left
     };
-    console.log(this.wholeScrollPosition, padding);
 
     if (this.horizontalScrollViewRef) {
       this.horizontalScrollViewRef.scrollTo({
@@ -177,7 +177,12 @@ export default class CodePreview extends PureComponent<Props> {
   };
 
   render() {
-    const { children, highlightWords, highlightCount } = this.props;
+    const {
+      children,
+      highlightWords,
+      highlightCount,
+      onLongPress
+    } = this.props;
     const { cursor } = this.state;
 
     return (
@@ -248,6 +253,7 @@ export default class CodePreview extends PureComponent<Props> {
               scrollViewRef={ref => {
                 this.verticalScrollViewRef = ref;
               }}
+              onLongPress={onLongPress}
             >
               {children}
             </SyntaxHighlighter>

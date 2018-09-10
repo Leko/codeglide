@@ -1,6 +1,6 @@
 // Forked from https://github.com/conorhastings/react-native-syntax-highlighter
 import React from "react";
-import { FlatList, Text } from "react-native";
+import { StyleSheet, FlatList, View, Text } from "react-native";
 import { createStyleObject } from "react-syntax-highlighter/create-element";
 
 type Node = {
@@ -22,24 +22,37 @@ export type HighlightJSTheme = {
   };
 };
 
+type NativeElementProps = {
+  node: Node;
+  stylesheet: HighlightJSTheme;
+  key: string;
+  defaultColor: string;
+  fontFamily: string;
+  fontSize?: number;
+  lineHeight: number;
+  onLongPress: (text: string) => any;
+};
 type ChildrenProps = {
   fontFamily: string;
   fontSize: number;
   lineHeight: number;
   stylesheet: HighlightJSTheme;
+  onLongPress: (text: string) => any;
 };
 type RendererProps = {
   defaultColor: string;
   fontFamily: string;
   fontSize: number;
   lineHeight: number;
+  onLongPress: (text: string) => any;
 };
 
 const createChildren = ({
   stylesheet,
   fontSize,
   lineHeight,
-  fontFamily
+  fontFamily,
+  onLongPress
 }: ChildrenProps) => {
   let childrenCount = 0;
   return (children: Array<Node>, defaultColor: string) => {
@@ -52,21 +65,13 @@ const createChildren = ({
         defaultColor,
         fontSize,
         lineHeight,
-        fontFamily
+        fontFamily,
+        onLongPress
       })
     );
   };
 };
 
-type NativeElementProps = {
-  node: Node;
-  stylesheet: HighlightJSTheme;
-  key: string;
-  defaultColor: string;
-  fontFamily: string;
-  fontSize?: number;
-  lineHeight: number;
-};
 const createNativeElement = ({
   node,
   stylesheet,
@@ -74,6 +79,7 @@ const createNativeElement = ({
   defaultColor,
   fontFamily,
   lineHeight,
+  onLongPress,
   fontSize = 12
 }: NativeElementProps) => {
   const { properties, type, tagName: TagName, value } = node;
@@ -86,6 +92,7 @@ const createNativeElement = ({
   if (type === "text") {
     return (
       <Text
+        onLongPress={onLongPress ? () => onLongPress(value) : undefined}
         key={key}
         style={Object.assign({ color: defaultColor }, startingStyle)}
       >
@@ -97,7 +104,8 @@ const createNativeElement = ({
       stylesheet,
       fontSize,
       lineHeight,
-      fontFamily
+      fontFamily,
+      onLongPress
     });
     const style = createStyleObject(
       properties.className,
@@ -109,9 +117,9 @@ const createNativeElement = ({
       style.color || defaultColor
     );
     return (
-      <Text key={key} style={style}>
+      <View key={key} style={styles.row}>
         {children}
-      </Text>
+      </View>
     );
   } else {
     throw new Error("Invalid props");
@@ -126,7 +134,8 @@ const lineRenderer = ({
   lineHeight,
   fontFamily,
   fontSize,
-  stylesheet
+  stylesheet,
+  onLongPress
 }: LineRendererProps) => ({
   item: node,
   index
@@ -141,14 +150,16 @@ const lineRenderer = ({
     defaultColor,
     fontFamily,
     fontSize,
-    lineHeight
+    lineHeight,
+    onLongPress
   });
 
 const renderer = ({
   lineHeight,
   defaultColor,
   fontFamily,
-  fontSize
+  fontSize,
+  onLongPress
 }: RendererProps) => {
   return ({
     rows,
@@ -170,10 +181,17 @@ const renderer = ({
         fontFamily,
         fontSize,
         lineHeight,
-        stylesheet
+        stylesheet,
+        onLongPress
       })}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row"
+  }
+});
 
 export default renderer;

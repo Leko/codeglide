@@ -5,10 +5,9 @@ import {
   NavigationScreenProp
 } from "react-navigation";
 import { View } from "@shoutem/ui";
-import sumBy from "lodash/sumBy";
 import CodePreview from "../organisms/CodePreview";
 import * as Placeholder from "../atoms/Placeholder";
-import { occurrence } from "../../libs/occurrence";
+import { occurrences } from "../../libs/occurrence";
 import Button from "../molecules/Button";
 
 type Params = {
@@ -20,6 +19,7 @@ type Props = {
   navigation: NavigationScreenProp<Params>;
   contents: string;
   loadContents: (location: { repository: string; path: string }) => any;
+  onRequestSuggeestion: (token: string) => any;
 };
 
 class Preview extends Component<Props> {
@@ -34,6 +34,10 @@ class Preview extends Component<Props> {
   handleChangeHighlightWords = (words: Array<string>) => {
     const { navigation } = this.props;
     navigation.setParams({ highlights: words.join(",") });
+  };
+
+  handleLongPress = (text: string) => {
+    this.props.onRequestSuggeestion(text);
   };
 
   render() {
@@ -53,15 +57,14 @@ class Preview extends Component<Props> {
 
     const { highlights } = navigation.state.params || { highlights: "" };
     const highlightWords = highlights.split(",").filter(Boolean);
-    const count = sumBy(highlightWords, (word: string) =>
-      occurrence(contents, word)
-    );
+    const count = occurrences(contents, highlightWords);
     return (
       <View style={{ flex: 1 }}>
         <CodePreview
           highlightWords={highlightWords}
           highlightCount={count}
           onChangeHighlightWords={this.handleChangeHighlightWords}
+          onLongPress={this.handleLongPress}
         >
           {contents}
         </CodePreview>
