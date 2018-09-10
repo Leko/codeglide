@@ -1,16 +1,17 @@
 import { Language } from "./type";
-import { extensions } from "linguist-languages/data/javascript.json";
+import { extensions } from "linguist-languages/data/markdown.json";
 import { extensionsToRegExp } from "./util";
 
-const javascript: Language = {
+const fallback: Language = {
   test: extensionsToRegExp(extensions),
   tokenize(selection: string): Array<string> {
     return selection
-      .replace(/\'|\"/g, "")
-      .split(/(\s|\t)+/)
+      .replace(/\'|\"|\`/g, "")
+      .replace(/^(\#+|\s*\*|\s*\-|\>)/g, "")
+      .split(/(\s|\t)+/g)
       .map(w => w.trim())
       .filter(Boolean);
   }
 };
 
-export default javascript;
+export default fallback;
