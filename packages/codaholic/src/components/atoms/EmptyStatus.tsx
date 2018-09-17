@@ -9,6 +9,7 @@ export class EmptyStatus extends React.PureComponent {
     return (
       <Lottie
         ref={ref => {
+          if (!ref) return;
           ref.reset();
           ref.play();
         }}
