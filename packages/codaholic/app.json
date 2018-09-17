@@ -2,7 +2,7 @@
   "expo": {
     "version": "1.0.0",
     "privacy": "unlisted",
-    "scheme": "codaholic",
+    "scheme": "Glide",
     "orientation": "portrait",
     "primaryColor": "#2B2C5A",
     "sdkVersion": "27.0.0",
@@ -25,6 +25,9 @@
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
+    },
+    "ios": {
+      "bundleIdentifier": "jp.leko.glide"
     }
   }
 }
