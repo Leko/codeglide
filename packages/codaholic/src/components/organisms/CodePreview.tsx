@@ -8,7 +8,7 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent
 } from "react-native";
-import { atomOneDark } from "react-syntax-highlighter/styles/hljs";
+import colorScheme from "react-syntax-highlighter/styles/hljs/vs2015";
 import FocusWords, {
   FocusWords as FocusWordsType,
   Position
@@ -35,10 +35,10 @@ type State = {
 
 const fontSize = 12;
 const fontFamily = Platform.OS === "ios" ? "Menlo-Regular" : "monospace";
-const backgroundColor = atomOneDark.hljs.background;
-const padding = Number(atomOneDark.hljs.padding.replace("em", "")) * 16;
+const backgroundColor = colorScheme.hljs.background;
+const padding = Number(colorScheme.hljs.padding.replace("em", "")) * 16;
 
-atomOneDark.hljs.background = "transparent";
+colorScheme.hljs.background = "transparent";
 
 export default class CodePreview extends PureComponent<Props> {
   wholeScrollPosition: { top: number; left: number } = { top: 0, left: 0 };
@@ -247,7 +247,7 @@ export default class CodePreview extends PureComponent<Props> {
               lineHeight={17}
               fontSize={fontSize}
               fontFamily={fontFamily}
-              theme={atomOneDark}
+              theme={colorScheme}
               onScroll={this.handleScroll}
               scrollEventThrottle={1000 / 60}
               scrollViewRef={ref => {
