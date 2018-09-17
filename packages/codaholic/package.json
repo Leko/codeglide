@@ -28,6 +28,7 @@
     "formik": "^1.0.3",
     "github-url-to-object": "^4.0.4",
     "highlight-words-core": "^1.2.0",
+    "is-url": "^1.2.4",
     "jshashes": "^1.0.7",
     "linguist-languages": "^6.3.0",
     "lodash": "^4.17.10",

@@ -7,5 +7,8 @@ export type ContextMenu = {
 
 export interface Extension {
   test: RegExp;
-  getContextMenu(dispatch: Dispatch, token: string): Array<ContextMenu>;
+  getContextMenu(
+    dispatch: Dispatch,
+    token: string
+  ): Promise<Array<ContextMenu>>;
 }

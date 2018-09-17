@@ -1,18 +1,19 @@
+import isUrl from "is-url";
 import { Extension } from "../type";
 import { creators } from "../../../../modules/deepLink";
 
 const npm: Extension = {
-  test: /\.(js|json)$/,
+  test: /.*/,
   async getContextMenu(dispatch, token) {
+    if (!isUrl(token)) {
+      return [];
+    }
+
     return [
       {
-        message: "Search in npmjs.com",
+        message: "Open in browser",
         onPress: () => {
-          dispatch(
-            creators.openInBrowser({
-              url: `https://www.npmjs.com/package/${token}`
-            })
-          );
+          dispatch(creators.openInBrowser({ url: token }));
         }
       }
     ];
