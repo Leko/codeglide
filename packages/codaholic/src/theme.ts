@@ -110,6 +110,11 @@ const themerize = (palette: Palette): Theme => ({
       paddingHorizontal: 3
     }
   },
+  BackdropButton: {
+    ".destructive": {
+      backgroundColor: palette.EYECATCH
+    }
+  },
   Checkbox: {
     fontSize: 22,
     color: palette.TEXT

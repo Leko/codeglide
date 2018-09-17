@@ -1,5 +1,10 @@
 import React from "react";
-import { ScrollView, FlatList, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  TouchableOpacity
+} from "react-native";
 import { View, TextInput } from "@shoutem/ui";
 import { withFormik, FormikProps } from "formik";
 import range from "lodash/range";
@@ -60,25 +65,23 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
     }
   }
 
+  handlePressResult = (result: Result) => {
+    this.props.onRequestDetail({
+      repository: result.repository.full_name,
+      path: result.path,
+      highlights: uniq(
+        flatMap(result.text_matches, ({ matches }) =>
+          matches.map(({ text }) => text)
+        )
+      )
+    });
+  };
+
   renderResult = ({ item: result }: { item: Result }) => (
     <View>
       <TouchableOpacity
-        onPress={() =>
-          this.props.onRequestDetail({
-            repository: result.repository.full_name,
-            path: result.path,
-            highlights: uniq(
-              flatMap(result.text_matches, ({ matches }) =>
-                matches.map(({ text }) => text)
-              )
-            )
-          })
-        }
-        style={{
-          marginVertical: 12,
-          flexDirection: "row",
-          alignItems: "center"
-        }}
+        onPress={() => this.handlePressResult(result)}
+        style={styles.resultTouchable}
       >
         <View style={{ flex: 1 }}>
           <View style={{ marginBottom: 6 }}>
@@ -274,6 +277,15 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  flexible: { flex: 1 },
+  resultTouchable: {
+    marginVertical: 12,
+    flexDirection: "row",
+    alignItems: "center"
+  }
+});
 
 export default withFormik({
   validateOnBlur: true,

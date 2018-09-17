@@ -21,3 +21,11 @@ export const append = (state: State, query: SearchParams): State => {
     }
   };
 };
+
+export const destroy = (state: State, digest: string): State => {
+  const { [digest]: _, ...histories } = state.histories;
+  return {
+    ...state,
+    histories
+  };
+};

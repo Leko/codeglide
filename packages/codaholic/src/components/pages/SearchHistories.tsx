@@ -1,32 +1,59 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { TouchableHighlight } from "react-native";
 import {
   NavigationScreenOptions,
   NavigationScreenProp
 } from "react-navigation";
 import { View } from "@shoutem/ui";
-import Histories from "../organisms/Histories";
+import { SwipeListView } from "react-native-swipe-list-view";
+import History from "../molecules/History";
+import ListItem from "../molecules/ListItem";
 import Button from "../molecules/Button";
+import BackdropButton from "../molecules/BackdropButton";
 import { History as HistoryType } from "../../modules/searchHistory/state";
 
 type Props = {
   navigation: NavigationScreenProp<void>;
   histories: Array<HistoryType>;
+  removeHistory: (history: HistoryType) => any;
 };
 
-const SearchHistories = ({ navigation, histories }: Props) => (
+const SearchHistories = ({ navigation, histories, removeHistory }: Props) => (
   <View style={{ flex: 1 }}>
-    <ScrollView contentContainerStyle={{ flex: 1, padding: 10 }}>
-      <Histories
-        histories={histories}
-        onPress={(h: HistoryType) =>
-          navigation.navigate("Dashboard", {
-            openSearch: true,
-            searchParams: h.query
-          })
-        }
-      />
-    </ScrollView>
+    <SwipeListView
+      useFlatList
+      disableRightSwipe
+      data={histories.map((h: HistoryType) => ({ ...h, key: h.digest }))}
+      renderItem={({ item: history }: { item: HistoryType }) => (
+        <TouchableHighlight
+          onPress={() =>
+            navigation.navigate("Dashboard", {
+              openSearch: true,
+              searchParams: history.query
+            })
+          }
+        >
+          <View>
+            <ListItem key={history.digest}>
+              <View style={{ flex: 1, paddingHorizontal: 10 }}>
+                <History history={history} />
+              </View>
+            </ListItem>
+          </View>
+        </TouchableHighlight>
+      )}
+      renderHiddenItem={({ item: history }: { item: HistoryType }) => (
+        <View style={{ alignItems: "flex-end" }}>
+          <BackdropButton
+            styleName="destructive"
+            onPress={() => removeHistory(history)}
+          >
+            Remove
+          </BackdropButton>
+        </View>
+      )}
+      rightOpenValue={-75}
+    />
   </View>
 );
 

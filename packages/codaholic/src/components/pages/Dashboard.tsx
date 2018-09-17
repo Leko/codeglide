@@ -57,13 +57,17 @@ const Dashboard = ({
             navigation.setParams({ searchParams: null, openSearch: false })
           }
           onSubmit={(values: SearchParams) => search(values)}
-          onRequestDetail={({ repository, path, highlights }: DetailRequest) =>
+          onRequestDetail={({
+            repository,
+            path,
+            highlights
+          }: DetailRequest) => {
             navigation.navigate("Preview", {
               repository,
               path,
               highlights: uniq(highlights.map(w => w.toLowerCase())).join(",")
-            })
-          }
+            });
+          }}
           busy={busy}
           total={total}
           current={current}

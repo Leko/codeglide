@@ -1,12 +1,17 @@
 import { connect } from "react-redux";
 import { State } from "../modules/state";
 import SearchHistories from "../components/pages/SearchHistories";
-import { selectors as searchHistorySelectors } from "../modules/searchHistory";
+import { creators, selectors } from "../modules/searchHistory";
+import { History } from "../modules/searchHistory/state";
 
 const mapStateToProps = (state: State) => ({
-  histories: searchHistorySelectors.getLRUHistories(state)
+  histories: selectors.getLRUHistories(state)
 });
-const mapDispatchToProps = (dispatch: any) => ({});
+const mapDispatchToProps = (dispatch: any) => ({
+  removeHistory(history: History) {
+    dispatch(creators.destroy(history.digest));
+  }
+});
 
 export default connect(
   mapStateToProps,
