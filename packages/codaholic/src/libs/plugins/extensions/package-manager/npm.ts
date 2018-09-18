@@ -6,6 +6,7 @@ const npm: Extension = {
   async getContextMenu(dispatch, token) {
     return [
       {
+        slug: "npm/search-in-npmjs.com",
         message: "Search in npmjs.com",
         onPress: () => {
           dispatch(

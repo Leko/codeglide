@@ -3,6 +3,7 @@ import { ActionSheetIOS } from "react-native"; // FIXME: Support Android
 import { navigate } from "../libs/NavigationService";
 import { selectors } from "../modules/file";
 import { languages, extensions } from "../libs/plugins";
+import * as analytics from "../libs/ga";
 
 export type Choice = {
   message: string;
@@ -21,7 +22,9 @@ const showActionSheet = (
       ? [
           {
             message: MESSAGE_CANCEL,
-            onPress() {}
+            onPress() {
+              analytics.trackEvent("preview", "actionsheet:matched:cancelled");
+            }
           }
         ]
       : []
@@ -58,12 +61,21 @@ export default (text: string) => async (dispatch, getState) => {
   const repository = selectors.getRepository(getState());
   if (!path || !repository) return;
 
+  analytics.trackEvent("preview", "actionsheet", { label: text });
+
   const language = languages.getMatch(path);
   const tokens = language.tokenize(text);
-  if (tokens.length === 0) return;
+  if (tokens.length === 0) {
+    analytics.trackEvent("preview", "actionsheet:failed", {
+      label: "TOKEN_IS_EMPTY"
+    });
+  }
 
   let token = tokens[0];
   if (tokens.length > 1) {
+    analytics.trackEvent("preview", "actionsheet:selection", {
+      value: tokens.length
+    });
     const tokenChoices = tokens.map(token => ({
       message: token,
       onPress: (): string => token
@@ -71,6 +83,7 @@ export default (text: string) => async (dispatch, getState) => {
     token = await showActionSheet(`Which one do you select?`, tokenChoices);
   }
   if (!token) {
+    analytics.trackEvent("preview", "actionsheet:selection:cancelled");
     return;
   }
 
@@ -83,6 +96,7 @@ export default (text: string) => async (dispatch, getState) => {
   const MESSAGE_SEARCH = `Search in ${repository}`;
   const messages = [
     {
+      slug: `search-in-app`,
       message: MESSAGE_SEARCH,
       onPress: () =>
         navigate("Dashboard", {
@@ -93,7 +107,20 @@ export default (text: string) => async (dispatch, getState) => {
           }
         })
     },
-    ...flatten(menus)
+    ...flatten(menus).map(menu => {
+      analytics.trackEvent("preview", "actionsheet:matched", {
+        label: menu.slug
+      });
+
+      return {
+        ...menu,
+        onPress: () => {
+          analytics.trackEvent("preview", "actionsheet:matched:chosen", {
+            label: menu.slug
+          });
+        }
+      };
+    })
   ];
 
   await showActionSheet(token, messages);

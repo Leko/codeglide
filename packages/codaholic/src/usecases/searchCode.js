@@ -5,6 +5,7 @@ import querystring from "query-string";
 import { creators as codeSearchCreators } from "../modules/codeSearch";
 import { creators as historyCreators } from "../modules/searchHistory";
 import getCredential from "../selectors/getCredential";
+import * as analytics from "../libs/ga";
 
 export type SearchParams = {
   q: string,
@@ -30,6 +31,9 @@ export default (query: SearchParams) => async (dispatch, getState) => {
   };
   const url =
     "https://api.github.com/search/code?" + querystring.stringify(params);
+  analytics.trackEvent("search", "start", {
+    label: querystring.stringify(params)
+  });
   const found = await fetch(url, {
     method: "GET",
     headers: {
@@ -40,6 +44,9 @@ export default (query: SearchParams) => async (dispatch, getState) => {
 
   if (Array.isArray(found.errors)) {
     found.errors.forEach(({ code, field, message }) => {
+      analytics.trackEvent("search", "failed", {
+        label: message
+      });
       Sentry.captureBreadcrumb({
         message,
         category: code,
@@ -54,10 +61,17 @@ export default (query: SearchParams) => async (dispatch, getState) => {
   }
   // TODO: Error handling
   if (!found.items) {
+    analytics.trackEvent("search", "failed", {
+      label: "UNKNOWN"
+    });
     throw new Error("Search failed");
   }
 
   const { items, total_count, incomplete_results } = found;
+  analytics.trackEvent("search", "success", {
+    label: incomplete_results ? "INCOMPLETE" : "COMPLETE",
+    value: total_count
+  });
   dispatch(
     codeSearchCreators.setResults({
       results: items,

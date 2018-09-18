@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 
 export type ContextMenu = {
+  slug: string;
   message: string;
   onPress: () => any;
 };

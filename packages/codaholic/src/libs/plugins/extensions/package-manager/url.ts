@@ -11,6 +11,7 @@ const npm: Extension = {
 
     return [
       {
+        slug: "url/open-in-browser",
         message: "Open in browser",
         onPress: () => {
           dispatch(creators.openInBrowser({ url: token }));

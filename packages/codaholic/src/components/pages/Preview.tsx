@@ -9,6 +9,7 @@ import CodePreview from "../organisms/CodePreview";
 import * as Placeholder from "../atoms/Placeholder";
 import { occurrences } from "../../libs/occurrence";
 import Button from "../molecules/Button";
+import * as analytics from "../../libs/ga";
 
 type Params = {
   repository: string; // owner/repo
@@ -34,6 +35,7 @@ class Preview extends Component<Props> {
   handleChangeHighlightWords = (words: Array<string>) => {
     const { navigation } = this.props;
     navigation.setParams({ highlights: words.join(",") });
+    analytics.trackEvent("preview", "highlight", { label: words.join(",") });
   };
 
   handleLongPress = (text: string) => {

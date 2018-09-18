@@ -1,6 +1,7 @@
 import parse from "github-url-to-object";
 import { creators, TOPIC_CLIPBOARD } from "../modules/topics";
 import { selectors } from "../modules/file";
+import * as analytics from "../libs/ga";
 
 export default clipboardText => async (dispatch, getState) => {
   const url = parse(clipboardText);
@@ -25,6 +26,7 @@ export default clipboardText => async (dispatch, getState) => {
       visible: true
     }
   };
+  analytics.trackEvent("clipboard", "suggest", { label: `${repo}/${user}` });
   dispatch(creators.publish({ topic: TOPIC_CLIPBOARD, notification }));
   setTimeout(() => {
     dispatch(

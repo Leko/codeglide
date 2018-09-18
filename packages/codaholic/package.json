@@ -24,6 +24,7 @@
     "cross-fetch": "^2.2.2",
     "date-fns": "^1.29.0",
     "expo": "^27.0.1",
+    "expo-analytics": "^1.0.7",
     "firebase": "^5.4.0",
     "formik": "^1.0.3",
     "github-url-to-object": "^4.0.4",

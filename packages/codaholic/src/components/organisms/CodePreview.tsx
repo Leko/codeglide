@@ -21,6 +21,7 @@ import Button from "../molecules/Button";
 import SearchBar from "../organisms/SearchBar";
 import KeyboardSpacer from "../organisms/KeyboardSpacer";
 import { ScrollAdjuster } from "../../libs/ScrollAdjuster";
+import * as analytics from "../../libs/ga";
 
 type Props = {
   children: string;
@@ -131,6 +132,7 @@ export default class CodePreview extends PureComponent<Props> {
     if (!this.focusWordsRef) {
       return;
     }
+    analytics.trackEvent("preview", "highlight:prev", { label: "valid" });
     const newCursor = Math.max(0, this.state.cursor - 1);
     this.setState(
       {
@@ -144,6 +146,7 @@ export default class CodePreview extends PureComponent<Props> {
     if (!this.focusWordsRef) {
       return;
     }
+    analytics.trackEvent("preview", "highlight:next", { label: "valid" });
     const { highlightCount } = this.props;
     const newCursor = Math.min(highlightCount - 1, this.state.cursor + 1);
     this.setState(

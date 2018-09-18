@@ -5,7 +5,8 @@ import {
   createStackNavigator,
   createDrawerNavigator,
   NavigationStackScreenOptions,
-  NavigationScreenProp
+  NavigationScreenProp,
+  NavigationState
 } from "react-navigation";
 import * as NavigationService from "./libs/NavigationService";
 import Redirector from "./containers/Redirector";
@@ -14,6 +15,7 @@ import Dashboard from "./containers/Dashboard";
 import SearchHistories from "./containers/SearchHistories";
 import Preview from "./containers/Preview";
 import Drawer from "./containers/Drawer";
+import * as analytics from "./libs/ga";
 
 interface IStyle {
   tintColor: string;
@@ -45,10 +47,10 @@ const Routes = ({ style }: Props) => {
       //   highlights: ["{"].join(",")
       // },
       initialRouteName: "Dashboard",
-      initialRouteParams: {
-        openSearch: true,
-        searchParams: { repo: "Leko/hothouse" }
-      },
+      // initialRouteParams: {
+      //   openSearch: true,
+      //   searchParams: { q: "package", repo: "Leko/hothouse" }
+      // },
       navigationOptions
     }
   );
@@ -100,10 +102,32 @@ const Routes = ({ style }: Props) => {
     }
   );
 
+  const getActiveRouteName = (navigationState: NavigationState) => {
+    if (!navigationState) {
+      return null;
+    }
+    const route = navigationState.routes[navigationState.index];
+    if (route.routes) {
+      return getActiveRouteName(route);
+    }
+    return route.routeName;
+  };
+
   return (
     <RootStack
       ref={(ref: NavigationComponent) => {
         NavigationService.set(ref);
+      }}
+      onNavigationStateChange={(
+        prevState: NavigationState,
+        currentState: NavigationState
+      ) => {
+        const currentScreen = getActiveRouteName(currentState);
+        const prevScreen = getActiveRouteName(prevState);
+
+        if (prevScreen !== currentScreen) {
+          analytics.trackScreenView(currentScreen);
+        }
       }}
     />
   );
