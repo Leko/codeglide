@@ -1,5 +1,6 @@
 const { URLSearchParams } = require("url");
 const fetch = require("node-fetch").default;
+const { redirectTo, stringify } = require("./util");
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 exports.handler = async function(event, context) {
@@ -16,20 +17,30 @@ exports.handler = async function(event, context) {
       (acc, [key, value]) => ({ ...acc, [key]: decodeURIComponent(value) }),
       {}
     );
-  // TODO: Whitelisting
+  // TODO: Whitelisting redirect_uri
   if (!cookie.redirect_uri) {
     return {
       statusCode: 400,
       body: "malformed request"
     };
   }
+  if (!cookie.state) {
+    return redirectTo(
+      `${cookie.redirect_uri}?${stringify({
+        error: "bad_request",
+        error_description: "malformed request"
+      })}`
+    );
+  }
 
   const code = event.queryStringParameters.code;
   if (!code) {
-    return {
-      statusCode: 400,
-      body: "code must be required"
-    };
+    return redirectTo(
+      `${cookie.redirect_uri}?${stringify({
+        error: "bad_request",
+        error_description: "code must be required"
+      })}`
+    );
   }
 
   try {
@@ -42,8 +53,8 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({
         client_id: GITHUB_CLIENT_ID,
         client_secret: GITHUB_CLIENT_SECRET,
-        code
-        // state
+        state: cookie.state,
+        code: code
         // redirect_uri
       })
     });
@@ -53,23 +64,14 @@ exports.handler = async function(event, context) {
       params.set(p, credentials[p]);
     }
 
-    return {
-      statusCode: 302,
-      headers: {
-        Location: `${cookie.redirect_uri}?${params.toString()}`
-      },
-      body: ""
-    };
+    return redirectTo(`${cookie.redirect_uri}?${params.toString()}`);
   } catch (e) {
-    return {
-      statusCode: 500,
-      body: "Unexpected error occured"
-    };
+    // FIXME: Sentry
+    return redirectTo(
+      `${cookie.redirect_uri}?${stringify({
+        error: "internal_server_error",
+        error_description: "Unexpected error occured"
+      })}`
+    );
   }
-
-  return {
-    statusCode: 200,
-    headers: {},
-    body: "OK"
-  };
 };
