@@ -1,0 +1,19 @@
+{
+  "name": "@codeglide/functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "dotenv netlify-lambda serve src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leko <leko.noor@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "netlify-lambda": "^0.4.0",
+    "node-fetch": "^2.2.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^1.4.0"
+  }
+}
