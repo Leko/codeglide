@@ -10,7 +10,7 @@ export default () => async dispatch => {
     state: crypto.lib.WordArray.random(16).toString(),
     redirect_uri: redirectUrl
   });
-  const authUrl = `${"http://localhost:9000"}/authorize?${query}`;
+  const authUrl = `${env.AUTH_DOMAIN}/authorize?${query}`;
   const result = await AuthSession.startAsync({ authUrl });
 
   // TODO: Error handling
@@ -36,6 +36,7 @@ export default () => async dispatch => {
       )
       .catch(() => {
         // TODO: Error handling
+        console.error(e);
       });
   }
 };
