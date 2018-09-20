@@ -1,6 +1,6 @@
 const { URLSearchParams } = require("url");
 const fetch = require("node-fetch").default;
-const { redirectTo, stringify } = require("./util");
+const { redirectTo, stringify, validateRedirectUri } = require("./util");
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 exports.handler = async function(event, context) {
@@ -17,13 +17,15 @@ exports.handler = async function(event, context) {
       (acc, [key, value]) => ({ ...acc, [key]: decodeURIComponent(value) }),
       {}
     );
-  // TODO: Whitelisting redirect_uri
-  if (!cookie.redirect_uri) {
+  try {
+    validateRedirectUri(cookie.redirect_uri);
+  } catch (error) {
     return {
       statusCode: 400,
-      body: "malformed request"
+      body: error.message
     };
   }
+
   if (!cookie.state) {
     return redirectTo(
       `${cookie.redirect_uri}?${stringify({

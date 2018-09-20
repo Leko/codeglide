@@ -1,31 +1,24 @@
 const { URL, URLSearchParams } = require("url");
-const { redirectTo, stringify } = require("./util");
+const { redirectTo, stringify, validateRedirectUri } = require("./util");
 const { GITHUB_CLIENT_ID } = process.env;
 
 exports.handler = async function(event, context) {
   const redirect_uri = event.queryStringParameters.redirect_uri;
   const state = event.queryStringParameters.state;
-  if (!redirect_uri) {
+  try {
+    validateRedirectUri(redirect_uri);
+  } catch (error) {
     return {
       statusCode: 400,
-      body: "redirect_uri must be required"
+      body: error.message
     };
   }
+
   if (!state) {
     return redirectTo(
       `${redirect_uri}?${stringify({
         error: "bad_request",
         error_description: "state must be required"
-      })}`
-    );
-  }
-  try {
-    new URL(redirect_uri);
-  } catch (e) {
-    return redirectTo(
-      `${redirect_uri}?${stringify({
-        error: "bad_request",
-        error_description: "malformed redirect_uri"
       })}`
     );
   }
