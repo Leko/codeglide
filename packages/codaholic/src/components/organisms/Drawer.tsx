@@ -53,12 +53,12 @@ export const Drawer = ({
               }}
             />
             <View style={{ flex: 1, paddingLeft: 10 }}>
-              <Caption>{displayName || "anonymous"}</Caption>
+              <Caption>{displayName || "Anonymous"}</Caption>
             </View>
           </Row>
         ) : (
           <MenuListItem onPress={onPressSignIn}>
-            <Caption>Login with GitHub</Caption>
+            <Caption>Sign in with GitHub</Caption>
           </MenuListItem>
         )}
         <Divider styleName="thin" />
