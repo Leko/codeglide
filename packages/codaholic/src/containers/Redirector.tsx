@@ -1,8 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { NavigationScreenProp } from "react-navigation";
-import { State } from "../modules";
-import getCredential from "../selectors/getCredential";
+import { State } from "../modules/state";
+import { selectors } from "../modules/user";
 
 type Props = {
   credential: string | null;
@@ -27,7 +27,7 @@ class Redirector extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-  credential: getCredential(state)
+  credential: selectors.getCredential(state)
 });
 
 export default connect(mapStateToProps)(Redirector);

@@ -1,15 +1,20 @@
 import { connect } from "react-redux";
 import { version } from "../../package.json";
 import Drawer from "../components/organisms/Drawer";
-import { creators } from "../modules/user";
-import { State } from "../modules";
-import getCredential from "../selectors/getCredential";
+import { creators, selectors } from "../modules/user";
+import { State } from "../modules/state";
+import loginWithGithub from "../usecases/loginWithGithub";
 
 const mapStateToProps = (state: State) => ({
   version,
-  credential: getCredential(state)
+  credential: selectors.getCredential(state),
+  avatarUrl: selectors.getAvatarUrl(state),
+  displayName: selectors.getDisplayName(state)
 });
 const mapDispatchToProps = (dispatch: any) => ({
+  onPressSignIn() {
+    dispatch(loginWithGithub());
+  },
   onPressSignOut() {
     dispatch(creators.logout());
   }

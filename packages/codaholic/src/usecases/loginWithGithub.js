@@ -1,4 +1,5 @@
 import { AuthSession } from "expo";
+import crypto from "crypto-js/core";
 import qs from "query-string";
 import env from "../env";
 import { creators } from "../modules/user";
@@ -6,22 +7,35 @@ import { creators } from "../modules/user";
 export default () => async dispatch => {
   const redirectUrl = AuthSession.getRedirectUrl();
   const query = qs.stringify({
-    connection: "github",
-    response_type: "token",
-    scope: ["public_repo"].join(" "),
-    client_id: env.AUTH0_CLIENT_ID,
+    state: crypto.lib.WordArray.random(16).toString(),
     redirect_uri: redirectUrl
   });
-  const result = await AuthSession.startAsync({
-    authUrl: `${env.AUTH0_DOMAIN}/authorize?${query}`
-  });
+  const authUrl = `${"http://localhost:9000"}/authorize?${query}`;
+  const result = await AuthSession.startAsync({ authUrl });
 
   // TODO: Error handling
-  console.log({ redirectUrl, result });
   if (result.type === "success") {
     const {
       params: { access_token }
     } = result;
-    dispatch(creators.setCredential(access_token));
+
+    return fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${access_token}`
+      }
+    })
+      .then(res => res.json())
+      .then(({ avatar_url, login }) =>
+        dispatch(
+          creators.setCredential({
+            accessToken: access_token,
+            avatarUrl: avatar_url,
+            displayName: login
+          })
+        )
+      )
+      .catch(() => {
+        // TODO: Error handling
+      });
   }
 };

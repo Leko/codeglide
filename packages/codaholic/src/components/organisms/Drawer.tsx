@@ -1,5 +1,6 @@
 import * as React from "react";
-import { SafeAreaView, View, StyleSheet } from "react-native";
+import { SafeAreaView, View, Image, StyleSheet } from "react-native";
+// import { Image } from "@shoutem/ui";
 import { connectStyle } from "@shoutem/theme";
 import Divider from "../atoms/Divider";
 import { Subtitle } from "../atoms/Subtitle";
@@ -16,8 +17,11 @@ interface IStyle {
 export type Props = {
   style?: IStyle;
   version: string;
-  credential: string;
-  onPressSignOut: string;
+  credential: string | null;
+  avatarUrl: string | null;
+  displayName: string | null;
+  onPressSignIn: () => void;
+  onPressSignOut: () => void;
 };
 
 // FIXME: Create new molecules
@@ -25,6 +29,9 @@ export const Drawer = ({
   style,
   version,
   credential,
+  avatarUrl,
+  displayName,
+  onPressSignIn,
   onPressSignOut
 }: Props) => (
   <SafeAreaView style={[styles.container, style && style.container]}>
@@ -35,6 +42,26 @@ export const Drawer = ({
       </Row>
       <Divider styleName="thin" />
       <View style={flex}>
+        {credential ? (
+          <Row style={{ paddingVertical: 10 }}>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri:
+                  avatarUrl ||
+                  "https://www.gravatar.com/avatar/x?f=y&s=200&d=retro"
+              }}
+            />
+            <View style={{ flex: 1, paddingLeft: 10 }}>
+              <Caption>{displayName || "anonymous"}</Caption>
+            </View>
+          </Row>
+        ) : (
+          <MenuListItem onPress={onPressSignIn}>
+            <Caption>Login with GitHub</Caption>
+          </MenuListItem>
+        )}
+        <Divider styleName="thin" />
         <MenuListItem onPress={() => {}}>
           <Caption>Settings</Caption>
         </MenuListItem>
@@ -60,6 +87,11 @@ const flex = {
 const styles = StyleSheet.create({
   container: {
     ...flex
+  },
+  avatar: {
+    borderRadius: 20,
+    width: 40,
+    height: 40
   }
 });
 

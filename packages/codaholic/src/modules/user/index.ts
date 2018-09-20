@@ -1,26 +1,36 @@
 import { createAggregate } from "redux-aggregate";
+import { State, Namespace } from "./state";
+import * as selectors from "./selectors";
 
-export type State = {
-  readonly accessToken: string | null;
-};
+const initialState = (): State => ({
+  avatarUrl: null,
+  displayName: null,
+  accessToken: null
+});
 
-const initialState = (): State => ({ accessToken: null });
-
-const setCredential = (state: State, accessToken: string): State => ({
+const setCredential = (
+  state: State,
+  {
+    avatarUrl,
+    displayName,
+    accessToken
+  }: { avatarUrl: string; displayName: string; accessToken: string }
+): State => ({
   ...state,
+  avatarUrl,
+  displayName,
   accessToken
 });
 
-const logout = (state: State) => ({
-  ...state,
-  accessToken: null
-});
+const logout = () => initialState();
 
 const mutations = { setCredential, logout };
 
 export const { types, creators, reducerFactory } = createAggregate(
   mutations,
-  "user/"
+  `${Namespace}/`
 );
 
 export default reducerFactory(initialState());
+
+export { selectors };

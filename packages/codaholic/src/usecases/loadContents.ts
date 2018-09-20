@@ -3,6 +3,7 @@ import Sentry from "sentry-expo";
 import fetch from "cross-fetch";
 import querystring from "query-string";
 import { creators } from "../modules/file";
+import { selectors } from "../modules/user";
 import * as analytics from "../libs/ga";
 
 export type SearchParams = {
@@ -11,7 +12,10 @@ export type SearchParams = {
   ref?: string;
 };
 
-export default ({ repository, path, ref }: SearchParams) => async dispatch => {
+export default ({ repository, path, ref }: SearchParams) => async (
+  dispatch,
+  getState
+) => {
   dispatch(creators.dismiss());
 
   const q = querystring.stringify({ ref });
@@ -19,10 +23,12 @@ export default ({ repository, path, ref }: SearchParams) => async dispatch => {
   analytics.trackEvent("preview", "loadStart", {
     label: `${repository}/${path}/${ref}`
   });
+  const accessToken = selectors.getCredential(getState());
   const found = await fetch(url, {
     method: "GET",
     headers: {
-      Accept: "application/json"
+      Accept: "application/json",
+      Authorization: accessToken ? `Bearer ${accessToken}` : ""
     }
   }).then(res => res.json());
 

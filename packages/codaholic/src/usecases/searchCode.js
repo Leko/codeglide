@@ -4,7 +4,7 @@ import omit from "lodash/omit";
 import querystring from "query-string";
 import { creators as codeSearchCreators } from "../modules/codeSearch";
 import { creators as historyCreators } from "../modules/searchHistory";
-import getCredential from "../selectors/getCredential";
+import { selectors } from "../modules/user";
 import * as analytics from "../libs/ga";
 
 export type SearchParams = {
@@ -34,11 +34,13 @@ export default (query: SearchParams) => async (dispatch, getState) => {
   analytics.trackEvent("search", "start", {
     label: querystring.stringify(params)
   });
+  const accessToken = selectors.getCredential(getState());
   const found = await fetch(url, {
     method: "GET",
     headers: {
       // https://developer.github.com/v3/search/#text-match-metadata
-      Accept: "application/vnd.github.v3.text-match+json"
+      Accept: "application/vnd.github.v3.text-match+json",
+      Authorization: accessToken ? `Bearer ${accessToken}` : ""
     }
   }).then(res => res.json());
 
