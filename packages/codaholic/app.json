@@ -1,8 +1,11 @@
 {
   "expo": {
+    "name": "CodeGlide",
     "version": "1.0.0",
+    "slug": "codeglide",
+    "scheme": "codeglide",
     "privacy": "unlisted",
-    "scheme": "Glide",
+    "icon": "./assets/icon.png",
     "orientation": "portrait",
     "primaryColor": "#2B2C5A",
     "sdkVersion": "27.0.0",
