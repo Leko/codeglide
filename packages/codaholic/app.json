@@ -9,6 +9,19 @@
     "orientation": "portrait",
     "primaryColor": "#2B2C5A",
     "sdkVersion": "27.0.0",
+    "assetBundlePatterns": [
+      "node_modules/@shoutem/ui/fonts/Rubik-Black.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-BlackItalic.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-Bold.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-BoldItalic.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-Italic.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-Light.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-LightItalic.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-Medium.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-MediumItalic.ttf",
+      "node_modules/@shoutem/ui/fonts/Rubik-Regular.ttf",
+      "node_modules/@shoutem/ui/fonts/rubicon-icon-font.ttf"
+    ],
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#2B2C5A"
