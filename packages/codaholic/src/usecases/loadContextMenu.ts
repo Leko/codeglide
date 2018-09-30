@@ -118,6 +118,7 @@ export default (text: string) => async (dispatch, getState) => {
           analytics.trackEvent("preview", "actionsheet:matched:chosen", {
             label: menu.slug
           });
+          menu.onPress(dispatch);
         }
       };
     })
