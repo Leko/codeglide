@@ -14,8 +14,6 @@ jobs:
     docker:
       - image: circleci/node:latest
     working_directory: ~/repo
-    environment:
-      DEFAULT_BRANCH: master
     steps:
       - checkout
       - run: ls packages/*/package-lock.json | xargs -n1 md5sum > deps.txt
