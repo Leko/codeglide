@@ -30,6 +30,7 @@ exports.handler = async function(event, context) {
     );
   }
 
+  console.log({ GITHUB_CLIENT_ID });
   const params = new URLSearchParams("");
   params.set("client_id", GITHUB_CLIENT_ID);
   params.set("scope", ["repo"].join(" "));
