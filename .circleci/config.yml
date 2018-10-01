@@ -4,9 +4,6 @@ workflows:
     jobs:
       - node-v8
       # - node-latest
-      - deploy:
-          requires:
-            - node-v8
 
 version: 2
 jobs:
@@ -40,22 +37,3 @@ jobs:
     <<: *base
     docker:
       - image: node:latest
-  deploy:
-    <<: *base
-    docker:
-      - image: node:8
-    steps:
-      - checkout
-      - run: ls packages/*/package-lock.json | xargs -n1 md5sum > deps.txt
-      - restore_cache:
-          keys:
-            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
-            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Environment.DEFAULT_BRANCH }}-{{ checksum "deps.txt" }}
-      - run:
-          name: Deploy
-          command: |
-            if [[ "${CIRCLE_BRANCH}" = "${DEFAULT_BRANCH}" ]]; then
-              npm run deploy -- --prod
-            else
-              npm run deploy
-            fi
