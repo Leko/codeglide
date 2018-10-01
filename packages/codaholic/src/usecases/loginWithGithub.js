@@ -1,7 +1,7 @@
 import { AuthSession } from "expo";
 import crypto from "crypto-js/core";
 import qs from "query-string";
-import env from "../env";
+import { GITHUB_AUTHORIZE_URL } from "../env";
 import { creators } from "../modules/user";
 
 export default () => async dispatch => {
@@ -10,8 +10,10 @@ export default () => async dispatch => {
     state: crypto.lib.WordArray.random(16).toString(),
     redirect_uri: redirectUrl
   });
-  const authUrl = `${env.AUTH_DOMAIN}/authorize?${query}`;
-  const result = await AuthSession.startAsync({ authUrl });
+  const authUrl = `${GITHUB_AUTHORIZE_URL}?${query}`;
+  const result = await AuthSession.startAsync({
+    authUrl
+  });
 
   // TODO: Error handling
   if (result.type === "success") {

@@ -1,7 +1,6 @@
 import { Analytics, ScreenHit, Event } from "expo-analytics";
-import env from "../env";
+import { GA_TRACKING_CODE } from "../env";
 
-const { GA_TRACKING_CODE } = env;
 const analytics = new Analytics(GA_TRACKING_CODE, null, { debug: __DEV__ });
 const nope = () => {};
 
