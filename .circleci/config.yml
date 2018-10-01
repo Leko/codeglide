@@ -49,6 +49,7 @@ jobs:
       - run: ls packages/*/package-lock.json | xargs -n1 md5sum > deps.txt
       - restore_cache:
           keys:
+            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
             - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Environment.DEFAULT_BRANCH }}-{{ checksum "deps.txt" }}
       - run:
           name: Deploy
