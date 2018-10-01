@@ -1,0 +1,43 @@
+workflows:
+  version: 2
+  node-multi-build:
+    jobs:
+      - node-v8
+      # - node-latest
+      - deploy:
+          requires:
+            - node-v8
+          filters:
+            branches:
+              only:
+                - master
+
+version: 2
+jobs:
+  base: &base
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: ls packages/*/package.json | xargs -n1 md5sum > deps.txt
+      - restore_cache:
+          keys:
+            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
+            - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-master-{{ checksum "deps.txt" }}
+      - run: npm ci
+      - run: npx lerna bootstrap --ci
+      - save_cache:
+          paths:
+            - node_modules
+          key: v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
+      - run: npm test
+      - run: bash <(curl -s https://codecov.io/bash)
+  node-v8:
+    <<: *base
+    docker:
+      - image: node:8
+  node-latest:
+    <<: *base
+    docker:
+      - image: node:latest
