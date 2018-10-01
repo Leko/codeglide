@@ -11,14 +11,19 @@ exports.sentry = () => {
 };
 
 exports.wrap = fn => (event, context, callback) => {
+  console.log(event);
   return fn(event, context)
-    .then(res => callback(null, res))
-    .catch(e =>
+    .then(res => {
+      console.log(res);
+      callback(null, res);
+    })
+    .catch(e => {
+      console.error(e);
       callback(e, {
         statusCode: 400,
         body: e.message
-      })
-    );
+      });
+    });
 };
 
 exports.redirectTo = (url, headers = {}) => ({
