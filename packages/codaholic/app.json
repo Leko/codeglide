@@ -43,7 +43,8 @@
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
     },
     "ios": {
-      "bundleIdentifier": "jp.leko.glide"
+      "bundleIdentifier": "jp.leko.glide",
+      "buildNumber": "3"
     }
   }
 }
