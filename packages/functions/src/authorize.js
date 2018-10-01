@@ -1,6 +1,13 @@
 const { URL, URLSearchParams } = require("url");
-const { redirectTo, stringify, validateRedirectUri } = require("./util");
+const {
+  sentry,
+  redirectTo,
+  stringify,
+  validateRedirectUri
+} = require("./util");
 const { GITHUB_CLIENT_ID } = process.env;
+
+sentry();
 
 exports.handler = async function(event, context) {
   const redirect_uri = event.queryStringParameters.redirect_uri;

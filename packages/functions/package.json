@@ -12,6 +12,7 @@
   "author": "Leko <leko.noor@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "^4.0.6",
     "node-fetch": "^2.2.0"
   },
   "devDependencies": {

@@ -1,7 +1,14 @@
 const { URLSearchParams } = require("url");
 const fetch = require("node-fetch").default;
-const { redirectTo, stringify, validateRedirectUri } = require("./util");
+const {
+  sentry,
+  redirectTo,
+  stringify,
+  validateRedirectUri
+} = require("./util");
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
+
+sentry();
 
 exports.handler = async function(event, context) {
   if (!event.headers.cookie) {

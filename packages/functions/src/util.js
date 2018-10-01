@@ -1,5 +1,14 @@
 const { URL, URLSearchParams } = require("url");
+const Sentry = require("@sentry/node");
 const { GITHUB_REDIRECT_WHITELIST } = process.env;
+
+exports.sentry = () => {
+  Sentry.init({
+    dsn: "https://f7f88dce61dc410b82ab4dfedadc7eee@sentry.io/1292100",
+    debug: process.env.NODE_ENV !== "production",
+    environment: process.env.NODE_ENV
+  });
+};
 
 exports.redirectTo = (url, headers = {}) => ({
   statusCode: 302,
