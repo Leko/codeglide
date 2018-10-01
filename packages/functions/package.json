@@ -7,7 +7,7 @@
     "prepare": "npm run build",
     "start": "dotenv netlify-lambda serve src",
     "build": "netlify-lambda build src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo 'FIXME: No tests specified'"
   },
   "author": "Leko <leko.noor@gmail.com>",
   "license": "MIT",

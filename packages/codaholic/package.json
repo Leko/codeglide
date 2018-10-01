@@ -9,7 +9,7 @@
     "android": "expo android",
     "ios": "expo ios",
     "release": "expo publish --release-channel production",
-    "test": "jest"
+    "test": "echo 'FIXME: No tests specified'"
   },
   "jest": {
     "preset": "jest-expo"
