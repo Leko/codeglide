@@ -36,6 +36,7 @@ exports.handler = async function(event, context) {
     params.set("client_id", GITHUB_CLIENT_ID);
     params.set("scope", ["repo"].join(" "));
     params.set("state", state);
+    console.log(params);
     // params.set("redirect_uri", redirect_uri);
     // params.set("allow_signup", "false");
 
