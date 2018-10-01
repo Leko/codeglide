@@ -14,5 +14,8 @@
   },
   "bugs": {
     "url": "https://github.com/Leko/codaholic/issues"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2"
   }
 }
