@@ -12,8 +12,8 @@ exports.redirectTo = (url, headers = {}) => ({
 
 exports.stringify = query => {
   const params = new URLSearchParams();
-  for (let p in credentials) {
-    params.set(p, credentials[p]);
+  for (let p in query) {
+    params.set(p, query[p]);
   }
   return params.toString();
 };
