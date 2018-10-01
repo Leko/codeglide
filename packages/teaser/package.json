@@ -1,0 +1,18 @@
+{
+  "name": "@codeglide/teaser",
+  "version": "0.0.0",
+  "description": "teaser site about CodeGlide",
+  "author": "Leko <leko.noor@gmail.com>",
+  "homepage": "https://codeglide.co",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Leko/codaholic.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Leko/codaholic/issues"
+  }
+}

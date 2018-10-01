@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "npm run build",
     "start": "dotenv netlify-lambda serve src",
     "build": "netlify-lambda build src",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +12,10 @@
   "author": "Leko <leko.noor@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "netlify-lambda": "^0.4.0",
     "node-fetch": "^2.2.0"
   },
   "devDependencies": {
-    "dotenv-cli": "^1.4.0"
+    "dotenv-cli": "^1.4.0",
+    "netlify-lambda": "^0.4.0"
   }
 }

@@ -1,7 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "deploy": "netlify deploy"
+  },
   "devDependencies": {
-    "lerna": "^3.0.3"
+    "lerna": "^3.0.3",
+    "netlify-cli": "^2.0.0-beta.7",
+    "netlify-lambda": "^0.4.0"
   }
 }
