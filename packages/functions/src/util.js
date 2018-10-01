@@ -11,18 +11,13 @@ exports.sentry = () => {
 };
 
 exports.wrap = fn => (event, context, callback) => {
-  console.log(event);
-  return fn(event, context)
+  fn(event, context)
     .then(res => {
-      console.log(res);
       callback(null, res);
     })
     .catch(e => {
-      console.error(e);
-      callback(e, {
-        statusCode: 400,
-        body: e.message
-      });
+      console.error(e.stack);
+      callback(e);
     });
 };
 

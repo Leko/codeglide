@@ -2,6 +2,7 @@ const { URLSearchParams } = require("url");
 const fetch = require("node-fetch").default;
 const {
   sentry,
+  wrap,
   redirectTo,
   stringify,
   validateRedirectUri
@@ -10,7 +11,7 @@ const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 sentry();
 
-exports.handler = async function(event, context) {
+exports.handler = wrap(async function(event, context) {
   if (!event.headers.cookie) {
     return {
       statusCode: 400,
@@ -68,12 +69,8 @@ exports.handler = async function(event, context) {
       })
     });
     const credentials = await res.json();
-    const params = new URLSearchParams();
-    for (let p in credentials) {
-      params.set(p, credentials[p]);
-    }
 
-    return redirectTo(`${cookie.redirect_uri}?${params.toString()}`);
+    return redirectTo(`${cookie.redirect_uri}?${stringify(credentials)}`);
   } catch (e) {
     // FIXME: Sentry
     return redirectTo(
@@ -83,4 +80,4 @@ exports.handler = async function(event, context) {
       })}`
     );
   }
-};
+});
