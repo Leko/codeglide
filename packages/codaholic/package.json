@@ -4,9 +4,10 @@
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "dotenv expo start --ios",
+    "start": "dotenv expo start -- --ios",
     "eject": "react-native-scripts eject",
-    "release": "dotenv -e .env.production expo publish --release-channel production",
+    "prerelease": "(dotenv -e .env.production expo start -- --no-dev --minify --clear &) && sleep 10",
+    "release": "dotenv -e .env.production expo publish -- --release-channel production",
     "test": "echo 'FIXME: No tests specified'"
   },
   "jest": {
