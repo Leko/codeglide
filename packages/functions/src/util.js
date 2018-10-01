@@ -10,6 +10,17 @@ exports.sentry = () => {
   });
 };
 
+exports.wrap = fn => (event, context, callback) => {
+  return fn(event, context)
+    .then(res => callback(null, res))
+    .catch(e =>
+      callback(e, {
+        statusCode: 400,
+        body: e.message
+      })
+    );
+};
+
 exports.redirectTo = (url, headers = {}) => ({
   statusCode: 302,
   headers: {
