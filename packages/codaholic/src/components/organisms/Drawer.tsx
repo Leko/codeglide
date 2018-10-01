@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Constants } from "expo";
 import { SafeAreaView, View, Image, StyleSheet } from "react-native";
 // import { Image } from "@shoutem/ui";
 import { connectStyle } from "@shoutem/theme";
@@ -38,7 +39,9 @@ export const Drawer = ({
     <View style={[styles.container, style && style.safeArea]}>
       <Row style={{ paddingVertical: 10 }}>
         <Subtitle style={flex}>Codaholic</Subtitle>
-        <Text>{version}</Text>
+        <Text>
+          {version}({Constants.manifest.releaseChannel || "default"})
+        </Text>
       </Row>
       <Divider styleName="thin" />
       <View style={flex}>
