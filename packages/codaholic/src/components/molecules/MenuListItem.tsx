@@ -7,12 +7,18 @@ import Icon from "../atoms/Icon";
 
 export type Props = {
   onPress: () => any;
+  disabled?: boolean;
   dimmed: boolean;
   children: React.ReactNode;
 };
 
-export const MenuListItem = ({ onPress, dimmed, children }: Props) => (
-  <TouchableOpacity onPress={onPress}>
+export const MenuListItem = ({
+  onPress,
+  dimmed,
+  children,
+  disabled = false
+}: Props) => (
+  <TouchableOpacity onPress={onPress} disabled={disabled}>
     <ListItem>
       <Row
         style={{

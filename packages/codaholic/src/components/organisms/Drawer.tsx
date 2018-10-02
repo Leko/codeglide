@@ -60,14 +60,10 @@ export const Drawer = ({
             </View>
           </Row>
         ) : (
-          <MenuListItem onPress={onPressSignIn}>
-            <Caption>Sign in with GitHub</Caption>
+          <MenuListItem onPress={onPressSignIn} dimmed disabled>
+            <Text>Sign in with GitHub (WIP)</Text>
           </MenuListItem>
         )}
-        <Divider styleName="thin" />
-        <MenuListItem onPress={() => {}}>
-          <Caption>Settings</Caption>
-        </MenuListItem>
       </View>
       <MenuListItem dimmed onPress={() => {}}>
         <Text>Terms</Text>
