@@ -1,6 +1,12 @@
 import "./self-polyfill";
 import React, { PureComponent } from "react";
-import { View, AppState, AppStateStatus, Clipboard } from "react-native";
+import {
+  View,
+  StatusBar,
+  AppState,
+  AppStateStatus,
+  Clipboard
+} from "react-native";
 import { Provider } from "react-redux";
 import { Font, AppLoading } from "expo";
 import Sentry from "sentry-expo";
@@ -77,7 +83,7 @@ export default class App extends PureComponent<void, State> {
         <PersistGate loading={null} persistor={persistor}>
           <StyleProvider style={darkTheme}>
             <View style={{ flex: 1 }}>
-              <StatusBar />
+              <StatusBar barStyle="light-content" />
               <ClipboardSuggestion />
               <Routes />
             </View>
