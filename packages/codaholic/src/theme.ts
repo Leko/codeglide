@@ -108,6 +108,13 @@ const themerize = (palette: Palette): Theme => ({
       margin: 0,
       paddingVertical: 8,
       paddingHorizontal: 3
+    },
+    ".primary": {
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      backgroundColor: palette.BACKGROUND_DEVIDER,
+      borderColor: palette.BACKGROUND_BACK,
+      borderWidth: 1
     }
   },
   BackdropButton: {

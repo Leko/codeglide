@@ -2,6 +2,7 @@ import React from "react";
 import { connectStyle } from "@shoutem/theme";
 import {
   NavigationComponent,
+  createSwitchNavigator,
   createStackNavigator,
   createDrawerNavigator,
   NavigationStackScreenOptions,
@@ -89,16 +90,14 @@ const Routes = ({ style }: Props) => {
     }
   );
 
-  const RootStack = createStackNavigator(
+  const RootStack = createSwitchNavigator(
     {
       Redirector,
       MemberStack,
       GuestStack
     },
     {
-      initialRouteName: "Redirector",
-      headerMode: "none",
-      navigationOptions
+      initialRouteName: "Redirector"
     }
   );
 

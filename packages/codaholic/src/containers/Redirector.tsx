@@ -5,20 +5,18 @@ import { State } from "../modules/state";
 import { selectors } from "../modules/user";
 
 type Props = {
-  credential: string | null;
+  boarded: boolean;
   navigation: NavigationScreenProp<any, void>;
 };
 
 class Redirector extends React.PureComponent<Props> {
   componentDidMount() {
-    // const { credential, navigation } = this.props;
-    // if (credential) {
-    //   navigation.replace("MemberStack");
-    // } else {
-    //   navigation.replace("GuestStack");
-    // }
-    const { navigation } = this.props;
-    navigation.replace("MemberStack");
+    const { boarded, navigation } = this.props;
+    if (boarded) {
+      navigation.navigate("MemberStack");
+    } else {
+      navigation.navigate("GuestStack");
+    }
   }
 
   render() {
@@ -27,7 +25,7 @@ class Redirector extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-  credential: selectors.getCredential(state)
+  boarded: selectors.isBoarded(state)
 });
 
 export default connect(mapStateToProps)(Redirector);

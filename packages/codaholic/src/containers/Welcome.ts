@@ -1,12 +1,15 @@
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import Welcome from "../components/pages/Welcome";
-import loginWithGithub from "../usecases/loginWithGithub";
+import { creators } from "../modules/user";
 
-const mapStateToProps = () => ({})
+const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch: any) => ({
-  onRequestLogin() {
-    dispatch(loginWithGithub())
+  onFinish() {
+    dispatch(creators.completeOnBoarding(new Date()));
   }
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Welcome);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Welcome);

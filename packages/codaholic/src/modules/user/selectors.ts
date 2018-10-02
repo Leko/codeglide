@@ -18,3 +18,8 @@ export const getDisplayName = createSelector(
   stripPrefix,
   (state: State) => state.displayName
 );
+
+export const isBoarded = createSelector(
+  stripPrefix,
+  (state: State) => state.boardedAt != null
+);
