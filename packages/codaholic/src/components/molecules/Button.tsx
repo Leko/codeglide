@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Icon from "../atoms/Icon";
 import { IconName } from "../atoms/Icon";
 import { connectStyle } from "@shoutem/theme";
@@ -29,7 +29,11 @@ export const Button = ({
     onPress={onPress}
     style={[styles.withIcon, style]}
   >
-    {icon && <Icon name={icon} styleName={disabled ? "dimmed" : ""} />}
+    {icon && (
+      <View style={{ marginRight: 10 }}>
+        <Icon name={icon} styleName={disabled ? "dimmed" : ""} />
+      </View>
+    )}
     {children}
     {rightIcon && (
       <Icon name={rightIcon} styleName={disabled ? "dimmed" : ""} />

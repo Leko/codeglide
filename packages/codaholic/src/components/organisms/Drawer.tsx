@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Constants } from "expo";
 import { SafeAreaView, View, Image, StyleSheet } from "react-native";
-// import { Image } from "@shoutem/ui";
+import { NavigationScreenProp } from "react-navigation";
 import { connectStyle } from "@shoutem/theme";
 import Divider from "../atoms/Divider";
 import { Subtitle } from "../atoms/Subtitle";
@@ -17,6 +17,7 @@ interface IStyle {
 
 export type Props = {
   style?: IStyle;
+  navigation: NavigationScreenProp<any, void>;
   version: string;
   credential: string | null;
   avatarUrl: string | null;
@@ -28,6 +29,7 @@ export type Props = {
 // FIXME: Create new molecules
 export const Drawer = ({
   style,
+  navigation,
   version,
   credential,
   avatarUrl,
@@ -65,6 +67,9 @@ export const Drawer = ({
           </MenuListItem>
         )}
       </View>
+      <MenuListItem dimmed onPress={() => navigation.navigate("GuestStack")}>
+        <Text>Usage</Text>
+      </MenuListItem>
       <MenuListItem dimmed onPress={() => {}}>
         <Text>Terms</Text>
       </MenuListItem>

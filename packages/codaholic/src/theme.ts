@@ -112,6 +112,13 @@ const themerize = (palette: Palette): Theme => ({
     ".primary": {
       paddingVertical: 10,
       paddingHorizontal: 20,
+      backgroundColor: palette.DIMMED,
+      borderColor: palette.BACKGROUND_DEVIDER,
+      borderWidth: 1
+    },
+    ".secondary": {
+      paddingVertical: 10,
+      paddingHorizontal: 20,
       backgroundColor: palette.BACKGROUND_DEVIDER,
       borderColor: palette.BACKGROUND_BACK,
       borderWidth: 1

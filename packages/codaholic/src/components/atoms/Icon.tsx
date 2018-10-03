@@ -8,6 +8,7 @@ interface IStyle {
 }
 
 export type IconName =
+  | "search"
   | "check"
   | "close"
   | "clear"

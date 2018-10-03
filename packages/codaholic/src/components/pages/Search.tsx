@@ -188,7 +188,7 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                       enablesReturnKeyAutomatically
                       keyboardType="url"
                       returnKeyType="search"
-                      placeholder="owner/repo"
+                      placeholder="ex. owner/repo"
                       value={values.repo}
                       onBlur={() => setFieldTouched("repo")}
                       onChangeText={(text: string) => {
@@ -207,7 +207,7 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                   <View style={{ flex: 2 }}>
                     <TextInput
                       returnKeyType="search"
-                      placeholder="__tests__"
+                      placeholder="ex. __tests__"
                       value={values.path}
                       onBlur={() => setFieldTouched("path")}
                       onChangeText={(text: string) => {
@@ -226,7 +226,7 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                   <View style={{ flex: 2 }}>
                     <TextInput
                       returnKeyType="search"
-                      placeholder="JavaScript"
+                      placeholder="ex. JavaScript"
                       value={values.language}
                       onBlur={() => setFieldTouched("language")}
                       onChangeText={(text: string) => {

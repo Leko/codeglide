@@ -100,12 +100,29 @@ const Dashboard = ({
             </React.Fragment>
           ) : (
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <EmptyStatus />
-              <Subtitle>History is empty</Subtitle>
-              <Text>Let's try your first search</Text>
-              <Button styleName="secondary">
-                <Caption>Try it</Caption>
-              </Button>
+              <Subtitle>Let's search!</Subtitle>
+              <Caption>
+                1. Copy repository URL from your browser
+                {"\n"}
+                2. Come back to CodeGlide
+              </Caption>
+              <View
+                style={{
+                  marginTop: 20,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <Caption>Or</Caption>
+                <Button
+                  icon="search"
+                  // styleName="primary"
+                  styleName="secondary"
+                  onPress={() => navigation.setParams({ openSearch: true })}
+                >
+                  <Caption>Search in scratch</Caption>
+                </Button>
+              </View>
             </View>
           )}
         </View>
