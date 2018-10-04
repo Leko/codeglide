@@ -71,10 +71,10 @@ export const Drawer = ({
         <Text>Usage</Text>
       </MenuListItem>
       <MenuListItem dimmed onPress={() => {}}>
-        <Text>Terms</Text>
+        <Text>Terms (WIP)</Text>
       </MenuListItem>
       <MenuListItem dimmed onPress={() => {}}>
-        <Text>Privacy</Text>
+        <Text>Privacy (WIP)</Text>
       </MenuListItem>
       {credential && (
         <MenuListItem dimmed onPress={onPressSignOut}>
