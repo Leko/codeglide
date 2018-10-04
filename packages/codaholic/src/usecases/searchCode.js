@@ -44,6 +44,7 @@ export default (query: SearchParams) => async (dispatch, getState) => {
     }
   }).then(res => res.json());
 
+  console.log(found.errors);
   if (Array.isArray(found.errors)) {
     found.errors.forEach(({ code, field, message }) => {
       analytics.trackEvent("search", "failed", {
@@ -60,6 +61,11 @@ export default (query: SearchParams) => async (dispatch, getState) => {
         }
       });
     });
+    const errors = found.errors.map(
+      ({ code, message }) => new Error(`${code}: ${message}`)
+    );
+    dispatch(codeSearchCreators.setErrors(errors));
+    return;
   }
   // TODO: Error handling
   if (!found.items) {

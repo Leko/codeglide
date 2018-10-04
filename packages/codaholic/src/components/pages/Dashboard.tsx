@@ -29,6 +29,7 @@ type Props = {
   total: number;
   current: number;
   results: Array<Result>;
+  errors: Array<Error>;
   histories: Array<HistoryType>;
   search: (params: SearchParams) => void;
   onRequestClear: () => void;
@@ -42,6 +43,7 @@ const Dashboard = ({
   total,
   current,
   results,
+  errors,
   histories,
   search,
   navigation,
@@ -78,6 +80,7 @@ const Dashboard = ({
           total={total}
           current={current}
           results={results}
+          errors={errors}
         />
         <View style={{ padding: 10 }}>
           {histories.length > 0 ? (

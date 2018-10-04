@@ -36,6 +36,7 @@ type Props = {
   total: number;
   current: number;
   results: Array<Result>;
+  errors: Array<Error>;
   onCancel: () => void;
   onSubmit: (searchParams: SearchParams) => void;
   onRequestDetail: (request: DetailRequest) => void;

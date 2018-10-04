@@ -31,6 +31,7 @@ export type Result = {
 };
 
 export type State = {
+  readonly errors: Array<Error>;
   readonly results: Array<Result>;
   readonly searched: boolean;
   readonly busy: boolean;
@@ -42,6 +43,7 @@ export type State = {
 export const getInitialState = (): State => ({
   searched: false,
   busy: false,
+  errors: [],
   results: [],
   totalResults: 0,
   currentResults: 0,

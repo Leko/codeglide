@@ -7,6 +7,11 @@ export const start = (state: State) => ({
   busy: true
 });
 
+export const setErrors = (state: State, errors: Array<Error>) => ({
+  ...state,
+  errors
+});
+
 export const setResults = (
   state: State,
   {
@@ -20,6 +25,7 @@ export const setResults = (
   }
 ) => ({
   ...state,
+  errors: [],
   searched: true,
   busy: false,
   results,

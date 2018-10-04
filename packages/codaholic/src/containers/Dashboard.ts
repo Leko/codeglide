@@ -15,6 +15,7 @@ const mapStateToProps = (state: State) => ({
   total: codeSearchSelectors.getTotal(state),
   current: codeSearchSelectors.getCurrent(state),
   results: codeSearchSelectors.getResults(state),
+  errors: codeSearchSelectors.getErrors(state),
   histories: searchHistorySelectors.getLRUHistories(state)
 });
 const mapDispatchToProps = (dispatch: any) => ({

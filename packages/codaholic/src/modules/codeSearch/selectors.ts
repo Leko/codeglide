@@ -11,6 +11,11 @@ export const isSearched = createSelector(
   (state: State) => state.searched
 );
 
+export const getErrors = createSelector(
+  stripPrefix,
+  (state: State) => state.errors
+);
+
 export const getTotal = createSelector(
   stripPrefix,
   (state: State) => state.totalResults
