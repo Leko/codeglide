@@ -25,23 +25,27 @@ type Params = {
 type Props = {
   navigation: NavigationScreenProp<Params>;
   busy: boolean;
+  searched: boolean;
   total: number;
   current: number;
   results: Array<Result>;
   histories: Array<HistoryType>;
   search: (params: SearchParams) => void;
+  onRequestClear: () => void;
 };
 
 const NUM_TO_RENDER_HISTORY = 5;
 
 const Dashboard = ({
   busy,
+  searched,
   total,
   current,
   results,
   histories,
   search,
-  navigation
+  navigation,
+  onRequestClear
 }: Props) => (
   <View style={{ flex: 1 }}>
     <ScrollView contentContainerStyle={{ flex: 1 }}>
@@ -53,9 +57,10 @@ const Dashboard = ({
               ? navigation.state.params.searchParams
               : {}
           }
-          onCancel={() =>
-            navigation.setParams({ searchParams: null, openSearch: false })
-          }
+          onCancel={() => {
+            navigation.setParams({ searchParams: null, openSearch: false });
+            onRequestClear();
+          }}
           onSubmit={(values: SearchParams) => search(values)}
           onRequestDetail={({
             repository,
@@ -68,6 +73,7 @@ const Dashboard = ({
               highlights: uniq(highlights.map(w => w.toLowerCase())).join(",")
             });
           }}
+          searched={searched}
           busy={busy}
           total={total}
           current={current}

@@ -6,6 +6,11 @@ const stripPrefix = (state: AppState) => state[Namespace];
 
 export const isBusy = createSelector(stripPrefix, (state: State) => state.busy);
 
+export const isSearched = createSelector(
+  stripPrefix,
+  (state: State) => state.searched
+);
+
 export const getTotal = createSelector(
   stripPrefix,
   (state: State) => state.totalResults

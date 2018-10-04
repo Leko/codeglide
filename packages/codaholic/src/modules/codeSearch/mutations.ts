@@ -20,6 +20,7 @@ export const setResults = (
   }
 ) => ({
   ...state,
+  searched: true,
   busy: false,
   results,
   totalResults,

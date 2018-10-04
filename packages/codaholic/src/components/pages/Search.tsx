@@ -31,6 +31,7 @@ import { Result } from "../../modules/codeSearch";
 type Props = {
   open: boolean;
   defaultValues: Partial<Values>;
+  searched: boolean;
   busy: boolean;
   total: number;
   current: number;
@@ -131,6 +132,7 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
     const {
       open,
       busy,
+      searched,
       total,
       current,
       results,
@@ -253,6 +255,22 @@ export class Search extends React.PureComponent<Props & FormikProps<Values>> {
                     />
                   </View>
                 )}
+                {!busy &&
+                  searched &&
+                  results.length === 0 && (
+                    <View
+                      style={{
+                        marginVertical: 20
+                      }}
+                    >
+                      <Subtitle>Cannot found any results</Subtitle>
+                      <Caption>
+                        * Please check typo
+                        {"\n"}* If you search in private repository, CodeGlide
+                        not supported yet.
+                      </Caption>
+                    </View>
+                  )}
                 {results.length && (
                   <View
                     style={{
