@@ -1,7 +1,13 @@
 {
+  "private": true,
   "name": "@codeglide/pwa",
   "version": "0.1.0",
-  "private": true,
+  "author": "Leko <leko.noor@gmail.com>",
+  "repository": "Leko/codaholic",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@babel/core": "7.1.0",
     "@svgr/webpack": "2.4.1",

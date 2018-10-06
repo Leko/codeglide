@@ -1,14 +1,17 @@
 {
+  "private": true,
   "name": "@codeglide/expo",
   "version": "0.1.1",
-  "private": true,
+  "author": "Leko <leko.noor@gmail.com>",
+  "repository": "Leko/codaholic",
+  "license": "MIT",
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "dotenv expo start -- --ios",
     "eject": "react-native-scripts eject",
     "prerelease": "(dotenv -e .env.production expo start -- --no-dev --minify --clear &) && sleep 10",
     "release": "dotenv -e .env.production expo publish -- --release-channel production",
-    "test": "echo 'FIXME: No tests specified'"
+    "test": "echo 'FIXME: write test' && exit 0"
   },
   "jest": {
     "preset": "jest-expo"
