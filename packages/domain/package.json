@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@codeglide/domain",
+  "version": "0.0.0",
+  "description": "Domain for CodeGlide",
+  "author": "Leko <leko.noor@gmail.com>",
+  "repository": "Leko/codeglide",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo 'FIXME: write test' && exit 0"
+  },
+  "files": [
+    "dist"
+  ]
+}
