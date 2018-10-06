@@ -32,8 +32,7 @@
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
             "organization": "leko-lab",
-            "project": "expo",
-            "authToken": "70800f919f614209be8de87a978610c8f688ef5b84224f9f8da9cb4f8103de37"
+            "project": "expo"
           }
         }
       ]
