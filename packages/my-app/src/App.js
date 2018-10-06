@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Editor from "./Editor";
+
+const value = `
+// type your code...
+const hoge = 2
+
+const foo = (some) => (unused) => (variables) => () => () => () => () => () => () => () => () => () => () => () => () => () => {
+  return hoge + 1
+}
+
+foo()
+`;
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Editor
+          value={value}
+          language="typescript"
+          width={window.innerWidth}
+          height={window.innerHeight}
+        />
       </div>
     );
   }
