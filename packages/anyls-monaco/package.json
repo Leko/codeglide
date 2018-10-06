@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "Language Server Protocol (LSP) client for Monaco Editor",
   "author": "Leko <leko.noor@gmail.com>",
-  "repository": "Leko/codaholic",
+  "repository": "Leko/codeglide",
   "license": "MIT",
   "scripts": {
     "test": "echo 'FIXME: write test' && exit 0"

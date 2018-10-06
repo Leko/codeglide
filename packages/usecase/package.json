@@ -5,7 +5,7 @@
   "description": "Usecases for CodeGlide",
   "main": "dist/index.js",
   "author": "Leko <leko.noor@gmail.com>",
-  "repository": "Leko/codaholic",
+  "repository": "Leko/codeglide",
   "license": "MIT",
   "scripts": {
     "test": "echo 'FIXME: write test' && exit 0"

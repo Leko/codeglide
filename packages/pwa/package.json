@@ -3,7 +3,7 @@
   "name": "@codeglide/pwa",
   "version": "0.1.0",
   "author": "Leko <leko.noor@gmail.com>",
-  "repository": "Leko/codaholic",
+  "repository": "Leko/codeglide",
   "license": "MIT",
   "files": [
     "dist"

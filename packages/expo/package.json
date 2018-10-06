@@ -3,7 +3,7 @@
   "name": "@codeglide/expo",
   "version": "0.1.1",
   "author": "Leko <leko.noor@gmail.com>",
-  "repository": "Leko/codaholic",
+  "repository": "Leko/codeglide",
   "license": "MIT",
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
