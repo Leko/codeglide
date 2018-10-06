@@ -3,13 +3,15 @@
   "name": "@codeglide/anyls-monaco",
   "version": "0.0.0",
   "description": "Language Server Protocol (LSP) client for Monaco Editor",
+  "main": "dist/index.js",
   "author": "Leko <leko.noor@gmail.com>",
   "repository": "Leko/codeglide",
   "license": "MIT",
   "scripts": {
-    "prepare": "upbin npm-run-all prepare:clean prepare:babel",
+    "prepare": "upbin npm-run-all prepare:clean prepare:babel prepare:types",
     "prepare:clean": "upbin rimraf dist",
     "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
+    "prepare:types": "upbin tsc --declarationDir ./dist && mv ./dist/src/* ./dist/ && rm -rf ./dist/{src,__tests__}",
     "test": "echo 'FIXME: write test' && exit 0"
   },
   "files": [
