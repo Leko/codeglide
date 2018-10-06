@@ -7,9 +7,15 @@
   "repository": "Leko/codeglide",
   "license": "MIT",
   "scripts": {
+    "prepare": "upbin npm-run-all prepare:clean prepare:babel",
+    "prepare:clean": "upbin rimraf dist",
+    "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
     "test": "echo 'FIXME: write test' && exit 0"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "upbin": "^0.8.1"
+  }
 }
