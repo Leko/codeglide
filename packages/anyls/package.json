@@ -11,5 +11,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "upbin": "^0.8.1"
+  }
 }
