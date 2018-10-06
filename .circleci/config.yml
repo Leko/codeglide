@@ -18,11 +18,8 @@ jobs:
           keys:
             - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
             - v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Environment.DEFAULT_BRANCH }}-{{ checksum "deps.txt" }}
-      - run: npm install
-      - run: npx lerna bootstrap
-      # FIXME
-      # - run: npm ci
-      # - run: npx lerna bootstrap --ci
+      - run: npm ci
+      - run: npx lerna bootstrap --ci
       - save_cache:
           paths:
             - node_modules
