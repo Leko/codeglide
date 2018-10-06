@@ -1,4 +1,0 @@
-[build]
-  command = "npm install && npx lerna bootstrap --scope '@codeglide/{functions,teaser}'"
-  publish = "packages/teaser"
-  functions = "packages/functions/dist"
