@@ -23,9 +23,8 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-            - packages/codaholic/node_modules
-            - packages/functions/node_modules
-            - packages/teaser/node_modules
+            - packages/expo/node_modules
+            - packages/pwa/node_modules
           key: v{{ .Environment.CIRCLECI_CACHE_VERSION }}-dependencies-{{ .Branch }}-{{ checksum "deps.txt" }}
       - run: npm test
       - run: bash <(curl -s https://codecov.io/bash)

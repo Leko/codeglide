@@ -40,7 +40,7 @@ export const Drawer = ({
   <SafeAreaView style={[styles.container, style && style.container]}>
     <View style={[styles.container, style && style.safeArea]}>
       <Row style={{ paddingVertical: 10 }}>
-        <Subtitle style={flex}>Codaholic</Subtitle>
+        <Subtitle style={flex}>CodeGlide</Subtitle>
         <Text>
           {version}({Constants.manifest.releaseChannel || "default"})
         </Text>
