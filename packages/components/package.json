@@ -11,5 +11,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0"
+  }
 }

@@ -6,6 +6,11 @@
     "deploy": "netlify deploy"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-typescript": "^7.1.0",
     "lerna": "^3.0.3",
     "netlify-cli": "^2.0.0-beta.7",
     "netlify-lambda": "^0.4.0"
