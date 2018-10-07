@@ -1,1 +1,1 @@
-export const WIP = 1
+export { ReadOnlyEditor } from "./molecules/ReadOnlyEditor";
