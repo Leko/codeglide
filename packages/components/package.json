@@ -11,7 +11,8 @@
     "prepare": "upbin npm-run-all prepare:clean prepare:babel prepare:types",
     "prepare:clean": "upbin rimraf dist",
     "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
-    "prepare:types": "upbin tsc --declarationDir ./dist && mv ./dist/src/* ./dist/ && rm -rf ./dist/{src,__tests__}",
+    "prepare:types": "upbin tsc --project tsconfig.build.json --declarationDir ./dist && cpx './dist/src/**/*.d.ts' ./dist && rm -rf ./dist/{src,__tests__}",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "echo 'FIXME: write test' && exit 0"
   },
   "files": [
@@ -19,6 +20,19 @@
   ],
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^3.4.11",
+    "@storybook/addon-info": "^3.4.11",
+    "@storybook/react": "^4.0.0-alpha.24",
+    "@types/react": "^16.4.15",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.4",
+    "cpx": "^1.5.0",
+    "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "upbin": "^0.8.1"
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }
