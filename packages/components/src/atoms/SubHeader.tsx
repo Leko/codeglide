@@ -5,6 +5,8 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const Text = ({ children }: Props) => (
-  <Typography color="inherit">{children}</Typography>
+export const SubHeader = ({ children }: Props) => (
+  <Typography variant="h6" color="inherit">
+    {children}
+  </Typography>
 );

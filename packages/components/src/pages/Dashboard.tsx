@@ -1,11 +1,11 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { SearchHistory } from "@codeglide/domain";
+import { SubHeader } from "../atoms/SubHeader";
 import Page from "../templates/Page";
 import { SearchHistoryList } from "../molecules/SearchHistoryList";
 
@@ -30,9 +30,7 @@ export const Dashboard: React.SFC<Props> = ({
       </IconButton>
     )}
   >
-    <Typography variant="h3" color="inherit">
-      Quick search
-    </Typography>
+    <SubHeader>Quick search</SubHeader>
     <SearchHistoryList
       histories={searchHistories.slice(0, showSearchHistoriesCount)}
       onPress={onPressSearchHistory}
@@ -48,11 +46,11 @@ export const Dashboard: React.SFC<Props> = ({
       </Grid>
     )}
 
-    <Typography variant="h3" color="inherit">
+    <SubHeader>
       View recent repository
       {"\n"}
       (FIXME: Add repository history)
-    </Typography>
+    </SubHeader>
     <SearchHistoryList
       histories={searchHistories.slice(0, showSearchHistoriesCount)}
       onPress={onPressSearchHistory}
