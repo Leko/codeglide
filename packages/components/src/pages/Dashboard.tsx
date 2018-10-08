@@ -2,8 +2,10 @@ import * as React from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { SearchHistory } from "@codeglide/domain";
+import IconButton from "@material-ui/core/IconButton";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { SearchHistory } from "@codeglide/domain";
 import Page from "../templates/Page";
 import { SearchHistoryList } from "../molecules/SearchHistoryList";
 
@@ -20,7 +22,14 @@ export const Dashboard: React.SFC<Props> = ({
   onPressSearchHistory,
   onPressViewAllHistory
 }: Props) => (
-  <Page title="Dashboard">
+  <Page
+    title="Dashboard"
+    renderHeaderRight={() => (
+      <IconButton color="inherit" aria-label="Menu">
+        <AccountCircleIcon />
+      </IconButton>
+    )}
+  >
     <Typography variant="h3" color="inherit">
       Quick search
     </Typography>
