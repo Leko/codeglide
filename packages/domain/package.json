@@ -11,13 +11,21 @@
     "prepare": "upbin npm-run-all prepare:clean prepare:babel prepare:types",
     "prepare:clean": "upbin rimraf dist",
     "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
-    "prepare:types": "upbin tsc --declarationDir ./dist && mv ./dist/src/* ./dist/ && rm -rf ./dist/{src,__tests__}",
+    "prepare:types": "upbin tsc --declarationDir ./dist && cpx './dist/src/**/*.d.ts' ./dist && rm -rf ./dist/{src,__tests__}",
     "test": "echo 'FIXME: write test' && exit 0"
   },
   "files": [
     "dist"
   ],
   "devDependencies": {
+    "@types/lodash": "^4.14.116",
+    "cpx": "^1.5.0",
     "upbin": "^0.8.1"
+  },
+  "dependencies": {
+    "jshashes": "^1.0.7",
+    "lodash": "^4.17.11",
+    "redux-aggregate": "^2.1.2",
+    "reselect": "^4.0.0"
   }
 }
