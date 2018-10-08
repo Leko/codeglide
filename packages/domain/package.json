@@ -8,7 +8,7 @@
   "repository": "Leko/codeglide",
   "license": "MIT",
   "scripts": {
-    "prepare": "upbin npm-run-all prepare:clean prepare:babel prepare:types",
+    "prepare": "upbin npm-run-all prepare:babel prepare:types",
     "prepare:clean": "upbin rimraf dist",
     "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
     "prepare:types": "upbin tsc --declarationDir ./dist && cpx './dist/src/**/*.d.ts' ./dist && rm -rf ./dist/{src,__tests__}",

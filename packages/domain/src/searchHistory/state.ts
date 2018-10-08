@@ -1,5 +1,5 @@
 // FIXME: Arrange dependency
-import { SearchParams } from "../../usecases/searchCode";
+import { SearchParams } from "../SearchParams";
 
 export type History = {
   // It's not same as `createdAt`. All histories can use multiple times.

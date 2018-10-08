@@ -1,7 +1,7 @@
+// @ts-ignore
 import { MD5 } from "jshashes";
 import { State, History } from "./state";
-// FIXME: Arrange dependency
-import { SearchParams } from "../../usecases/searchCode";
+import { SearchParams } from "../SearchParams";
 
 const md5 = new MD5();
 
