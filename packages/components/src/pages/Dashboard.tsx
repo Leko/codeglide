@@ -7,18 +7,19 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { SearchHistory } from "@codeglide/domain";
 import { SubHeader } from "../atoms/SubHeader";
 import Page from "../templates/Page";
+import Container from "../molecules/Container";
 import { SearchHistoryList } from "../molecules/SearchHistoryList";
 
 type Props = {
-  searchHistories: ReadonlyArray<SearchHistory>;
-  showSearchHistoriesCount: number;
+  searchHistory: ReadonlyArray<SearchHistory>;
+  visibleSearchHistoryCount: number;
   onPressSearchHistory: (history: SearchHistory) => void;
   onPressViewAllHistory: () => void;
 };
 
 export const Dashboard: React.SFC<Props> = ({
-  searchHistories,
-  showSearchHistoriesCount,
+  searchHistory,
+  visibleSearchHistoryCount,
   onPressSearchHistory,
   onPressViewAllHistory
 }: Props) => (
@@ -30,45 +31,47 @@ export const Dashboard: React.SFC<Props> = ({
       </IconButton>
     )}
   >
-    <SubHeader>Quick search</SubHeader>
-    <SearchHistoryList
-      histories={searchHistories.slice(0, showSearchHistoriesCount)}
-      onPress={onPressSearchHistory}
-    />
-    {searchHistories.length > showSearchHistoriesCount && (
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Button color="primary" onClick={onPressViewAllHistory}>
-            View all history
-            <NavigateNextIcon />
-          </Button>
+    <Container>
+      <SubHeader>Quick search</SubHeader>
+      <SearchHistoryList
+        histories={searchHistory.slice(0, visibleSearchHistoryCount)}
+        onPress={onPressSearchHistory}
+      />
+      {searchHistory.length > visibleSearchHistoryCount && (
+        <Grid container justify="flex-end">
+          <Grid item>
+            <Button color="primary" onClick={onPressViewAllHistory}>
+              View all history
+              <NavigateNextIcon />
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    )}
+      )}
 
-    <SubHeader>
-      View recent repository
-      {"\n"}
-      (FIXME: Add repository history)
-    </SubHeader>
-    <SearchHistoryList
-      histories={searchHistories.slice(0, showSearchHistoriesCount)}
-      onPress={onPressSearchHistory}
-    />
-    {searchHistories.length > showSearchHistoriesCount && (
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Button color="primary" onClick={onPressViewAllHistory}>
-            View all opened repositories
-            <NavigateNextIcon />
-          </Button>
+      <SubHeader>
+        View recent repository
+        {"\n"}
+        (FIXME: Add repository history)
+      </SubHeader>
+      <SearchHistoryList
+        histories={searchHistory.slice(0, visibleSearchHistoryCount)}
+        onPress={onPressSearchHistory}
+      />
+      {searchHistory.length > visibleSearchHistoryCount && (
+        <Grid container justify="flex-end">
+          <Grid item>
+            <Button color="primary" onClick={onPressViewAllHistory}>
+              View all opened repositories
+              <NavigateNextIcon />
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    )}
+      )}
+    </Container>
   </Page>
 );
 
 Dashboard.defaultProps = {
-  searchHistories: [],
-  showSearchHistoriesCount: 3
+  searchHistory: [],
+  visibleSearchHistoryCount: 3
 };

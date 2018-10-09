@@ -10,7 +10,6 @@ type Props = {
   renderHeaderLeft?: () => React.ReactNode;
   renderHeaderRight?: () => React.ReactNode;
   classes?: {
-    container: string;
     title: string;
   };
 };
@@ -30,7 +29,7 @@ export const Page: React.SFC<Props> = ({
         {renderHeaderRight!()}
       </Toolbar>
     </AppBar>
-    <div className={classes!.container}>{children}</div>
+    {children}
   </React.Fragment>
 );
 
@@ -40,9 +39,6 @@ Page.defaultProps = {
 };
 
 const styles = {
-  container: {
-    padding: "20px 10px"
-  },
   title: {
     flexGrow: 1
   }
