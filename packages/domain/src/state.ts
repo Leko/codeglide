@@ -9,6 +9,10 @@ import {
   Namespace as SearchHistoryNS,
   State as SearchHistoryState
 } from "./searchHistory/state";
+import {
+  Namespace as RepositoryHistoryNS,
+  State as RepositoryHistoryState
+} from "./repositoryHistory/state";
 
 export type State = {
   // user: UserState;
@@ -16,4 +20,5 @@ export type State = {
   // [CodeSearchNS]: CodeSearchState;
   // [FileNS]: FileState;
   [SearchHistoryNS]: SearchHistoryState;
+  [RepositoryHistoryNS]: RepositoryHistoryState;
 };
