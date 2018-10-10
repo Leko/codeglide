@@ -1,4 +1,5 @@
 import * as React from "react";
+import Fuse from "fuse.js";
 import IconButton from "@material-ui/core/IconButton";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { Language } from "@codeglide/languages";
@@ -18,20 +19,36 @@ type State = {
 };
 
 export class LanguageSelector extends React.Component<Props, State> {
+  fuzzySearcher: Fuse;
   state: State = {
     filter: ""
   };
+
+  constructor(props: Props) {
+    super(props);
+    this.configureFuzzySearcher();
+  }
+
+  configureFuzzySearcher(): void {
+    this.fuzzySearcher = new Fuse(this.props.languages as Array<Language>, {
+      shouldSort: true,
+      keys: ["name", "extensions", "group"]
+    });
+  }
 
   handleChange = (filter: string) => {
     this.setState({ filter });
   };
 
-  // FIXME: performance optimizing
-  getFiltered() {
-    const { languages } = this.props;
+  getFiltered(): ReadonlyArray<Language> {
     const { filter } = this.state;
-    const f = filter.toLowerCase();
-    return languages.filter(({ name }) => name.toLowerCase().includes(f));
+    return filter ? this.fuzzySearcher.search(filter) : this.props.languages;
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.languages !== this.props.languages) {
+      this.configureFuzzySearcher();
+    }
   }
 
   render() {
