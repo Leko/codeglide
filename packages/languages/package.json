@@ -1,0 +1,27 @@
+{
+  "name": "@codeglide/languages",
+  "version": "0.0.0",
+  "description": "List of languages supported by CodeGlide",
+  "main": "dist/index.js",
+  "author": "Leko <leko.noor@gmail.com>",
+  "repository": "Leko/codeglide",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "./scripts/generate-language-map-types > ./src/type.ts",
+    "prepare": "upbin npm-run-all prepare:clean prepare:babel prepare:types",
+    "prepare:clean": "upbin rimraf dist",
+    "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
+    "prepare:types": "upbin tsc --declarationDir ./dist && cpx './dist/src/**/*.d.ts' ./dist && rm -rf ./dist/{src,__tests__}",
+    "test": "echo 'FIXME: write test' && exit 0"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "upbin": "^0.8.1"
+  },
+  "dependencies": {
+    "language-map": "^1.4.0"
+  }
+}
