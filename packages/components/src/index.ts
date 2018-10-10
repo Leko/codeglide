@@ -1,4 +1,5 @@
 export { ReadOnlyEditor } from "./molecules/ReadOnlyEditor";
 export { Dashboard } from "./pages/Dashboard";
-export { default as RepositorySelector } from "./pages/RepositorySelector";
+export { RepositorySelector } from "./pages/RepositorySelector";
+export { LanguageSelector } from "./pages/LanguageSelector";
 export { CodeSearchResult } from "./pages/CodeSearchResult";

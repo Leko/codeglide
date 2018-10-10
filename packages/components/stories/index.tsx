@@ -4,10 +4,24 @@ import { action } from "@storybook/addon-actions";
 import { text, select } from "@storybook/addon-knobs";
 import { ReadOnlyEditor } from "../src/molecules/ReadOnlyEditor";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { Dashboard, CodeSearchResult, RepositorySelector } from "../src";
+import {
+  Dashboard,
+  CodeSearchResult,
+  RepositorySelector,
+  LanguageSelector
+} from "../src";
+import { languages } from "@codeglide/languages";
 const deindent = require("deindent");
 
-storiesOf("sandbox", module).add("sandbox", () => <div />);
+const withTheme = (theme = createMuiTheme()) => (
+  component: React.ReactNode
+) => <MuiThemeProvider theme={theme}>{component}</MuiThemeProvider>;
+
+storiesOf("pages/LanguageSelector", module).add("initial state", () =>
+  withTheme()(
+    <LanguageSelector onSelect={action("onSelect")} languages={languages} />
+  )
+);
 
 const repos = [
   {
@@ -29,18 +43,18 @@ const repoHistories = repos.map(repo => ({
   lastOpenedAt: new Date().getTime()
 }));
 storiesOf("pages/RepositorySelector", module)
-  .add("initial state", () => (
-    <MuiThemeProvider theme={createMuiTheme()}>
+  .add("initial state", () =>
+    withTheme()(
       <RepositorySelector
         onChange={action("onChange")}
         onSelect={action("onSelect")}
         repositories={[]}
         recentlyOpenedRepositories={repoHistories}
       />
-    </MuiThemeProvider>
-  ))
-  .add("searching", () => (
-    <MuiThemeProvider theme={createMuiTheme()}>
+    )
+  )
+  .add("searching", () =>
+    withTheme()(
       <RepositorySelector
         loading
         onChange={action("onChange")}
@@ -49,10 +63,10 @@ storiesOf("pages/RepositorySelector", module)
         repositories={[]}
         recentlyOpenedRepositories={repoHistories}
       />
-    </MuiThemeProvider>
-  ))
-  .add("after query", () => (
-    <MuiThemeProvider theme={createMuiTheme()}>
+    )
+  )
+  .add("after query", () =>
+    withTheme()(
       <RepositorySelector
         onChange={action("onChange")}
         onSelect={action("onSelect")}
@@ -60,11 +74,11 @@ storiesOf("pages/RepositorySelector", module)
         repositories={repos}
         recentlyOpenedRepositories={repoHistories}
       />
-    </MuiThemeProvider>
-  ));
+    )
+  );
 
-storiesOf("pages/CodeSearchResult", module).add("initial state", () => {
-  return (
+storiesOf("pages/CodeSearchResult", module).add("initial state", () =>
+  withTheme()(
     <MuiThemeProvider theme={createMuiTheme()}>
       <CodeSearchResult
         repositoryHistory={[
@@ -81,11 +95,11 @@ storiesOf("pages/CodeSearchResult", module).add("initial state", () => {
         ]}
       />
     </MuiThemeProvider>
-  );
-});
+  )
+);
 
-storiesOf("pages/Dashboard", module).add("has valid values", () => {
-  return (
+storiesOf("pages/Dashboard", module).add("has valid values", () =>
+  withTheme()(
     <MuiThemeProvider theme={createMuiTheme()}>
       <Dashboard
         onPressSearchHistory={action("onPressSearchHistory")}
@@ -130,19 +144,20 @@ storiesOf("pages/Dashboard", module).add("has valid values", () => {
         ]}
       />
     </MuiThemeProvider>
-  );
-});
+  )
+);
 
-storiesOf("ReadOnlyEditor", module).add("Show TypeScript code", () => (
-  <ReadOnlyEditor
-    editorDidMount={action("editorDidMount")}
-    language={text("language", "typescript")}
-    width={text("width", "100%")}
-    height={text("height", "200")}
-    theme={select("theme", ["vs-dark", "vs", "hc-black"], "vs-dark")}
-    value={text(
-      "value",
-      deindent`
+storiesOf("ReadOnlyEditor", module).add("Show TypeScript code", () =>
+  withTheme()(
+    <ReadOnlyEditor
+      editorDidMount={action("editorDidMount")}
+      language={text("language", "typescript")}
+      width={text("width", "100%")}
+      height={text("height", "200")}
+      theme={select("theme", ["vs-dark", "vs", "hc-black"], "vs-dark")}
+      value={text(
+        "value",
+        deindent`
     import { Hoge } from './Hoge'
     const hoge = 2
     const foo = (some) => (unused) => (variables) => () => () => () => () => () => () => () => () => () => () => () => () => () => {
@@ -151,6 +166,7 @@ storiesOf("ReadOnlyEditor", module).add("Show TypeScript code", () => (
     }
     foo()
     `
-    )}
-  />
-));
+      )}
+    />
+  )
+);

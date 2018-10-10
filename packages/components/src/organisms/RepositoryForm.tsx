@@ -4,6 +4,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import { Repository } from "@codeglide/domain";
 import { Text } from "../atoms/Text";
+import { Row, Flex } from "../molecules/Row";
 
 type Props = {
   defaultValue: Repository;
@@ -39,15 +40,8 @@ export class RepositoryForm extends React.PureComponent<Props> {
     const { defaultValue } = this.props;
 
     return (
-      <div
-        // FIXME: Move to CSS class
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center"
-        }}
-      >
-        <div style={{ flex: 1 }}>
+      <Row>
+        <Flex>
           <TextField
             defaultValue={defaultValue.owner}
             onChange={this.handleChangeOwner}
@@ -61,19 +55,19 @@ export class RepositoryForm extends React.PureComponent<Props> {
               )
             }}
           />
-        </div>
+        </Flex>
         <div style={{ margin: "0 6px" }}>
           <Text>/</Text>
         </div>
-        <div style={{ flex: 1 }}>
+        <Flex>
           <TextField
             defaultValue={defaultValue.repository}
             onChange={this.handleChangeName}
             id="input-repository-field-repository"
             placeholder="repository"
           />
-        </div>
-      </div>
+        </Flex>
+      </Row>
     );
   }
 }

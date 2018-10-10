@@ -1,10 +1,9 @@
 import * as React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { Repository, RepositoryHistory } from "@codeglide/domain";
 import Container from "../molecules/Container";
+import Paper from "../molecules/Paper";
 import { RepositoryList } from "../molecules/RepositoryList";
 import { RepositoryHistoryList } from "../molecules/RepositoryHistoryList";
 import { RepositoryForm } from "../organisms/RepositoryForm";
@@ -17,16 +16,12 @@ type Props = {
   repositories: ReadonlyArray<Repository>;
   recentlyOpenedRepositories: ReadonlyArray<RepositoryHistory>;
   defaultValue?: Repository;
-  classes?: {
-    paper: string;
-  };
 };
 
 export const RepositorySelector: React.SFC<Props> = ({
   repositories,
   recentlyOpenedRepositories,
   defaultValue,
-  classes,
   loading = false,
   onChange,
   onSelect
@@ -40,7 +35,7 @@ export const RepositorySelector: React.SFC<Props> = ({
     )}
   >
     <Container last={false}>
-      <Paper square elevation={1} className={classes!.paper}>
+      <Paper>
         <RepositoryForm defaultValue={defaultValue} onChange={onChange} />
       </Paper>
     </Container>
@@ -60,11 +55,3 @@ export const RepositorySelector: React.SFC<Props> = ({
 RepositorySelector.defaultProps = {
   recentlyOpenedRepositories: []
 };
-
-const styles = {
-  paper: {
-    padding: 10
-  }
-};
-
-export default withStyles(styles)(RepositorySelector);
