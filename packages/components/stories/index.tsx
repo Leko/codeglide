@@ -23,11 +23,22 @@ const withTheme = (theme = createMuiTheme()) => (
 
 storiesOf("pages/DirectorySelector", module)
   .add("initial state", () =>
-    withTheme()(<DirectorySelector onSelect={action("onSelect")} tree={tree} />)
+    withTheme()(
+      <DirectorySelector
+        onSelect={action("onSelect")}
+        onRequestMore={action("onRequestMore")}
+        tree={tree}
+      />
+    )
   )
   .add("loading", () =>
     withTheme()(
-      <DirectorySelector onSelect={action("onSelect")} tree={[]} loading />
+      <DirectorySelector
+        onSelect={action("onSelect")}
+        onRequestMore={action("onRequestMore")}
+        tree={[]}
+        loading
+      />
     )
   );
 
