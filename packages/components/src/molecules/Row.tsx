@@ -5,11 +5,13 @@ import { AlignItemsProperty, JustifyContentProperty } from "csstype";
 
 type RowProps = {
   children: React.ReactNode;
+  className?: string;
   alignItems?: AlignItemsProperty;
   justifyContent?: JustifyContentProperty;
 };
 export const Row = ({
   children,
+  className,
   alignItems = "center",
   justifyContent = "flex-start"
 }: RowProps) => (
@@ -21,6 +23,7 @@ export const Row = ({
       alignItems,
       justifyContent
     }}
+    className={className}
   >
     {children}
   </div>

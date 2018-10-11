@@ -10,7 +10,8 @@ import {
   LanguageSelector,
   DirectorySelector,
   ReadOnlyEditor,
-  FileList
+  FileList,
+  PathBreadcrumb
 } from "../src";
 import { ShallowTree } from "@codeglide/domain";
 import { languages } from "@codeglide/languages";
@@ -171,6 +172,29 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
     </MuiThemeProvider>
   )
 );
+
+storiesOf("molecules/PathBreadcrumb", module)
+  .add("empty", () =>
+    withTheme()(<PathBreadcrumb onPress={action("onPress")} paths={[]} />)
+  )
+  .add("deep", () =>
+    withTheme()(
+      <PathBreadcrumb
+        onPress={action("onPress")}
+        paths={[
+          "hoge",
+          "foo",
+          "bar",
+          "buzz",
+          "hige",
+          "hage",
+          "moge",
+          "fizz",
+          "buzz"
+        ]}
+      />
+    )
+  );
 
 storiesOf("molecules/FileList", module)
   .add("mixed", () =>

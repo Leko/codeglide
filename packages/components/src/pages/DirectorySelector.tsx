@@ -4,6 +4,7 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import DoneIcon from "@material-ui/icons/Done";
 import { ShallowTree, TreeEntry, omitFile } from "@codeglide/domain";
 import { FileList } from "../molecules/FileList";
+import PathBreadcrumb from "../molecules/PathBreadcrumb";
 import Page from "../templates/Page";
 
 type Props = {
@@ -39,9 +40,19 @@ export class DirectorySelector extends React.Component<Props, State> {
     onSelect(selectedEntry);
   };
 
+  getPaths(): Array<string> | null {
+    const { tree } = this.props;
+    if (tree.length === 0) {
+      return null;
+    }
+
+    return tree[0].path.split("/").slice(0, -1);
+  }
+
   render() {
     const { selectedEntry } = this.state;
     const { tree, loading, onRequestMore } = this.props;
+    const paths = this.getPaths();
 
     return (
       <Page
@@ -62,6 +73,9 @@ export class DirectorySelector extends React.Component<Props, State> {
           </IconButton>
         )}
       >
+        {paths !== null ? (
+          <PathBreadcrumb paths={paths} onPress={() => {}} />
+        ) : null}
         {loading ? (
           <FileList
             selectable
