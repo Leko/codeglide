@@ -8,8 +8,9 @@ import PathBreadcrumb from "../molecules/PathBreadcrumb";
 import Page from "../templates/Page";
 
 type Props = {
-  onSelect: (path: TreeEntry) => void;
-  onRequestMore: (path: TreeEntry) => void;
+  onSelect: (entry: TreeEntry) => void;
+  onRequestMore: (entry: TreeEntry) => void;
+  onRequestPath: (path: string) => void;
   loading?: boolean;
   tree: ShallowTree;
 };
@@ -51,7 +52,7 @@ export class DirectorySelector extends React.Component<Props, State> {
 
   render() {
     const { selectedEntry } = this.state;
-    const { tree, loading, onRequestMore } = this.props;
+    const { tree, loading, onRequestMore, onRequestPath } = this.props;
     const paths = this.getPaths();
 
     return (
@@ -74,7 +75,7 @@ export class DirectorySelector extends React.Component<Props, State> {
         )}
       >
         {paths !== null ? (
-          <PathBreadcrumb paths={paths} onPress={() => {}} />
+          <PathBreadcrumb paths={paths} onPress={onRequestPath} />
         ) : null}
         {loading ? (
           <FileList

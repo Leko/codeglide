@@ -1,7 +1,7 @@
 [
   {
     "name": ".babelrc",
-    "path": ".babelrc",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.babelrc",
     "sha": "398c51355566125971aa58c7f3f6c6ea00871488",
     "size": 338,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.babelrc?ref=master",
@@ -17,7 +17,7 @@
   },
   {
     "name": ".circleci",
-    "path": ".circleci",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.circleci",
     "sha": "1f427445536355c59b792f9816ed07d9e1905c01",
     "size": 0,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.circleci?ref=master",
@@ -33,7 +33,7 @@
   },
   {
     "name": ".eslintignore",
-    "path": ".eslintignore",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.eslintignore",
     "sha": "2aabc7da15439f85f23233565ffa10b81f129d14",
     "size": 32,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.eslintignore?ref=master",
@@ -49,7 +49,7 @@
   },
   {
     "name": ".eslintrc.js",
-    "path": ".eslintrc.js",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.eslintrc.js",
     "sha": "449022ae02e612cde7d486db393e70e0683a7e09",
     "size": 430,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.eslintrc.js?ref=master",
@@ -65,7 +65,7 @@
   },
   {
     "name": ".flowconfig",
-    "path": ".flowconfig",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.flowconfig",
     "sha": "8fb927f5f4e31cc7fde4e9756b4ffc22c7954b2d",
     "size": 220,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.flowconfig?ref=master",
@@ -81,7 +81,7 @@
   },
   {
     "name": ".github",
-    "path": ".github",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.github",
     "sha": "b09046c581f4bc9e2004d3d9a62e50009a3d5284",
     "size": 0,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.github?ref=master",
@@ -97,7 +97,7 @@
   },
   {
     "name": ".gitignore",
-    "path": ".gitignore",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.gitignore",
     "sha": "cf4440f444966439604adfeafdd2915dceecd0da",
     "size": 940,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.gitignore?ref=master",
@@ -113,7 +113,7 @@
   },
   {
     "name": ".prettierrc",
-    "path": ".prettierrc",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/.prettierrc",
     "sha": "0967ef424bce6791893e9a57bb952f80fd536e93",
     "size": 3,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/.prettierrc?ref=master",
@@ -129,7 +129,7 @@
   },
   {
     "name": "LICENSE",
-    "path": "LICENSE",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/LICENSE",
     "sha": "79a7c483876a0d397aa544a9898bf4dd6531d948",
     "size": 1069,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/LICENSE?ref=master",
@@ -145,7 +145,7 @@
   },
   {
     "name": "README.md",
-    "path": "README.md",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/README.md",
     "sha": "0909d29af8da5d0ea10b2032345117ec8ae635b2",
     "size": 2716,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/README.md?ref=master",
@@ -161,7 +161,7 @@
   },
   {
     "name": "lerna.json",
-    "path": "lerna.json",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/lerna.json",
     "sha": "9de0a931e423eac061ffc90f9c5c3edac960e57f",
     "size": 100,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/lerna.json?ref=master",
@@ -177,7 +177,7 @@
   },
   {
     "name": "package-lock.json",
-    "path": "package-lock.json",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/package-lock.json",
     "sha": "1dd895e6fbb7f6ccd597d820934d51e4974db4ab",
     "size": 374725,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/package-lock.json?ref=master",
@@ -193,7 +193,7 @@
   },
   {
     "name": "package.json",
-    "path": "package.json",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/package.json",
     "sha": "12b904e08002fd9ff69c4f1520dd22ffb953bd0a",
     "size": 2135,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/package.json?ref=master",
@@ -209,7 +209,7 @@
   },
   {
     "name": "packages",
-    "path": "packages",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/packages",
     "sha": "f097aa5204878125cfeae0816ada07f48c8b952d",
     "size": 0,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/packages?ref=master",
@@ -225,7 +225,7 @@
   },
   {
     "name": "scripts",
-    "path": "scripts",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/scripts",
     "sha": "88b4f48a8f9b315d1d02edc1bee1e4ee78d0c27b",
     "size": 0,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/scripts?ref=master",
@@ -241,7 +241,7 @@
   },
   {
     "name": "type-definition",
-    "path": "type-definition",
+    "path": "xxx/yyy/zzz/AAA/BBB/CCC/ABC/XYZ/type-definition",
     "sha": "5e56c3f1d8d7213e536362da7f734e3a52e8a264",
     "size": 0,
     "url": "https://api.github.com/repos/Leko/hothouse/contents/type-definition?ref=master",

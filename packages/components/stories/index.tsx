@@ -28,6 +28,7 @@ storiesOf("pages/DirectorySelector", module)
       <DirectorySelector
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
+        onRequestPath={action("onRequestPath")}
         tree={tree}
       />
     )
@@ -37,6 +38,7 @@ storiesOf("pages/DirectorySelector", module)
       <DirectorySelector
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
+        onRequestPath={action("onRequestPath")}
         tree={[]}
         loading
       />
