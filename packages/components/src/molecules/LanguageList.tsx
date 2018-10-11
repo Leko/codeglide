@@ -6,7 +6,6 @@ import { Language } from "@codeglide/languages";
 import { Circle } from "../atoms/Circle";
 
 type Props = {
-  placeholder?: boolean;
   languages: ReadonlyArray<Language>;
   onPress: (language: Language) => void;
 };

@@ -2,20 +2,34 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { text, select } from "@storybook/addon-knobs";
-import { ReadOnlyEditor } from "../src/molecules/ReadOnlyEditor";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import {
   Dashboard,
   CodeSearchResult,
   RepositorySelector,
-  LanguageSelector
+  LanguageSelector,
+  DirectorySelector,
+  ReadOnlyEditor,
+  FileList
 } from "../src";
+import { ShallowTree } from "@codeglide/domain";
 import { languages } from "@codeglide/languages";
+import tree from "./assets/tree.json";
 const deindent = require("deindent");
 
 const withTheme = (theme = createMuiTheme()) => (
   component: React.ReactNode
 ) => <MuiThemeProvider theme={theme}>{component}</MuiThemeProvider>;
+
+storiesOf("pages/DirectorySelector", module)
+  .add("initial state", () =>
+    withTheme()(<DirectorySelector onSelect={action("onSelect")} tree={tree} />)
+  )
+  .add("loading", () =>
+    withTheme()(
+      <DirectorySelector onSelect={action("onSelect")} tree={[]} loading />
+    )
+  );
 
 storiesOf("pages/LanguageSelector", module).add("initial state", () =>
   withTheme()(
@@ -147,7 +161,20 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
   )
 );
 
-storiesOf("ReadOnlyEditor", module).add("Show TypeScript code", () =>
+storiesOf("molecules/FileList", module)
+  .add("mixed", () =>
+    withTheme()(
+      <FileList
+        onPress={action("onPress")}
+        tree={(tree as unknown) as ShallowTree}
+      />
+    )
+  )
+  .add("placeholder", () =>
+    withTheme()(<FileList onPress={action("onPress")} tree={[]} placeholder />)
+  );
+
+storiesOf("molecules/ReadOnlyEditor", module).add("Show TypeScript code", () =>
   withTheme()(
     <ReadOnlyEditor
       editorDidMount={action("editorDidMount")}

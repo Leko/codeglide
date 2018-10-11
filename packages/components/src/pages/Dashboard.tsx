@@ -31,43 +31,45 @@ export const Dashboard: React.SFC<Props> = ({
       </IconButton>
     )}
   >
-    <Container>
+    <Container last={false}>
       <SubHeader>Quick search</SubHeader>
-      <SearchHistoryList
-        histories={searchHistory.slice(0, visibleSearchHistoryCount)}
-        onPress={onPressSearchHistory}
-      />
-      {searchHistory.length > visibleSearchHistoryCount && (
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Button color="primary" onClick={onPressViewAllHistory}>
-              View all history
-              <NavigateNextIcon />
-            </Button>
-          </Grid>
+    </Container>
+    <SearchHistoryList
+      histories={searchHistory.slice(0, visibleSearchHistoryCount)}
+      onPress={onPressSearchHistory}
+    />
+    {searchHistory.length > visibleSearchHistoryCount && (
+      <Grid container justify="flex-end">
+        <Grid item>
+          <Button color="primary" onClick={onPressViewAllHistory}>
+            View all history
+            <NavigateNextIcon />
+          </Button>
         </Grid>
-      )}
+      </Grid>
+    )}
 
+    <Container last={false}>
       <SubHeader>
         View recent repository
         {"\n"}
         (FIXME: Add repository history)
       </SubHeader>
-      <SearchHistoryList
-        histories={searchHistory.slice(0, visibleSearchHistoryCount)}
-        onPress={onPressSearchHistory}
-      />
-      {searchHistory.length > visibleSearchHistoryCount && (
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Button color="primary" onClick={onPressViewAllHistory}>
-              View all opened repositories
-              <NavigateNextIcon />
-            </Button>
-          </Grid>
-        </Grid>
-      )}
     </Container>
+    <SearchHistoryList
+      histories={searchHistory.slice(0, visibleSearchHistoryCount)}
+      onPress={onPressSearchHistory}
+    />
+    {searchHistory.length > visibleSearchHistoryCount && (
+      <Grid container justify="flex-end">
+        <Grid item>
+          <Button color="primary" onClick={onPressViewAllHistory}>
+            View all opened repositories
+            <NavigateNextIcon />
+          </Button>
+        </Grid>
+      </Grid>
+    )}
   </Page>
 );
 

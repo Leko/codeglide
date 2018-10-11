@@ -3,6 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { SearchHistory as SearchHistoryType } from "@codeglide/domain";
 import { DistanceToNow } from "../atoms/DistanceToNow";
+import { GitHubAvatar } from "../atoms/GitHubAvatar";
 
 type Props = {
   history: SearchHistoryType;
@@ -14,6 +15,7 @@ export const SearchHistory = ({
   history: { query, searchedAt }
 }: Props) => (
   <ListItem button onClick={onPress}>
+    <GitHubAvatar owner={query.repo.split("/")[0]} />
     <ListItemText
       primary={`"${query.q}" in ${query.repo}`}
       secondary={<DistanceToNow date={new Date(searchedAt)} />}

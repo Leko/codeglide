@@ -5,6 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Repository } from "@codeglide/domain";
 import { Placeholder, RoundShape, TextBlock } from "./Placeholder";
+import { GitHubAvatar } from "../atoms/GitHubAvatar";
 
 type Props = {
   placeholder?: boolean;
@@ -39,7 +40,7 @@ export const RepositoryList = ({
           button
           onClick={() => onPress(repository)}
         >
-          <Avatar src={`https://github.com/${repository.owner}.png?size=120`} />
+          <GitHubAvatar owner={repository.owner} />
           <ListItemText
             inset
             primary={`${repository.owner}/${repository.repository}`}
