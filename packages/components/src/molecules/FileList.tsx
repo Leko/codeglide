@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
+import Radio from "@material-ui/core/Radio";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import FolderIcon from "@material-ui/icons/Folder";
 import {
@@ -19,12 +20,22 @@ import { Circle } from "../atoms/Circle";
 import { Placeholder, RoundShape, TextBlock } from "./Placeholder";
 
 type Props = {
-  placeholder?: boolean;
   tree: ShallowTree;
   onPress: (entry: TreeEntry) => void;
+  onRequestMore?: (entry: TreeEntry) => void;
+  placeholder?: boolean;
+  selectable?: boolean;
+  selectedPath?: string;
 };
 
-export const FileList = ({ placeholder = false, tree, onPress }: Props) => (
+export const FileList = ({
+  placeholder = false,
+  selectable = false,
+  tree,
+  selectedPath,
+  onPress,
+  onRequestMore = () => {}
+}: Props) => (
   <Placeholder
     ready={!placeholder}
     renderPlaceholder={() => (
@@ -45,18 +56,39 @@ export const FileList = ({ placeholder = false, tree, onPress }: Props) => (
         <ListItem key={entry.path} button onClick={() => onPress(entry)}>
           {isFile(entry) ? (
             <React.Fragment>
-              <Circle size={10} color={getColorByPath(entry.path)} />
+              {selectable ? (
+                <Radio
+                  checked={selectedPath === entry.path}
+                  name="file-list-item"
+                  aria-label={entry.path}
+                />
+              ) : (
+                <Circle size={10} color={getColorByPath(entry.path)} />
+              )}
               <ListItemText inset primary={entry.name} />
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {/* FIXME: radio */}
-              <Avatar>
-                <FolderIcon />
-              </Avatar>
+              {selectable ? (
+                <Radio
+                  checked={selectedPath === entry.path}
+                  name="file-list-item"
+                  aria-label={entry.path}
+                />
+              ) : (
+                <Avatar>
+                  <FolderIcon />
+                </Avatar>
+              )}
               <ListItemText inset primary={`${entry.name}/`} />
               <ListItemSecondaryAction>
-                <IconButton aria-label="More">
+                <IconButton
+                  aria-label="More"
+                  onClick={event => {
+                    onRequestMore(entry);
+                    event.stopPropagation();
+                  }}
+                >
                   <NavigateNextIcon />
                 </IconButton>
               </ListItemSecondaryAction>

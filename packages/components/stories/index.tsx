@@ -166,7 +166,19 @@ storiesOf("molecules/FileList", module)
     withTheme()(
       <FileList
         onPress={action("onPress")}
+        onRequestMore={action("onRequestMore")}
         tree={(tree as unknown) as ShallowTree}
+      />
+    )
+  )
+  .add("selectable", () =>
+    withTheme()(
+      <FileList
+        onPress={action("onPress")}
+        onRequestMore={action("onRequestMore")}
+        tree={(tree as unknown) as ShallowTree}
+        selectable
+        selectedPath={tree[0].path}
       />
     )
   )
