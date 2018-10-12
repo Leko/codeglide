@@ -45,6 +45,7 @@ export const RepositorySelector: React.SFC<Props> = ({
       <RepositoryList repositories={repositories} onPress={onSelect} />
     ) : (
       <RepositoryHistoryList
+        subheader="Open recent"
         repositories={recentlyOpenedRepositories}
         onPress={onSelect}
       />

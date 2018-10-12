@@ -9,11 +9,20 @@ import { DistanceToNow } from "../atoms/DistanceToNow";
 
 type Props = {
   repositories: ReadonlyArray<RepositoryHistory>;
+  subheader?: string;
   onPress: (history: Repository) => void;
 };
 
-export const RepositoryHistoryList = ({ repositories, onPress }: Props) => (
-  <List subheader={<ListSubheader>Open recent</ListSubheader>}>
+export const RepositoryHistoryList = ({
+  repositories,
+  subheader,
+  onPress
+}: Props) => (
+  <List
+    subheader={
+      subheader ? <ListSubheader>{subheader}</ListSubheader> : undefined
+    }
+  >
     {repositories.map((history: RepositoryHistory) => (
       <ListItem
         key={history.digest}

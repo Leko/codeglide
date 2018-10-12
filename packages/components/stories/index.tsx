@@ -131,8 +131,11 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
     <MuiThemeProvider theme={createMuiTheme()}>
       <Dashboard
         onPressSearchHistory={action("onPressSearchHistory")}
-        onPressViewAllHistory={action("onPressViewAllHistory")}
-        visibleSearchHistoryCount={3}
+        onRequestAllSearchHistory={action("onRequestAllSearchHistory")}
+        onPressRepositoryHistory={action("onPressRepositoryHistory")}
+        onRequestAllRepositoryHistory={action("onRequestAllRepositoryHistory")}
+        visibleSearchHistoryCount={2}
+        visibleRepositoryHistoryCount={2}
         searchHistory={[
           {
             query: {
@@ -170,6 +173,7 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
             searchedAt: new Date(Date.now() - 1000 * 60 * 5).getTime()
           }
         ]}
+        repositoryHistory={repoHistories}
       />
     </MuiThemeProvider>
   )
