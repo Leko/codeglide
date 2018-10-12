@@ -1,13 +1,13 @@
 {
-  "private": true,
-  "name": "@codeglide/domain",
+  "name": "@codeglide/languages",
   "version": "0.0.0",
-  "description": "Domain for CodeGlide",
+  "description": "List of languages supported by CodeGlide",
   "main": "dist/index.js",
   "author": "Leko <leko.noor@gmail.com>",
   "repository": "Leko/codeglide",
   "license": "MIT",
   "scripts": {
+    "postinstall": "./scripts/generate-language-map-types > ./src/type.ts",
     "prepare": "upbin npm-run-all prepare:clean prepare:babel prepare:types",
     "prepare:clean": "upbin rimraf dist",
     "prepare:babel": "upbin babel --config-file ../../.babelrc src --extensions '.ts,.tsx' --out-dir dist",
@@ -18,15 +18,10 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/lodash": "^4.14.117",
     "cpx": "^1.5.0",
     "upbin": "^0.8.1"
   },
   "dependencies": {
-    "@codeglide/languages": "*",
-    "jshashes": "^1.0.7",
-    "lodash": "^4.17.11",
-    "redux-aggregate": "^2.1.2",
-    "reselect": "^4.0.0"
+    "language-map": "^1.4.0"
   }
 }

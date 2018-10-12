@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+const uniq = require("lodash/uniq");
+const map = require("language-map");
+
+const code = `
+export type LanguageName = ${Object.keys(map)
+  .map(name => `"${name}"`)
+  .join(" | ")};
+
+export type LanguageType = ${uniq(
+  Object.values(map)
+    .map(({ type }) => type)
+    .filter(Boolean)
+)
+  .map(name => `"${name}"`)
+  .join(" | ")};
+
+export type LanguageGroup = ${uniq(
+  Object.values(map)
+    .map(({ group }) => group)
+    .filter(Boolean)
+)
+  .map(name => `"${name}"`)
+  .join(" | ")};
+
+export type Language = {
+  name: LanguageName;
+  type: LanguageType;
+  color: string;
+  extensions: string[];
+  languageId: number;
+  group?: LanguageGroup;
+  searchable: boolean;
+}`;
+
+console.log(code);

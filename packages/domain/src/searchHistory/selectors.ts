@@ -12,6 +12,6 @@ export const getHistories = createSelector(
 
 export const getLRUHistories = createSelector(
   getHistories,
-  (histories: Array<History>) =>
-    sortBy(Object.values(histories), h => -h.searchedAt)
+  (histories: { [digest: string]: History }) =>
+    sortBy(Object.values(histories), (h: History) => -h.searchedAt)
 );
