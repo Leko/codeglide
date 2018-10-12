@@ -1,6 +1,6 @@
 import * as React from "react";
 import PaperBase from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, Theme } from "@material-ui/core/styles";
 
 type Props = {
   children: React.ReactNode;
@@ -22,10 +22,10 @@ export const Paper = ({
   </PaperBase>
 );
 
-const styles = {
+const styles = (theme: Theme) => ({
   paper: {
-    padding: 10
+    padding: theme.spacing.unit
   }
-};
+});
 
 export default withStyles(styles)(Paper);

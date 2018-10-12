@@ -1,5 +1,9 @@
 import * as React from "react";
-import { AlignItemsProperty, JustifyContentProperty } from "csstype";
+import {
+  AlignItemsProperty,
+  JustifyContentProperty,
+  MaxWidthProperty
+} from "csstype";
 
 // FIXME: Move to CSS
 
@@ -32,7 +36,8 @@ export const Row = ({
 type FlexProps = {
   children: React.ReactNode;
   flex?: number;
+  maxWidth?: MaxWidthProperty<number>;
 };
-export const Flex = ({ children, flex = 1 }: FlexProps) => (
-  <div style={{ flex }}>{children}</div>
+export const Flex = ({ children, flex = 1, maxWidth }: FlexProps) => (
+  <div style={{ flex, maxWidth }}>{children}</div>
 );

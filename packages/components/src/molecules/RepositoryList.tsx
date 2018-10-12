@@ -1,7 +1,6 @@
 import * as React from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Repository } from "@codeglide/domain";
 import { Placeholder, RoundShape, TextBlock } from "./Placeholder";
@@ -24,9 +23,7 @@ export const RepositoryList = ({
       <List>
         {[0, 1, 2].map(n => (
           <ListItem key={n}>
-            <Avatar>
-              <RoundShape />
-            </Avatar>
+            <RoundShape />
             <ListItemText inset primary={<TextBlock rows={1} />} />
           </ListItem>
         ))}

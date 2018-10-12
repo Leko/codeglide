@@ -5,4 +5,4 @@ export { Dashboard } from "./pages/Dashboard";
 export { RepositorySelector } from "./pages/RepositorySelector";
 export { LanguageSelector } from "./pages/LanguageSelector";
 export { DirectorySelector } from "./pages/DirectorySelector";
-export { CodeSearchResult } from "./pages/CodeSearchResult";
+export { CodeSearch } from "./pages/CodeSearch";

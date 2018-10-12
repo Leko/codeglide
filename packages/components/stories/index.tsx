@@ -5,7 +5,7 @@ import { text, select } from "@storybook/addon-knobs";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import {
   Dashboard,
-  CodeSearchResult,
+  CodeSearch,
   RepositorySelector,
   LanguageSelector,
   DirectorySelector,
@@ -16,6 +16,7 @@ import {
 import { ShallowTree } from "@codeglide/domain";
 import { languages } from "@codeglide/languages";
 import tree from "./assets/tree.json";
+import searchResult from "./assets/searchResult.json";
 const deindent = require("deindent");
 
 const withTheme = (theme = createMuiTheme()) => (
@@ -105,26 +106,71 @@ storiesOf("pages/RepositorySelector", module)
     )
   );
 
-storiesOf("pages/CodeSearchResult", module).add("initial state", () =>
-  withTheme()(
-    <MuiThemeProvider theme={createMuiTheme()}>
-      <CodeSearchResult
-        repositoryHistory={[
-          {
-            owner: "Leko",
-            repository: "hothouse",
-            lastOpenedAt: new Date().getTime()
-          },
-          {
-            owner: "nodejs",
-            repository: "node",
-            lastOpenedAt: new Date(Date.now() - 1000 * 60 * 5).getTime()
-          }
-        ]}
-      />
-    </MuiThemeProvider>
+storiesOf("pages/CodeSearch", module)
+  .add("initial state", () =>
+    withTheme()(
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <CodeSearch
+          repositoryHistory={repoHistories}
+          onSubmit={action("onSubmit")}
+          onPressSearchResult={action("onPressSearchResult")}
+        />
+      </MuiThemeProvider>
+    )
   )
-);
+  .add("with defaultValue", () =>
+    withTheme()(
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <CodeSearch
+          repositoryHistory={repoHistories}
+          defaultValue={{
+            q: "process.exit();",
+            repo: {
+              owner: "lerna",
+              repository: "lerna"
+            },
+            path: "/commands/publish",
+            language: "JavaScript"
+          }}
+          onSubmit={action("onSubmit")}
+          onPressSearchResult={action("onPressSearchResult")}
+        />
+      </MuiThemeProvider>
+    )
+  )
+  .add("searching", () =>
+    withTheme()(
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <CodeSearch
+          searching
+          repositoryHistory={repoHistories}
+          defaultValue={{
+            q: "process.exit();",
+            repo: {
+              owner: "lerna",
+              repository: "lerna"
+            },
+            path: "/commands/publish",
+            language: "JavaScript"
+          }}
+          onSubmit={action("onSubmit")}
+          onPressSearchResult={action("onPressSearchResult")}
+        />
+      </MuiThemeProvider>
+    )
+  )
+  .add("with search result", () =>
+    withTheme()(
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <CodeSearch
+          repositoryHistory={repoHistories}
+          results={searchResult}
+          onSubmit={action("onSubmit")}
+          onPressSearchResult={action("onPressSearchResult")}
+        />
+      </MuiThemeProvider>
+    )
+  );
 
 storiesOf("pages/Dashboard", module).add("has valid values", () =>
   withTheme()(
@@ -140,10 +186,10 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
           {
             query: {
               q: "jest",
-              repo: "Leko/hothouse",
+              repo: { owner: "Leko", repository: "hothouse" },
               in: "path",
               path: "packages/@hothouse/monorepo-lerna",
-              language: "javascript"
+              language: "JavaScript"
             },
             digest: "xxx-1",
             searchedAt: new Date().getTime()
@@ -151,7 +197,7 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
           {
             query: {
               q: "main",
-              repo: "nodejs/node"
+              repo: { owner: "nodejs", repository: "node" }
             },
             digest: "xxx-2",
             searchedAt: new Date(Date.now() - 1000 * 60 * 5).getTime()
@@ -159,7 +205,7 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
           {
             query: {
               q: "xxx",
-              repo: "nodejs/node"
+              repo: { owner: "nodejs", repository: "node" }
             },
             digest: "xxx-3",
             searchedAt: new Date(Date.now() - 1000 * 60 * 5).getTime()
@@ -167,7 +213,7 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
           {
             query: {
               q: "yyy",
-              repo: "nodejs/node"
+              repo: { owner: "nodejs", repository: "node" }
             },
             digest: "xxx-4",
             searchedAt: new Date(Date.now() - 1000 * 60 * 5).getTime()

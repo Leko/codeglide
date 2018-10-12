@@ -1,8 +1,11 @@
+import { LanguageName } from "@codeglide/languages";
+import { Repository } from "./Repository";
+
 export type SearchParams = {
   q: string;
-  repo: string; // ex. Leko/hothouse
-  in?: "file" | "path" | "file,path";
+  repo: Repository;
+  in?: "path"; // FIXME: Add supports `| "file" | "file,path"`
   path?: string;
-  language?: string; // FIXME: Make enum
+  language?: LanguageName;
   // fork?: true | "only"
 };
