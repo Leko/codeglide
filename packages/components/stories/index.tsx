@@ -111,7 +111,6 @@ storiesOf("pages/CodeSearch", module)
     withTheme()(
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
-          repositoryHistory={repoHistories}
           onSubmit={action("onSubmit")}
           onPressSearchResult={action("onPressSearchResult")}
         />
@@ -122,7 +121,6 @@ storiesOf("pages/CodeSearch", module)
     withTheme()(
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
-          repositoryHistory={repoHistories}
           defaultValue={{
             q: "process.exit();",
             repo: {
@@ -143,7 +141,6 @@ storiesOf("pages/CodeSearch", module)
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
           searching
-          repositoryHistory={repoHistories}
           defaultValue={{
             q: "process.exit();",
             repo: {
@@ -163,7 +160,6 @@ storiesOf("pages/CodeSearch", module)
     withTheme()(
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
-          repositoryHistory={repoHistories}
           results={searchResult}
           onSubmit={action("onSubmit")}
           onPressSearchResult={action("onPressSearchResult")}

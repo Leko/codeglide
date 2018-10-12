@@ -3,7 +3,6 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import {
-  RepositoryHistory,
   SearchParams,
   CodeSearchResult,
   CodeSearchResultItem
@@ -13,7 +12,6 @@ import CodeSearchForm from "../organisms/CodeSearchForm";
 import CodeSearchResultList from "../molecules/CodeSearchResultList";
 
 type Props = {
-  repositoryHistory: ReadonlyArray<RepositoryHistory>;
   results?: CodeSearchResult;
   searching?: boolean;
   defaultValue?: SearchParams;
@@ -22,7 +20,6 @@ type Props = {
 };
 
 export const CodeSearch: React.SFC<Props> = ({
-  repositoryHistory,
   results,
   searching,
   defaultValue,
@@ -51,7 +48,3 @@ export const CodeSearch: React.SFC<Props> = ({
     />
   </Page>
 );
-
-CodeSearch.defaultProps = {
-  repositoryHistory: []
-};

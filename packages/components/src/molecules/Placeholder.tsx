@@ -32,7 +32,6 @@ const styles = (theme: Theme) => ({
 type Classes = {
   round: string;
   textBlock: string;
-  textBlockInverted: string;
 };
 
 export const Placeholder = ({ children, renderPlaceholder, ready }: Props) => (

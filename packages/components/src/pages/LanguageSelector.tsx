@@ -19,18 +19,16 @@ type State = {
 };
 
 export class LanguageSelector extends React.Component<Props, State> {
-  fuzzySearcher: Fuse;
-  state: State = {
-    filter: ""
-  };
+  fuzzySearcher: Fuse = this.getFuzzySearcher();
+  state: State = { filter: "" };
 
   constructor(props: Props) {
     super(props);
-    this.configureFuzzySearcher();
+    this.getFuzzySearcher();
   }
 
-  configureFuzzySearcher(): void {
-    this.fuzzySearcher = new Fuse(this.props.languages as Array<Language>, {
+  getFuzzySearcher(): Fuse {
+    return new Fuse(this.props.languages as Array<Language>, {
       shouldSort: true,
       keys: ["name", "extensions", "group"]
     });
@@ -47,7 +45,7 @@ export class LanguageSelector extends React.Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.languages !== this.props.languages) {
-      this.configureFuzzySearcher();
+      this.fuzzySearcher = this.getFuzzySearcher();
     }
   }
 
