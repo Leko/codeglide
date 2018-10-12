@@ -33,13 +33,13 @@ export class CodeSearchForm extends React.PureComponent<Props, State> {
     focused: false
   };
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // FIXME
     const values = this.props.defaultValue!;
     this.props.onSubmit(values);
-  }
+  };
 
   render() {
     const { defaultValue, disabled, classes } = this.props;
