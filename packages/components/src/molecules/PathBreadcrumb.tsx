@@ -13,16 +13,20 @@ type Props = {
   };
 };
 
+const sep = "/";
 export const PathBreadcrumb = ({ paths, onPress, classes }: Props) => (
   <div className={classes!.root}>
     <Row className={classes!.inner}>
-      <Text>/</Text>
-      {paths.map(p => (
+      <Text>{sep}</Text>
+      {paths.map((p, i) => (
         <React.Fragment>
-          <Button size="small" onClick={() => onPress(p)}>
+          <Button
+            size="small"
+            onClick={() => onPress(sep + paths.slice(0, i + 1).join(sep))}
+          >
             {p}
           </Button>
-          <Text>/</Text>
+          <Text>{sep}</Text>
         </React.Fragment>
       ))}
     </Row>
