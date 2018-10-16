@@ -1,7 +1,7 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import {
@@ -12,6 +12,8 @@ import {
 import { SubHeader } from "../atoms/SubHeader";
 import Page from "../templates/Page";
 import Container from "../molecules/Container";
+import FloatingActionButton from "../molecules/FloatingActionButton";
+import { Row } from "../molecules/Row";
 import { SearchHistoryList } from "../molecules/SearchHistoryList";
 import { RepositoryHistoryList } from "../molecules/RepositoryHistoryList";
 
@@ -22,6 +24,7 @@ type Props = {
   visibleRepositoryHistoryCount: number;
   onPressSearchHistory: (history: SearchHistory) => void;
   onPressRepositoryHistory: (history: Repository) => void;
+  onRequestSearch: () => void;
   onRequestAllSearchHistory: () => void;
   onRequestAllRepositoryHistory: () => void;
 };
@@ -33,6 +36,7 @@ export const Dashboard: React.SFC<Props> = ({
   visibleRepositoryHistoryCount,
   onPressSearchHistory,
   onPressRepositoryHistory,
+  onRequestSearch,
   onRequestAllSearchHistory,
   onRequestAllRepositoryHistory
 }: Props) => (
@@ -52,14 +56,12 @@ export const Dashboard: React.SFC<Props> = ({
       onPress={onPressSearchHistory}
     />
     {searchHistory.length > visibleSearchHistoryCount && (
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Button color="primary" onClick={onRequestAllSearchHistory}>
-            View all search history
-            <NavigateNextIcon />
-          </Button>
-        </Grid>
-      </Grid>
+      <Row justifyContent="flex-end">
+        <Button color="primary" onClick={onRequestAllSearchHistory}>
+          View all search history
+          <NavigateNextIcon />
+        </Button>
+      </Row>
     )}
 
     <Container last={false}>
@@ -70,15 +72,18 @@ export const Dashboard: React.SFC<Props> = ({
       onPress={onPressRepositoryHistory}
     />
     {repositoryHistory.length > visibleRepositoryHistoryCount && (
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Button color="primary" onClick={onRequestAllRepositoryHistory}>
-            View all opened repositories
-            <NavigateNextIcon />
-          </Button>
-        </Grid>
-      </Grid>
+      <Row justifyContent="flex-end">
+        <Button color="primary" onClick={onRequestAllRepositoryHistory}>
+          View all opened repositories
+          <NavigateNextIcon />
+        </Button>
+      </Row>
     )}
+    <Row justifyContent="flex-end">
+      <FloatingActionButton onPress={onRequestSearch}>
+        <SearchIcon />
+      </FloatingActionButton>
+    </Row>
   </Page>
 );
 
