@@ -175,6 +175,7 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
         onPressSearchHistory={action("onPressSearchHistory")}
         onRequestAllSearchHistory={action("onRequestAllSearchHistory")}
         onPressRepositoryHistory={action("onPressRepositoryHistory")}
+        onRequestSearch={action("onRequestSearch")}
         onRequestAllRepositoryHistory={action("onRequestAllRepositoryHistory")}
         visibleSearchHistoryCount={2}
         visibleRepositoryHistoryCount={2}
