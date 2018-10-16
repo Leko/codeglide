@@ -1,6 +1,5 @@
 {
-  "private": true,
-  "name": "@codaholic/components",
+  "name": "@codeglide/components",
   "version": "0.0.0",
   "description": "React components for CodeGlide",
   "main": "dist/index.js",

@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@codeglide/pwa",
   "version": "0.1.0",
   "author": "Leko <leko.noor@gmail.com>",
@@ -10,6 +9,10 @@
   ],
   "dependencies": {
     "@babel/core": "7.1.0",
+    "@codeglide/components": "*",
+    "@codeglide/domain": "*",
+    "@codeglide/languages": "*",
+    "@codeglide/usecase": "*",
     "@svgr/webpack": "2.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "23.6.0",
@@ -42,6 +45,10 @@
     "react-dev-utils": "^6.0.4",
     "react-dom": "^16.5.2",
     "react-monaco-editor": "^0.19.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
@@ -99,9 +106,14 @@
       "node"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/react-redux": "^6.0.9",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/redux": "^3.6.0"
   }
 }
