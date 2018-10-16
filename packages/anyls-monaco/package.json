@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@codeglide/anyls-monaco",
   "version": "0.0.0",
   "description": "Language Server Protocol (LSP) client for Monaco Editor",

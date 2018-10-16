@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@codeglide/components",
   "version": "0.0.0",
   "description": "React components for CodeGlide",
