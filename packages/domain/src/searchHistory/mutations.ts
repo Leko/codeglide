@@ -1,7 +1,7 @@
 // @ts-ignore
 import { MD5 } from "jshashes";
 import { State, History } from "./state";
-import { SearchParams } from "../SearchParams";
+import { State as SearchParams } from "../searchParams/state";
 
 const md5 = new MD5();
 

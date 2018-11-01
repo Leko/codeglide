@@ -1,7 +1,7 @@
 import { LanguageName } from "@codeglide/languages";
-import { Repository } from "./Repository";
+import { Repository } from "../Repository";
 
-export type SearchParams = {
+export type State = {
   q: string;
   repo: Repository;
   in?: "path"; // FIXME: Add supports `| "file" | "file,path"`

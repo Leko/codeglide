@@ -1,5 +1,5 @@
 // FIXME: Arrange dependency
-import { SearchParams } from "../SearchParams";
+import { State as SearchParams } from "../searchParams/state";
 
 export type History = {
   // It's not same as `createdAt`. All histories can use multiple times.
@@ -13,9 +13,3 @@ export type State = {
     [digest: string]: History;
   };
 };
-
-export const getInitialState = (): State => ({
-  histories: {}
-});
-
-export const Namespace = "searchHistory";
