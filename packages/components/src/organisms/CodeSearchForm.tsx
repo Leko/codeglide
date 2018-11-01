@@ -99,6 +99,7 @@ export class CodeSearchForm extends React.PureComponent<Props, State> {
                   placeholder="owner/repo"
                   defaultValue={
                     defaultValue &&
+                    defaultValue.repo &&
                     `${defaultValue.repo.owner}/${defaultValue.repo.repository}`
                   }
                 />
@@ -122,7 +123,7 @@ export class CodeSearchForm extends React.PureComponent<Props, State> {
             >
               <FolderIcon />
               <Text className={classes!.dropdownLabel}>
-                {defaultValue ? defaultValue.path : "all"}
+                {defaultValue && defaultValue.path ? defaultValue.path : "all"}
               </Text>
               <ArrowDropDownIcon />
             </Button>
@@ -136,7 +137,9 @@ export class CodeSearchForm extends React.PureComponent<Props, State> {
             >
               <CodeIcon />
               <Text className={classes!.dropdownLabel}>
-                {defaultValue ? defaultValue.language : "all"}
+                {defaultValue && defaultValue.language
+                  ? defaultValue.language
+                  : "all"}
               </Text>
               <ArrowDropDownIcon />
             </Button>
