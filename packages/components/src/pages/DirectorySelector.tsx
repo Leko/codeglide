@@ -1,16 +1,17 @@
 import * as React from "react";
 import IconButton from "@material-ui/core/IconButton";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import DoneIcon from "@material-ui/icons/Done";
 import { ShallowTree, TreeEntry, omitFile } from "@codeglide/domain";
+import { BackButton } from "../molecules/BackButton";
 import { FileList } from "../molecules/FileList";
 import PathBreadcrumb from "../molecules/PathBreadcrumb";
 import Page from "../templates/Page";
 
-type Props = {
+export type Props = {
   onSelect: (entry: TreeEntry) => void;
   onRequestMore: (entry: TreeEntry) => void;
   onRequestPath: (path: string) => void;
+  onRequestBack: () => void;
   loading?: boolean;
   tree: ShallowTree;
 };
@@ -52,17 +53,19 @@ export class DirectorySelector extends React.Component<Props, State> {
 
   render() {
     const { selectedEntry } = this.state;
-    const { tree, loading, onRequestMore, onRequestPath } = this.props;
+    const {
+      tree,
+      loading,
+      onRequestBack,
+      onRequestMore,
+      onRequestPath
+    } = this.props;
     const paths = this.getPaths();
 
     return (
       <Page
         title="Choose repository"
-        renderHeaderLeft={() => (
-          <IconButton color="inherit" aria-label="Menu">
-            <NavigateBeforeIcon />
-          </IconButton>
-        )}
+        renderHeaderLeft={() => <BackButton onPress={onRequestBack} />}
         renderHeaderRight={() => (
           <IconButton
             color="inherit"

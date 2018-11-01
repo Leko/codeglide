@@ -40,6 +40,7 @@ storiesOf("pages/DirectorySelector", module)
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
         onRequestPath={action("onRequestPath")}
+        onRequestBack={action("onRequestBack")}
         tree={[]}
         loading
       />
@@ -48,7 +49,11 @@ storiesOf("pages/DirectorySelector", module)
 
 storiesOf("pages/LanguageSelector", module).add("initial state", () =>
   withTheme()(
-    <LanguageSelector onSelect={action("onSelect")} languages={languages} />
+    <LanguageSelector
+      onSelect={action("onSelect")}
+      onRequestBack={action("onRequestBack")}
+      languages={languages}
+    />
   )
 );
 
@@ -77,6 +82,7 @@ storiesOf("pages/RepositorySelector", module)
       <RepositorySelector
         onChange={action("onChange")}
         onSelect={action("onSelect")}
+        onRequestBack={action("onRequestBack")}
         repositories={[]}
         recentlyOpenedRepositories={repoHistories}
       />
@@ -88,6 +94,7 @@ storiesOf("pages/RepositorySelector", module)
         loading
         onChange={action("onChange")}
         onSelect={action("onSelect")}
+        onRequestBack={action("onRequestBack")}
         defaultValue={{ owner: "Leko", repository: "hothouse" }}
         repositories={[]}
         recentlyOpenedRepositories={repoHistories}
@@ -99,6 +106,7 @@ storiesOf("pages/RepositorySelector", module)
       <RepositorySelector
         onChange={action("onChange")}
         onSelect={action("onSelect")}
+        onRequestBack={action("onRequestBack")}
         defaultValue={{ owner: "Leko", repository: "hothouse" }}
         repositories={repos}
         recentlyOpenedRepositories={repoHistories}
@@ -112,7 +120,11 @@ storiesOf("pages/CodeSearch", module)
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -131,7 +143,11 @@ storiesOf("pages/CodeSearch", module)
             language: "JavaScript"
           }}
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -151,7 +167,11 @@ storiesOf("pages/CodeSearch", module)
             language: "JavaScript"
           }}
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -162,6 +182,8 @@ storiesOf("pages/CodeSearch", module)
         <CodeSearch
           results={searchResult}
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
         />
       </MuiThemeProvider>

@@ -1,16 +1,16 @@
 import * as React from "react";
 import Fuse from "fuse.js";
-import IconButton from "@material-ui/core/IconButton";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { Language } from "@codeglide/languages";
 import Container from "../molecules/Container";
 import { LanguageList } from "../molecules/LanguageList";
+import { BackButton } from "../molecules/BackButton";
 import Paper from "../molecules/Paper";
 import { LanguageForm } from "../organisms/LanguageForm";
 import Page from "../templates/Page";
 
-type Props = {
+export type Props = {
   onSelect: (repository: Language) => void;
+  onRequestBack: () => void;
   languages: ReadonlyArray<Language>;
 };
 
@@ -50,16 +50,12 @@ export class LanguageSelector extends React.Component<Props, State> {
   }
 
   render() {
-    const { onSelect } = this.props;
+    const { onSelect, onRequestBack } = this.props;
 
     return (
       <Page
         title="Choose language"
-        renderHeaderLeft={() => (
-          <IconButton color="inherit" aria-label="Menu">
-            <NavigateBeforeIcon />
-          </IconButton>
-        )}
+        renderHeaderLeft={() => <BackButton onPress={onRequestBack} />}
       >
         <Container last={false}>
           <Paper>
