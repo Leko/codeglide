@@ -1,11 +1,11 @@
 // @ts-ignore
 import { MD5 } from "jshashes";
 import { State, History } from "./state";
-import { State as SearchParams } from "../searchParams/state";
+import { CodeSearchParams } from "../CodeSearchParams";
 
 const md5 = new MD5();
 
-export const append = (state: State, query: SearchParams): State => {
+export const append = (state: State, query: CodeSearchParams): State => {
   const digest = md5.hex(JSON.stringify(query));
   const history: History = {
     query,

@@ -15,6 +15,7 @@ export {
   CodeSearchResultItem,
   CodeSearchResultItemMatch
 } from "./CodeSearchResult";
+export { CodeSearchParams } from "./CodeSearchParams";
 
 export {
   History as SearchHistory,
