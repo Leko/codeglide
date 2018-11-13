@@ -1,6 +1,8 @@
 import * as searchHistory from "./searchHistory";
 import * as repositoryHistory from "./repositoryHistory";
 import * as searchParams from "./searchParams";
+import * as searchRepository from "./searchRepository";
+import * as searchDirectory from "./searchDirectory";
 
 export { Repository } from "./Repository";
 export {
@@ -26,4 +28,13 @@ export {
   State as RepositoryHistoryState
 } from "./repositoryHistory/state";
 export { State as SearchParamsState } from "./searchParams/state";
-export { searchHistory, repositoryHistory, searchParams };
+export { State as SearchRepositoryState } from "./searchRepository/state";
+export { State as SearchDirectoryState } from "./searchDirectory/state";
+
+export {
+  searchHistory,
+  repositoryHistory,
+  searchParams,
+  searchRepository,
+  searchDirectory
+};

@@ -27,9 +27,12 @@ storiesOf("pages/DirectorySelector", module)
   .add("initial state", () =>
     withTheme()(
       <DirectorySelector
+        paths={[]}
+        repository={{ owner: "Leko", repository: "codeglide" }}
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
         onRequestPath={action("onRequestPath")}
+        onRequestBack={action("onRequestBack")}
         tree={tree}
       />
     )
@@ -37,6 +40,8 @@ storiesOf("pages/DirectorySelector", module)
   .add("loading", () =>
     withTheme()(
       <DirectorySelector
+        paths={[]}
+        repository={{ owner: "Leko", repository: "codeglide" }}
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
         onRequestPath={action("onRequestPath")}

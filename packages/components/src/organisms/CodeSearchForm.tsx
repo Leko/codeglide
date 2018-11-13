@@ -19,7 +19,7 @@ type Props = {
   onSubmit: (params: SearchParamsState) => void;
   onRequestChooseRepository: (repository?: Repository) => void;
   onRequestChooseLanguage: (language?: Language) => void;
-  onRequestChooseDirectory: () => void;
+  onRequestChooseDirectory: (repository: Repository) => void;
   disabled?: boolean;
   classes?: {
     textFieldcontainer: string;
@@ -30,18 +30,26 @@ type Props = {
 };
 type State = {
   focused: boolean;
+  query: string;
 };
 
 export class CodeSearchForm extends React.PureComponent<Props, State> {
   state: State = {
-    focused: false
+    focused: false,
+    query: ""
+  };
+
+  handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ query: event.target.value });
   };
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // FIXME
-    const values = this.props.defaultValue!;
+    const values = {
+      ...this.props.defaultValue!,
+      q: this.state.query
+    };
     this.props.onSubmit(values);
   };
 
@@ -78,6 +86,7 @@ export class CodeSearchForm extends React.PureComponent<Props, State> {
               id="input-code-search-field-q"
               placeholder="keyword"
               defaultValue={defaultValue && defaultValue.q}
+              onChange={this.handleChangeQuery}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -118,8 +127,8 @@ export class CodeSearchForm extends React.PureComponent<Props, State> {
             <Button
               fullWidth
               size="small"
-              disabled={disabled}
-              onClick={onRequestChooseDirectory}
+              disabled={disabled || !defaultValue || !defaultValue.repo}
+              onClick={() => onRequestChooseDirectory(defaultValue!.repo!)}
             >
               <FolderIcon />
               <Text className={classes!.dropdownLabel}>

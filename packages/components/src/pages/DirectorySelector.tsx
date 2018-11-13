@@ -1,16 +1,23 @@
 import * as React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DoneIcon from "@material-ui/icons/Done";
-import { ShallowTree, TreeEntry, omitFile } from "@codeglide/domain";
+import {
+  Repository,
+  ShallowTree,
+  TreeEntry,
+  omitFile
+} from "@codeglide/domain";
 import { BackButton } from "../molecules/BackButton";
 import { FileList } from "../molecules/FileList";
 import PathBreadcrumb from "../molecules/PathBreadcrumb";
 import Page from "../templates/Page";
 
 export type Props = {
-  onSelect: (entry: TreeEntry) => void;
-  onRequestMore: (entry: TreeEntry) => void;
-  onRequestPath: (path: string) => void;
+  repository: Repository;
+  paths: Array<string>;
+  onSelect: (repository: Repository, entry: TreeEntry) => void;
+  onRequestMore: (repository: Repository, entry: TreeEntry) => void;
+  onRequestPath: (repository: Repository, path: string) => void;
   onRequestBack: () => void;
   loading?: boolean;
   tree: ShallowTree;
@@ -35,32 +42,30 @@ export class DirectorySelector extends React.Component<Props, State> {
 
   handleDone = () => {
     const { selectedEntry } = this.state;
-    const { onSelect } = this.props;
+    const { onSelect, repository } = this.props;
     if (!selectedEntry) {
       return;
     }
-    onSelect(selectedEntry);
+    onSelect(repository, selectedEntry);
   };
 
-  getPaths(): Array<string> | null {
-    const { tree } = this.props;
-    if (tree.length === 0) {
-      return null;
-    }
-
-    return tree[0].path.split("/").slice(0, -1);
+  componentDidMount() {
+    const { onRequestPath, repository } = this.props;
+    // TODO: with initial state
+    onRequestPath(repository, "/");
   }
 
   render() {
     const { selectedEntry } = this.state;
     const {
       tree,
+      repository,
       loading,
+      paths,
       onRequestBack,
       onRequestMore,
       onRequestPath
     } = this.props;
-    const paths = this.getPaths();
 
     return (
       <Page
@@ -78,7 +83,10 @@ export class DirectorySelector extends React.Component<Props, State> {
         )}
       >
         {paths !== null ? (
-          <PathBreadcrumb paths={paths} onPress={onRequestPath} />
+          <PathBreadcrumb
+            paths={paths}
+            onPress={(path: string) => onRequestPath(repository, path)}
+          />
         ) : null}
         {loading ? (
           <FileList
@@ -87,7 +95,7 @@ export class DirectorySelector extends React.Component<Props, State> {
             tree={[]}
             selectedPath={selectedEntry ? selectedEntry.path : ""}
             onPress={this.handleSelect}
-            onRequestMore={onRequestMore}
+            onRequestMore={() => {}}
           />
         ) : tree.length > 0 ? (
           <FileList
@@ -95,7 +103,9 @@ export class DirectorySelector extends React.Component<Props, State> {
             tree={omitFile(tree)}
             selectedPath={selectedEntry ? selectedEntry.path : ""}
             onPress={this.handleSelect}
-            onRequestMore={onRequestMore}
+            onRequestMore={(entry: TreeEntry) =>
+              onRequestMore(repository, entry)
+            }
           />
         ) : (
           // FIXME

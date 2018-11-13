@@ -37,7 +37,7 @@ export const RepositorySelector: React.SFC<Props> = ({
       </Paper>
     </Container>
     {loading ? (
-      <RepositoryList placeholder repositories={[]} onPress={onSelect} />
+      <RepositoryList placeholder repositories={[]} onPress={() => {}} />
     ) : repositories.length > 0 ? (
       <RepositoryList repositories={repositories} onPress={onSelect} />
     ) : (

@@ -20,7 +20,7 @@ export type Props = {
   onRequestBack: () => void;
   onRequestChooseRepository: (repository?: Repository) => void;
   onRequestChooseLanguage: (language?: Language) => void;
-  onRequestChooseDirectory: () => void;
+  onRequestChooseDirectory: (repository: Repository) => void;
   onPressSearchResult: (params: CodeSearchResultItem) => void;
 };
 
