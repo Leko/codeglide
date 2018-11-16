@@ -2,7 +2,6 @@ import * as React from "react";
 import Paper from "@material-ui/core/Paper";
 import {
   SearchParamsState,
-  CodeSearchResult,
   CodeSearchResultItem,
   Repository
 } from "@codeglide/domain";
@@ -13,7 +12,7 @@ import CodeSearchResultList from "../molecules/CodeSearchResultList";
 import { BackButton } from "../molecules/BackButton";
 
 export type Props = {
-  results?: CodeSearchResult;
+  results?: ReadonlyArray<CodeSearchResultItem>;
   searching?: boolean;
   defaultValue?: SearchParamsState;
   onSubmit: (params: SearchParamsState) => void;
@@ -51,7 +50,7 @@ export const CodeSearch: React.SFC<Props> = ({
     </Paper>
     <CodeSearchResultList
       placeholder={searching}
-      results={!searching && results ? results.items : []}
+      results={!searching && results ? results : []}
       onPress={onPressSearchResult}
     />
   </Page>

@@ -56,6 +56,7 @@ export const CodeSearchResultList = ({
     <List>
       {results.map((item: CodeSearchResultItem) => (
         <CodeSearchResult
+          key={item.git_url}
           className={classes!.item}
           item={item}
           onPress={onPress}

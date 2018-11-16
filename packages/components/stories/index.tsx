@@ -13,7 +13,7 @@ import {
   FileList,
   PathBreadcrumb
 } from "../src";
-import { ShallowTree } from "@codeglide/domain";
+import { ShallowTree, CodeSearchResultItem } from "@codeglide/domain";
 import { languages } from "@codeglide/languages";
 import tree from "./assets/tree.json";
 import searchResult from "./assets/searchResult.json";
@@ -185,11 +185,14 @@ storiesOf("pages/CodeSearch", module)
     withTheme()(
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
-          results={searchResult}
+          // @ts-ignore
+          results={searchResult.items as ReadonlyArray<CodeSearchResultItem>}
           onSubmit={action("onSubmit")}
           onRequestBack={action("onRequestBack")}
           onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )

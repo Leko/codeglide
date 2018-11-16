@@ -1,28 +1,38 @@
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { CodeSearch, CodeSearchProps } from "@codeglide/components";
-import { SearchParamsState, Repository } from "@codeglide/domain";
+import {
+  SearchParamsState,
+  Repository,
+  CodeSearchResultItem
+} from "@codeglide/domain";
 import { Language } from "@codeglide/languages";
 import { history } from "../history";
 import { State } from "../store";
+import { searchCode } from "../usecases/searchCode";
+import { searchCode as searchCodeSelectors } from "../selectors";
 import { FunctionProperties, NonFunctionProperties } from "../types";
 
 const mapStateToProps = (
   state: State
 ): NonFunctionProperties<CodeSearchProps> => ({
-  _: console.log(state.searchParams),
   // defaultValue: state.searchParams
   defaultValue: {
     ...state.searchParams,
     repo: { owner: "Leko", repository: "reinbox" }
-  }
+  },
+  results: searchCodeSelectors.getResults(state),
+  searching: searchCodeSelectors.isBusy(state)
 });
 
-const mapDispatchToProps = (): FunctionProperties<CodeSearchProps> => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch
+): FunctionProperties<CodeSearchProps> => ({
   onRequestBack() {
     history.goBack();
   },
-  onPressSearchResult() {
-    // history.();
+  onPressSearchResult(params: CodeSearchResultItem) {
+    history.push(`/blob/${params.repository.full_name}/${params.path}`);
   },
   onRequestChooseRepository(repository?: Repository) {
     history.push("/search/repositories", {
@@ -41,7 +51,7 @@ const mapDispatchToProps = (): FunctionProperties<CodeSearchProps> => ({
     });
   },
   onSubmit(values: SearchParamsState) {
-    console.log("TODO: Implement search", values);
+    dispatch(searchCode(values));
   }
 });
 

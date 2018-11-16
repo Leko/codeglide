@@ -6,6 +6,7 @@ import Search from "./containers/Search";
 import RepositorySelector from "./containers/RepositorySelector";
 import DirectorySelector from "./containers/DirectorySelector";
 import LanguageSelector from "./containers/LanguageSelector";
+import CodeView from "./containers/CodeView";
 
 export const Routes = () => (
   <Router history={history}>
@@ -19,8 +20,9 @@ export const Routes = () => (
         component={DirectorySelector}
       />
       <Route path="/search/languages" component={LanguageSelector} />
-
       <Route path="/search" component={Search} />
+
+      <Route path="/blob/:owner/:repository/:paths*" component={CodeView} />
     </Switch>
   </Router>
 );

@@ -16,6 +16,7 @@ export type CodeSearchResultItemMatch = {
 };
 
 export type CodeSearchResultItem = {
+  git_url: string;
   name: string;
   path: string;
   score: number;

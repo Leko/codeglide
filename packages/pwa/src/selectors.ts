@@ -3,7 +3,8 @@ import {
   repositoryHistory as repositoryHistoryModule,
   searchParams as searchParamsModule,
   searchRepository as searchRepositoryModule,
-  searchDirectory as searchDirectoryModule
+  searchDirectory as searchDirectoryModule,
+  searchCode as searchCodeModule
 } from "@codeglide/domain";
 import { namespaceStripper } from "./store";
 
@@ -21,4 +22,7 @@ export const searchRepository = namespaceStripper("searchRepository")(
 );
 export const searchDirectory = namespaceStripper("searchDirectory")(
   searchDirectoryModule.selectors
+);
+export const searchCode = namespaceStripper("searchCode")(
+  searchCodeModule.selectors
 );

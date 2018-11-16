@@ -5,14 +5,16 @@ import {
   RepositoryHistoryState,
   SearchParamsState,
   SearchRepositoryState,
-  SearchDirectoryState
+  SearchDirectoryState,
+  SearchCodeState
 } from "@codeglide/domain";
 import {
   searchHistory,
   repositoryHistory,
   searchParams,
   searchRepository,
-  searchDirectory
+  searchDirectory,
+  searchCode
 } from "./modules";
 
 export type State = {
@@ -21,6 +23,7 @@ export type State = {
   searchParams: SearchParamsState;
   searchRepository: SearchRepositoryState;
   searchDirectory: SearchDirectoryState;
+  searchCode: SearchCodeState;
 };
 type NSStrippedSelectors<T> = { [K in keyof T]: (state: State) => T[K] };
 
@@ -51,6 +54,16 @@ export const store = createStore(
       fetching: false,
       path: "",
       shallowTree: []
+    }),
+    // @ts-ignore imcompatible with undefined
+    searchCode: searchCode.reducerFactory({
+      searched: false,
+      busy: false,
+      errors: [],
+      items: null,
+      totalResults: 0,
+      currentResults: 0,
+      completed: true
     })
   }),
   applyMiddleware(thunk)

@@ -4,7 +4,8 @@ import {
   repositoryHistory as repositoryHistoryModule,
   searchParams as searchParamsModule,
   searchRepository as searchRepositoryModule,
-  searchDirectory as searchDirectoryModule
+  searchDirectory as searchDirectoryModule,
+  searchCode as searchCodeModule
 } from "@codeglide/domain";
 
 export const searchHistory = createAggregate(
@@ -26,4 +27,8 @@ export const searchRepository = createAggregate(
 export const searchDirectory = createAggregate(
   searchDirectoryModule.mutations,
   "searchDirectory/"
+);
+export const searchCode = createAggregate(
+  searchCodeModule.mutations,
+  "searchCode/"
 );

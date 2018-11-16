@@ -1,4 +1,7 @@
-export { ReadOnlyEditor } from "./molecules/ReadOnlyEditor";
+export {
+  ReadOnlyEditor,
+  Props as ReadOnlyEditorProps
+} from "./molecules/ReadOnlyEditor";
 export { FileList } from "./molecules/FileList";
 export { default as PathBreadcrumb } from "./molecules/PathBreadcrumb";
 export { Dashboard, Props as DashboardProps } from "./pages/Dashboard";
