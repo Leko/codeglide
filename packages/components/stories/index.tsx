@@ -10,6 +10,7 @@ import {
   LanguageSelector,
   DirectorySelector,
   ReadOnlyEditor,
+  CodeView,
   FileList,
   PathBreadcrumb
 } from "../src";
@@ -251,6 +252,34 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
     </MuiThemeProvider>
   )
 );
+
+storiesOf("pages/CodeView", module)
+  .add("root", () =>
+    withTheme()(
+      <CodeView
+        onRequestBack={action("onRequestBack")}
+        onRequestPath={action("onRequestPath")}
+        onRequestLoad={action("onRequestLoad")}
+        repository={{ owner: "Leko", repository: "reinbox" }}
+        path={null}
+        filename="package.json"
+        code="package.json"
+      />
+    )
+  )
+  .add("with deep path", () =>
+    withTheme()(
+      <CodeView
+        onRequestBack={action("onRequestBack")}
+        onRequestPath={action("onRequestPath")}
+        onRequestLoad={action("onRequestLoad")}
+        repository={{ owner: "Leko", repository: "reinbox" }}
+        path="packages/reinbox"
+        filename="package.json"
+        code="package.json"
+      />
+    )
+  );
 
 storiesOf("molecules/PathBreadcrumb", module)
   .add("empty", () =>

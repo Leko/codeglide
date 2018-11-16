@@ -5,7 +5,7 @@ import MonacoEditor, {
   EditorDidMount
 } from "react-monaco-editor";
 
-export type Props = {
+type Props = {
   /**
    * Width of editor
    * @default 100%
