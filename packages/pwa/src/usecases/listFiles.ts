@@ -19,7 +19,6 @@ export const listFiles = (repository: Repository, path: string) => async (
     repo: repository.repository,
     path
   });
-  console.log(res);
   dispatch(
     searchDirectory.creators.setResult({
       path,
