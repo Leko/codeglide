@@ -16,11 +16,7 @@ import { FunctionProperties, NonFunctionProperties } from "../types";
 const mapStateToProps = (
   state: State
 ): NonFunctionProperties<CodeSearchProps> => ({
-  // defaultValue: state.searchParams
-  defaultValue: {
-    ...state.searchParams,
-    repo: { owner: "Leko", repository: "reinbox" }
-  },
+  defaultValue: state.searchParams,
   results: searchCodeSelectors.getResults(state),
   searching: searchCodeSelectors.isBusy(state)
 });
