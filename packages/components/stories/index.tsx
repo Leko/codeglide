@@ -261,6 +261,7 @@ storiesOf("pages/CodeView", module)
         onRequestPath={action("onRequestPath")}
         onRequestLoad={action("onRequestLoad")}
         repository={{ owner: "Leko", repository: "reinbox" }}
+        sha="master"
         path={null}
         filename="package.json"
         code="package.json"
@@ -274,6 +275,7 @@ storiesOf("pages/CodeView", module)
         onRequestPath={action("onRequestPath")}
         onRequestLoad={action("onRequestLoad")}
         repository={{ owner: "Leko", repository: "reinbox" }}
+        sha="master"
         path="packages/reinbox"
         filename="package.json"
         code="package.json"

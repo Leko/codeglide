@@ -7,9 +7,14 @@ import Page from "../templates/Page";
 
 export type Props = {
   onRequestBack: () => void;
-  onRequestLoad: (repository: Repository, fullpath: string) => void;
+  onRequestLoad: (
+    repository: Repository,
+    sha: string,
+    fullpath: string
+  ) => void;
   onRequestPath: (path: string) => void;
   repository: Repository;
+  sha: string;
   path: string | null;
   filename: string;
   code: string | null;
@@ -17,8 +22,8 @@ export type Props = {
 
 export class CodeView extends React.Component<Props> {
   componentDidMount() {
-    const { repository, path, filename, onRequestLoad } = this.props;
-    onRequestLoad(repository, `${path}/${filename}`);
+    const { repository, sha, path, filename, onRequestLoad } = this.props;
+    onRequestLoad(repository, sha, `${path ? `${path}/` : ""}${filename}`);
   }
 
   render() {
@@ -30,6 +35,7 @@ export class CodeView extends React.Component<Props> {
       path,
       filename
     } = this.props;
+    const ext = filename.slice(filename.indexOf(".") + 1);
 
     return (
       <Page
@@ -40,7 +46,7 @@ export class CodeView extends React.Component<Props> {
           paths={path ? path.split("/") : []}
           onPress={onRequestPath}
         />
-        <ReadOnlyEditor value={code} language="JavaScript" height={500} />
+        <ReadOnlyEditor value={code} language={ext} theme="vs" />
       </Page>
     );
   }

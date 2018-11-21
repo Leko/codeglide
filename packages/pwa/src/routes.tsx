@@ -22,7 +22,10 @@ export const Routes = () => (
       <Route path="/search/languages" component={LanguageSelector} />
       <Route path="/search" component={Search} />
 
-      <Route path="/blob/:owner/:repository/:paths*" component={CodeView} />
+      <Route
+        path="/blob/:sha/:owner/:repository/:paths*"
+        component={CodeView}
+      />
     </Switch>
   </Router>
 );

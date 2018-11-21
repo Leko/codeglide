@@ -32,7 +32,8 @@ const mapDispatchToProps = (
     history.goBack();
   },
   onPressSearchResult(params: CodeSearchResultItem) {
-    history.push(`/blob/${params.repository.full_name}/${params.path}`);
+    const sha = new URLSearchParams(params.url.split("?")[1]).get("ref");
+    history.push(`/blob/${sha}/${params.repository.full_name}/${params.path}`);
   },
   onRequestChooseRepository(repository?: Repository) {
     history.push("/search/repositories", {

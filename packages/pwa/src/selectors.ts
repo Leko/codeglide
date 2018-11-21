@@ -4,7 +4,8 @@ import {
   searchParams as searchParamsModule,
   searchRepository as searchRepositoryModule,
   searchDirectory as searchDirectoryModule,
-  searchCode as searchCodeModule
+  searchCode as searchCodeModule,
+  codeView as codeViewModule
 } from "@codeglide/domain";
 import { namespaceStripper } from "./store";
 
@@ -26,3 +27,4 @@ export const searchDirectory = namespaceStripper("searchDirectory")(
 export const searchCode = namespaceStripper("searchCode")(
   searchCodeModule.selectors
 );
+export const codeView = namespaceStripper("codeView")(codeViewModule.selectors);
