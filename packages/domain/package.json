@@ -25,7 +25,6 @@
     "@codeglide/languages": "*",
     "jshashes": "^1.0.7",
     "lodash": "^4.17.11",
-    "redux-aggregate": "^2.1.2",
     "reselect": "^4.0.0"
   }
 }

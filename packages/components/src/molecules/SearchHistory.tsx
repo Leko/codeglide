@@ -17,7 +17,7 @@ export const SearchHistory = ({
   <ListItem button onClick={onPress}>
     <GitHubAvatar owner={query.repo.owner} />
     <ListItemText
-      primary={`"${query.q}" in ${query.repo}`}
+      primary={`"${query.q}" in ${query.repo.owner}/${query.repo.repository}`}
       secondary={<DistanceToNow date={new Date(searchedAt)} />}
     />
   </ListItem>

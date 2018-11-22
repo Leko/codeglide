@@ -1,21 +1,25 @@
 import * as React from "react";
 import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import {
-  SearchParams,
-  CodeSearchResult,
-  CodeSearchResultItem
+  SearchParamsState,
+  CodeSearchResultItem,
+  Repository
 } from "@codeglide/domain";
+import { Language } from "@codeglide/languages";
 import Page from "../templates/Page";
 import CodeSearchForm from "../organisms/CodeSearchForm";
 import CodeSearchResultList from "../molecules/CodeSearchResultList";
+import { BackButton } from "../molecules/BackButton";
 
-type Props = {
-  results?: CodeSearchResult;
+export type Props = {
+  results?: ReadonlyArray<CodeSearchResultItem>;
   searching?: boolean;
-  defaultValue?: SearchParams;
-  onSubmit: (params: SearchParams) => void;
+  defaultValue?: SearchParamsState;
+  onSubmit: (params: SearchParamsState) => void;
+  onRequestBack: () => void;
+  onRequestChooseRepository: (repository?: Repository) => void;
+  onRequestChooseLanguage: (language?: Language) => void;
+  onRequestChooseDirectory: (repository: Repository) => void;
   onPressSearchResult: (params: CodeSearchResultItem) => void;
 };
 
@@ -24,26 +28,29 @@ export const CodeSearch: React.SFC<Props> = ({
   searching,
   defaultValue,
   onSubmit,
+  onRequestBack,
+  onRequestChooseRepository,
+  onRequestChooseLanguage,
+  onRequestChooseDirectory,
   onPressSearchResult
 }: Props) => (
   <Page
     title="Search code"
-    renderHeaderLeft={() => (
-      <IconButton color="inherit" aria-label="Menu">
-        <NavigateBeforeIcon />
-      </IconButton>
-    )}
+    renderHeaderLeft={() => <BackButton onPress={onRequestBack} />}
   >
     <Paper square>
       <CodeSearchForm
         defaultValue={defaultValue}
         onSubmit={onSubmit}
+        onRequestChooseRepository={onRequestChooseRepository}
+        onRequestChooseLanguage={onRequestChooseLanguage}
+        onRequestChooseDirectory={onRequestChooseDirectory}
         disabled={searching}
       />
     </Paper>
     <CodeSearchResultList
       placeholder={searching}
-      results={!searching && results ? results.items : []}
+      results={!searching && results ? results : []}
       onPress={onPressSearchResult}
     />
   </Page>

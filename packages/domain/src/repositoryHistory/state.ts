@@ -10,10 +10,3 @@ export type State = {
     [digest: string]: History;
   };
 };
-
-export const getInitialState = (): State => ({
-  histories: {}
-});
-
-// FIXME: Omit from domain
-export const Namespace = "repositoryHistory";

@@ -1,17 +1,17 @@
 import * as React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { Repository, RepositoryHistory } from "@codeglide/domain";
 import Container from "../molecules/Container";
 import Paper from "../molecules/Paper";
 import { RepositoryList } from "../molecules/RepositoryList";
 import { RepositoryHistoryList } from "../molecules/RepositoryHistoryList";
+import { BackButton } from "../molecules/BackButton";
 import { RepositoryForm } from "../organisms/RepositoryForm";
 import Page from "../templates/Page";
 
-type Props = {
+export type Props = {
   onSelect: (repository: Repository) => void;
   onChange: (repository: Repository) => void;
+  onRequestBack: () => void;
   loading?: boolean;
   repositories: ReadonlyArray<Repository>;
   recentlyOpenedRepositories: ReadonlyArray<RepositoryHistory>;
@@ -24,15 +24,12 @@ export const RepositorySelector: React.SFC<Props> = ({
   defaultValue,
   loading = false,
   onChange,
-  onSelect
+  onSelect,
+  onRequestBack
 }: Props) => (
   <Page
     title="Choose repository"
-    renderHeaderLeft={() => (
-      <IconButton color="inherit" aria-label="Menu">
-        <NavigateBeforeIcon />
-      </IconButton>
-    )}
+    renderHeaderLeft={() => <BackButton onPress={onRequestBack} />}
   >
     <Container last={false}>
       <Paper>
@@ -40,7 +37,7 @@ export const RepositorySelector: React.SFC<Props> = ({
       </Paper>
     </Container>
     {loading ? (
-      <RepositoryList placeholder repositories={[]} onPress={onSelect} />
+      <RepositoryList placeholder repositories={[]} onPress={() => {}} />
     ) : repositories.length > 0 ? (
       <RepositoryList repositories={repositories} onPress={onSelect} />
     ) : (

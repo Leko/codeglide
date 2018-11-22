@@ -40,7 +40,10 @@ Page.defaultProps = {
 
 const styles = {
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    overflow: "hidden",
+    whiteSpace: "nowrap" as "nowrap",
+    textOverflow: "ellipsis"
   }
 };
 

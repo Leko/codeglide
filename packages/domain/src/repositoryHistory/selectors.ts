@@ -1,15 +1,8 @@
 import { createSelector } from "reselect";
 import sortBy from "lodash/sortBy";
-import { Namespace, State, History } from "./state";
-import { State as AppState } from "../state";
+import { State, History } from "./state";
 
-// FIXME: Omit from domain
-const stripPrefix = (state: AppState) => state[Namespace];
-
-export const getHistories = createSelector(
-  stripPrefix,
-  (state: State) => state.histories
-);
+export const getHistories = (state: State) => state.histories;
 
 export const getLRUHistories = createSelector(
   getHistories,

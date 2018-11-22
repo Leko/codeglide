@@ -17,7 +17,7 @@ import { Row } from "../molecules/Row";
 import { SearchHistoryList } from "../molecules/SearchHistoryList";
 import { RepositoryHistoryList } from "../molecules/RepositoryHistoryList";
 
-type Props = {
+export type Props = {
   searchHistory: ReadonlyArray<SearchHistory>;
   repositoryHistory: ReadonlyArray<RepositoryHistory>;
   visibleSearchHistoryCount: number;

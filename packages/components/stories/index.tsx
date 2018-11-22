@@ -10,10 +10,11 @@ import {
   LanguageSelector,
   DirectorySelector,
   ReadOnlyEditor,
+  CodeView,
   FileList,
   PathBreadcrumb
 } from "../src";
-import { ShallowTree } from "@codeglide/domain";
+import { ShallowTree, CodeSearchResultItem } from "@codeglide/domain";
 import { languages } from "@codeglide/languages";
 import tree from "./assets/tree.json";
 import searchResult from "./assets/searchResult.json";
@@ -27,9 +28,12 @@ storiesOf("pages/DirectorySelector", module)
   .add("initial state", () =>
     withTheme()(
       <DirectorySelector
+        paths={[]}
+        repository={{ owner: "Leko", repository: "codeglide" }}
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
         onRequestPath={action("onRequestPath")}
+        onRequestBack={action("onRequestBack")}
         tree={tree}
       />
     )
@@ -37,9 +41,12 @@ storiesOf("pages/DirectorySelector", module)
   .add("loading", () =>
     withTheme()(
       <DirectorySelector
+        paths={[]}
+        repository={{ owner: "Leko", repository: "codeglide" }}
         onSelect={action("onSelect")}
         onRequestMore={action("onRequestMore")}
         onRequestPath={action("onRequestPath")}
+        onRequestBack={action("onRequestBack")}
         tree={[]}
         loading
       />
@@ -48,7 +55,11 @@ storiesOf("pages/DirectorySelector", module)
 
 storiesOf("pages/LanguageSelector", module).add("initial state", () =>
   withTheme()(
-    <LanguageSelector onSelect={action("onSelect")} languages={languages} />
+    <LanguageSelector
+      onSelect={action("onSelect")}
+      onRequestBack={action("onRequestBack")}
+      languages={languages}
+    />
   )
 );
 
@@ -77,6 +88,7 @@ storiesOf("pages/RepositorySelector", module)
       <RepositorySelector
         onChange={action("onChange")}
         onSelect={action("onSelect")}
+        onRequestBack={action("onRequestBack")}
         repositories={[]}
         recentlyOpenedRepositories={repoHistories}
       />
@@ -88,6 +100,7 @@ storiesOf("pages/RepositorySelector", module)
         loading
         onChange={action("onChange")}
         onSelect={action("onSelect")}
+        onRequestBack={action("onRequestBack")}
         defaultValue={{ owner: "Leko", repository: "hothouse" }}
         repositories={[]}
         recentlyOpenedRepositories={repoHistories}
@@ -99,6 +112,7 @@ storiesOf("pages/RepositorySelector", module)
       <RepositorySelector
         onChange={action("onChange")}
         onSelect={action("onSelect")}
+        onRequestBack={action("onRequestBack")}
         defaultValue={{ owner: "Leko", repository: "hothouse" }}
         repositories={repos}
         recentlyOpenedRepositories={repoHistories}
@@ -112,7 +126,11 @@ storiesOf("pages/CodeSearch", module)
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -131,7 +149,11 @@ storiesOf("pages/CodeSearch", module)
             language: "JavaScript"
           }}
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -151,7 +173,11 @@ storiesOf("pages/CodeSearch", module)
             language: "JavaScript"
           }}
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -160,9 +186,14 @@ storiesOf("pages/CodeSearch", module)
     withTheme()(
       <MuiThemeProvider theme={createMuiTheme()}>
         <CodeSearch
-          results={searchResult}
+          // @ts-ignore
+          results={searchResult.items as ReadonlyArray<CodeSearchResultItem>}
           onSubmit={action("onSubmit")}
+          onRequestBack={action("onRequestBack")}
+          onRequestChooseRepository={action("onRequestChooseRepository")}
           onPressSearchResult={action("onPressSearchResult")}
+          onRequestChooseLanguage={action("onRequestChooseLanguage")}
+          onRequestChooseDirectory={action("onRequestChooseDirectory")}
         />
       </MuiThemeProvider>
     )
@@ -221,6 +252,36 @@ storiesOf("pages/Dashboard", module).add("has valid values", () =>
     </MuiThemeProvider>
   )
 );
+
+storiesOf("pages/CodeView", module)
+  .add("root", () =>
+    withTheme()(
+      <CodeView
+        onRequestBack={action("onRequestBack")}
+        onRequestPath={action("onRequestPath")}
+        onRequestLoad={action("onRequestLoad")}
+        repository={{ owner: "Leko", repository: "reinbox" }}
+        sha="master"
+        path={null}
+        filename="package.json"
+        code="package.json"
+      />
+    )
+  )
+  .add("with deep path", () =>
+    withTheme()(
+      <CodeView
+        onRequestBack={action("onRequestBack")}
+        onRequestPath={action("onRequestPath")}
+        onRequestLoad={action("onRequestLoad")}
+        repository={{ owner: "Leko", repository: "reinbox" }}
+        sha="master"
+        path="packages/reinbox"
+        filename="package.json"
+        code="package.json"
+      />
+    )
+  );
 
 storiesOf("molecules/PathBreadcrumb", module)
   .add("empty", () =>

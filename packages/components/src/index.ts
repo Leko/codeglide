@@ -1,8 +1,18 @@
 export { ReadOnlyEditor } from "./molecules/ReadOnlyEditor";
 export { FileList } from "./molecules/FileList";
 export { default as PathBreadcrumb } from "./molecules/PathBreadcrumb";
-export { Dashboard } from "./pages/Dashboard";
-export { RepositorySelector } from "./pages/RepositorySelector";
-export { LanguageSelector } from "./pages/LanguageSelector";
-export { DirectorySelector } from "./pages/DirectorySelector";
-export { CodeSearch } from "./pages/CodeSearch";
+export { Dashboard, Props as DashboardProps } from "./pages/Dashboard";
+export {
+  RepositorySelector,
+  Props as RepositorySelectorProps
+} from "./pages/RepositorySelector";
+export {
+  LanguageSelector,
+  Props as LanguageSelectorProps
+} from "./pages/LanguageSelector";
+export {
+  DirectorySelector,
+  Props as DirectorySelectorProps
+} from "./pages/DirectorySelector";
+export { CodeView, Props as CodeViewProps } from "./pages/CodeView";
+export { CodeSearch, Props as CodeSearchProps } from "./pages/CodeSearch";
