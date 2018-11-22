@@ -19,10 +19,10 @@
   ],
   "devDependencies": {
     "cpx": "^1.5.0",
-    "lodash": "^4.17.11",
     "upbin": "^0.8.1"
   },
   "dependencies": {
-    "language-map": "^1.4.0"
+    "language-map": "^1.4.0",
+    "lodash": "^4.17.11"
   }
 }
